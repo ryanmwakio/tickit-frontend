@@ -1,0 +1,15 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Premium Ticket Icon - Large format -->
+  <g transform="translate(50, 50)">
+    <!-- Main ticket shape -->
+    <path d="M20 0C8.9543 0 0 8.9543 0 20V40C0 42.2091 1.79086 44 4 44C6.20914 44 8 42.2091 8 40V20C8 15.5817 11.5817 12 16 12H84C88.4183 12 92 15.5817 92 20V40C92 42.2091 93.7909 44 96 44C98.2091 44 100 42.2091 100 40V20C100 8.9543 91.0457 0 80 0H20Z" fill="#0F172A"/>
+    <path d="M20 100C8.9543 100 0 91.0457 0 80V60C0 57.7909 1.79086 56 4 56C6.20914 56 8 57.7909 8 60V80C8 84.4183 11.5817 88 16 88H84C88.4183 88 92 84.4183 92 80V60C92 57.7909 93.7909 56 96 56C98.2091 56 100 57.7909 100 60V80C100 91.0457 91.0457 100 80 100H20Z" fill="#0F172A"/>
+    <rect x="8" y="12" width="84" height="76" rx="4" fill="#0F172A"/>
+    <!-- Ticket perforations -->
+    <circle cx="50" cy="40" r="3" fill="#FFFFFF"/>
+    <circle cx="50" cy="60" r="3" fill="#FFFFFF"/>
+    <!-- Letter T - bold -->
+    <path d="M30 50H70M50 50V70" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+

@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="32" cy="32" r="30" fill="#0F172A"/>
+  
+  <!-- Ticket Icon -->
+  <g transform="translate(32, 32)">
+    <!-- Main Ticket Shape -->
+    <rect x="-16" y="-10" width="32" height="20" rx="2" fill="#FFFFFF"/>
+    <!-- Ticket Perforations -->
+    <circle cx="-10" cy="0" r="1.5" fill="#0F172A"/>
+    <circle cx="10" cy="0" r="1.5" fill="#0F172A"/>
+    <!-- Letter T -->
+    <path d="M-6,-6 L6,-6 M0,-6 L0,6" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Sparkle accent -->
+  <path d="M10,10 L10.5,12 L12.5,12 L11,13 L11.5,15 L10,14 L8.5,15 L9,13 L7.5,12 L9.5,12 Z" fill="#FBBF24"/>
+</svg>

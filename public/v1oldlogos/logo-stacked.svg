@@ -1,0 +1,15 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <g transform="translate(30, 20)">
+    <path d="M6 0C4.89543 0 4 0.895431 4 2V6C4 6.55228 3.55228 7 3 7C2.44772 7 2 6.55228 2 6V2C2 0.895431 1.10457 0 0 0H12C13.1046 0 14 0.895431 14 2V6C14 6.55228 13.5523 7 13 7C12.4477 7 12 6.55228 12 6V2C12 0.895431 11.1046 0 10 0H6Z" fill="#0F172A"/>
+    <path d="M6 28C4.89543 28 4 27.1046 4 26V22C4 21.4477 3.55228 21 3 21C2.44772 21 2 21.4477 2 22V26C2 27.1046 1.10457 28 0 28H12C13.1046 28 14 27.1046 14 26V22C14 21.4477 13.5523 21 13 21C12.4477 21 12 21.4477 12 22V26C12 27.1046 11.1046 28 10 28H6Z" fill="#0F172A"/>
+    <rect x="2" y="0" width="10" height="28" rx="1" fill="#0F172A"/>
+    <circle cx="7" cy="8" r="0.8" fill="#FFFFFF"/>
+    <circle cx="7" cy="20" r="0.8" fill="#FFFFFF"/>
+    <path d="M3.5 12H10.5M7 12V18" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="60" y="80" text-anchor="middle" font-family="system-ui, -apple-system, 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="600" letter-spacing="-0.02em" fill="#0F172A">Tixhub</text>
+</svg>
+

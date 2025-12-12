@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Premium Ticket Icon - Clean, minimal design -->
+  <g>
+    <!-- Main ticket shape with rounded corners -->
+    <path d="M12 8C10.8954 8 10 8.89543 10 10V20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20V10C8 7.79086 9.79086 6 12 6H52C54.2091 6 56 7.79086 56 10V20C56 20.5523 55.5523 21 55 21C54.4477 21 54 20.5523 54 20V10C54 8.89543 53.1046 8 52 8H12Z" fill="#0F172A"/>
+    <path d="M12 56C10.8954 56 10 55.1046 10 54V44C10 43.4477 9.55228 43 9 43C8.44772 43 8 43.4477 8 44V54C8 56.2091 9.79086 58 12 58H52C54.2091 58 56 56.2091 56 54V44C56 43.4477 55.5523 43 55 43C54.4477 43 54 43.4477 54 44V54C54 55.1046 53.1046 56 52 56H12Z" fill="#0F172A"/>
+    <rect x="10" y="8" width="44" height="48" rx="2" fill="#0F172A"/>
+    <!-- Ticket perforations (subtle) -->
+    <circle cx="32" cy="20" r="1.5" fill="#FFFFFF"/>
+    <circle cx="32" cy="44" r="1.5" fill="#FFFFFF"/>
+    <!-- Letter T - bold and modern -->
+    <path d="M20 28H44M32 28V40" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+

@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="#0F172A" stroke="#1E293B" stroke-width="2"/>
+  
+  <!-- Ticket Icon -->
+  <g transform="translate(100, 100)">
+    <!-- Main Ticket Shape -->
+    <rect x="-50" y="-30" width="100" height="60" rx="3" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+    <!-- Ticket Perforations -->
+    <circle cx="-30" cy="0" r="3" fill="#0F172A"/>
+    <circle cx="30" cy="0" r="3" fill="#0F172A"/>
+    <!-- Letter T -->
+    <path d="M-20,-20 L20,-20 M0,-20 L0,20" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Sparkle/Star accents -->
+  <g fill="#FBBF24">
+    <path d="M30,30 L32,35 L37,35 L33,38 L35,43 L30,40 L25,43 L27,38 L23,35 L28,35 Z"/>
+    <path d="M170,50 L171,53 L174,53 L172,55 L173,58 L170,56 L167,58 L168,55 L166,53 L169,53 Z"/>
+    <path d="M50,170 L51,173 L54,173 L52,175 L53,178 L50,176 L47,178 L48,175 L46,173 L49,173 Z"/>
+  </g>
+</svg>

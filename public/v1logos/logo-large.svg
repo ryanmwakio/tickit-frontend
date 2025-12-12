@@ -1,0 +1,17 @@
+<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ticket Icon -->
+  <g transform="translate(40, 40)">
+    <circle cx="0" cy="0" r="36" fill="#0F172A"/>
+    <path d="M-24,-14 L24,-14 L24,14 L-24,14 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+    <circle cx="-14" cy="0" r="3" fill="#0F172A"/>
+    <circle cx="14" cy="0" r="3" fill="#0F172A"/>
+    <path d="M-8,-8 L8,-8 M0,-8 L0,8" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="90" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="#0F172A">Tixhub</text>
+  
+  <!-- Tagline -->
+  <text x="90" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748B">Premium Ticketing OS</text>
+</svg>
+
