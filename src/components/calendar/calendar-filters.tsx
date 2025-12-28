@@ -228,7 +228,7 @@ export function CalendarFilters({ events, filteredEvents, onFilterChange, onFilt
       }
       
       const icsContent = generateICSContentMultiple(eventsToExport);
-      const filename = `tixhub-events-${new Date().toISOString().split("T")[0]}.ics`;
+      const filename = `tickit-events-${new Date().toISOString().split("T")[0]}.ics`;
       downloadICSFile(icsContent, filename);
     } catch (error) {
       console.error("Failed to export calendar:", error);

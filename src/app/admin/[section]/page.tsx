@@ -41,12 +41,12 @@ export async function generateMetadata({
 }: AdminSectionPageProps): Promise<Metadata> {
   const { section: sectionId } = await params;
   const section = adminSections.find((item) => item.id === sectionId);
-  const title = section ? `${section.title} | Tixhub Admin` : "Tixhub Admin";
+  const title = section ? `${section.title} | Tickit Admin` : "Tickit Admin";
   return {
     title,
     description:
       section?.description ??
-      "Full-stack admin console for Tixhub operations, organisers, finance, and support teams.",
+      "Full-stack admin console for Tickit operations, organisers, finance, and support teams.",
   };
 }
 

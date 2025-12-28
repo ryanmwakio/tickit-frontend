@@ -33,7 +33,7 @@ export function PlatformSettings() {
   const toast = useToast();
   const [activeTab, setActiveTab] = useState<"general" | "payments" | "communications" | "cms">("general");
   const [generalSettings, setGeneralSettings] = useState({
-    platformName: "Tixhub",
+    platformName: "Tickit",
     defaultCurrency: "KES",
   });
   const [loading, setLoading] = useState(false);
@@ -255,8 +255,8 @@ function CommunicationSettingsTab({ user, toast }: { user: any; toast: any }) {
     emailProvider: "sendgrid",
     smsApiKey: "",
     emailApiKey: "",
-    defaultFromEmail: "noreply@tixhub.com",
-    defaultFromSms: "Tixhub",
+    defaultFromEmail: "noreply@tickit.com",
+    defaultFromSms: "Tickit",
   });
   const [loading, setLoading] = useState(false);
 

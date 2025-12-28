@@ -381,7 +381,7 @@ export const faqItems = [
   {
     question: "How do you support both Kenyan and global payment flows?",
     answer:
-      "Tixhub bridges MPesa (Express, Paybill, Till), Airtel Money, tokenised cards, bank transfers, and pay-later deposits inside one orchestration layer with idempotency keys, webhook verification, payout ledgers, and automated reconciliation exports.",
+      "Tickit bridges MPesa (Express, Paybill, Till), Airtel Money, tokenised cards, bank transfers, and pay-later deposits inside one orchestration layer with idempotency keys, webhook verification, payout ledgers, and automated reconciliation exports.",
   },
   {
     question: "What keeps ticketing safe from fraud or duplicate scans?",

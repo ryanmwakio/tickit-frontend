@@ -558,8 +558,8 @@ export default function ProfilePage() {
               <p className="mb-2 font-semibold text-slate-900">Need help?</p>
               <p className="mb-3">
                 Need to export your data or close the account? Email{" "}
-                <a href="mailto:privacy@tixhub.app" className="font-semibold text-slate-900 underline">
-                  privacy@tixhub.app
+                <a href="mailto:privacy@tickit.app" className="font-semibold text-slate-900 underline">
+                  privacy@tickit.app
                 </a>
                 .
               </p>

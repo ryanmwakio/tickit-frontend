@@ -17,6 +17,7 @@ import {
 import type { EventContent } from "@/data/events";
 import { fetchEvents, mapEventToEventContent } from "@/lib/events-api";
 import { isEventPast, getEventStatus } from "@/lib/event-utils";
+import { getPlatformStats, type PlatformStats } from "@/lib/analytics-api";
 
 type SegmentConfig = {
   id: string;
@@ -35,7 +36,12 @@ const segmentConfigs: SegmentConfig[] = [
     subline: "Editorial picks with VIP perks baked in.",
     icon: Sparkles,
     accent: "from-indigo-500/40 via-purple-500/20 to-transparent",
-    slugs: ["sunset-sessions", "sanaa-fest", "founders-playbook", "vibes-and-vinyl"],
+    slugs: [
+      "sunset-sessions",
+      "sanaa-fest",
+      "founders-playbook",
+      "vibes-and-vinyl",
+    ],
     pulseColor: "bg-indigo-400",
   },
   {
@@ -44,7 +50,12 @@ const segmentConfigs: SegmentConfig[] = [
     subline: "Trending rails driven by live purchase spikes.",
     icon: Flame,
     accent: "from-orange-500/40 via-pink-500/20 to-transparent",
-    slugs: ["naivasha-sundowner", "vibes-and-vinyl", "lamu-yoga-voyage", "sunset-sessions"],
+    slugs: [
+      "naivasha-sundowner",
+      "vibes-and-vinyl",
+      "lamu-yoga-voyage",
+      "sunset-sessions",
+    ],
     pulseColor: "bg-orange-400",
   },
   {
@@ -53,16 +64,31 @@ const segmentConfigs: SegmentConfig[] = [
     subline: "Ops dashboards glowing green; crews on the ground.",
     icon: Activity,
     accent: "from-emerald-500/40 via-lime-400/20 to-transparent",
-    slugs: ["sunset-sessions", "sanaa-fest", "naivasha-sundowner", "lamu-yoga-voyage"],
+    slugs: [
+      "sunset-sessions",
+      "sanaa-fest",
+      "naivasha-sundowner",
+      "lamu-yoga-voyage",
+    ],
     pulseColor: "bg-emerald-400",
   },
 ];
 
-const stats = [
-  { label: "Tickets moving", value: "38.2K", detail: "+12% WoW" },
-  { label: "MPesa ready", value: "54 events", detail: "Instant payouts" },
-  { label: "Waitlists live", value: "11 rails", detail: "Auto-resale armed" },
+// Default stats will be replaced with real-time data
+const defaultStats = [
+  { label: "Tickets moving", value: "Loading...", detail: "Real-time data" },
+  { label: "MPesa ready", value: "Loading...", detail: "Instant payouts" },
+  { label: "Waitlists live", value: "Loading...", detail: "Auto-resale armed" },
 ];
+
+const formatNumber = (num: number) => {
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}M`;
+  } else if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}K`;
+  }
+  return num.toString();
+};
 
 const tickerMessages = [
   "Sunset Sessions unlocked 120 VIP resale slots.",
@@ -84,6 +110,8 @@ export function FeaturedEventsRail() {
   const [featuredEvents, setFeaturedEvents] = useState<EventContent[]>([]);
   const [hotEvents, setHotEvents] = useState<EventContent[]>([]);
   const [liveEvents, setLiveEvents] = useState<EventContent[]>([]);
+  const [analyticsLoading, setAnalyticsLoading] = useState(true);
+  const [stats, setStats] = useState(defaultStats);
 
   useEffect(() => {
     async function loadEvents() {
@@ -91,21 +119,44 @@ export function FeaturedEventsRail() {
         setLoading(true);
         // Fetch events by segment
         const [featuredRes, hotRes, liveRes] = await Promise.all([
-          fetchEvents({ featured: true, limit: 20, sortBy: "startsAt", sortOrder: "ASC" }),
-          fetchEvents({ hotRightNow: true, limit: 20, sortBy: "startsAt", sortOrder: "ASC" }),
-          fetchEvents({ livePulse: true, limit: 20, sortBy: "startsAt", sortOrder: "ASC" }),
+          fetchEvents({
+            featured: true,
+            limit: 20,
+            sortBy: "startsAt",
+            sortOrder: "ASC",
+          }),
+          fetchEvents({
+            hotRightNow: true,
+            limit: 20,
+            sortBy: "startsAt",
+            sortOrder: "ASC",
+          }),
+          fetchEvents({
+            livePulse: true,
+            limit: 20,
+            sortBy: "startsAt",
+            sortOrder: "ASC",
+          }),
         ]);
-        
-        const featuredArray = Array.isArray(featuredRes) ? featuredRes : (featuredRes?.data || []);
-        const hotArray = Array.isArray(hotRes) ? hotRes : (hotRes?.data || []);
-        const liveArray = Array.isArray(liveRes) ? liveRes : (liveRes?.data || []);
-        
+
+        const featuredArray = Array.isArray(featuredRes)
+          ? featuredRes
+          : featuredRes?.data || [];
+        const hotArray = Array.isArray(hotRes) ? hotRes : hotRes?.data || [];
+        const liveArray = Array.isArray(liveRes)
+          ? liveRes
+          : liveRes?.data || [];
+
         setFeaturedEvents(featuredArray.map(mapEventToEventContent));
         setHotEvents(hotArray.map(mapEventToEventContent));
         setLiveEvents(liveArray.map(mapEventToEventContent));
-        
+
         // Set all events for fallback
-        setEvents([...featuredArray, ...hotArray, ...liveArray].map(mapEventToEventContent));
+        setEvents(
+          [...featuredArray, ...hotArray, ...liveArray].map(
+            mapEventToEventContent,
+          ),
+        );
       } catch (error) {
         console.error("Failed to load events:", error);
         setEvents([]);
@@ -117,7 +168,45 @@ export function FeaturedEventsRail() {
       }
     }
     loadEvents();
+    loadAnalytics();
   }, []);
+
+  const loadAnalytics = async () => {
+    try {
+      setAnalyticsLoading(true);
+      const data = await getPlatformStats();
+
+      // Transform analytics data into stats format
+      const salesVelocityChange = data.salesVelocityChange;
+      const changeText =
+        salesVelocityChange >= 0
+          ? `+${salesVelocityChange.toFixed(1)}% WoW`
+          : `${salesVelocityChange.toFixed(1)}% WoW`;
+
+      setStats([
+        {
+          label: "Tickets moving",
+          value: formatNumber(data.totalTicketsSold),
+          detail: changeText,
+        },
+        {
+          label: "MPesa ready",
+          value: `${formatNumber(data.upcomingEvents)} events`,
+          detail: "Instant payouts",
+        },
+        {
+          label: "Waitlists live",
+          value: `${data.checkInRate.toFixed(1)}% rate`,
+          detail: "Auto-resale armed",
+        },
+      ]);
+    } catch (error) {
+      console.error("Failed to load analytics:", error);
+      // Keep default stats on error
+    } finally {
+      setAnalyticsLoading(false);
+    }
+  };
 
   const cardsBySegment: Record<string, EventContent[]> = useMemo(() => {
     return {
@@ -140,7 +229,9 @@ export function FeaturedEventsRail() {
     const rail = railRef.current;
     if (!rail) return;
     setCanScrollLeft(rail.scrollLeft > 16);
-    setCanScrollRight(rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 16);
+    setCanScrollRight(
+      rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 16,
+    );
   }, []);
 
   const scrollRail = useCallback((direction: "left" | "right") => {
@@ -179,7 +270,10 @@ export function FeaturedEventsRail() {
           </div>
           <div className="scrollbar-minimal flex gap-4 overflow-x-auto">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="group relative flex min-w-[320px] flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-lg">
+              <div
+                key={i}
+                className="group relative flex min-w-[320px] flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-lg"
+              >
                 <div className="h-48 w-full animate-pulse bg-slate-200" />
                 <div className="p-4 space-y-3">
                   <div className="h-4 w-3/4 animate-pulse bg-slate-200 rounded" />
@@ -215,7 +309,10 @@ export function FeaturedEventsRail() {
                 Featured, hot, and live shows pulsing across Kenya right now.
               </h1>
               <p className="max-w-3xl text-sm text-slate-600">
-                Tap directly into MPesa-ready collections curated from organiser ops, resale telemetry, and waitlist pressure. Every card already packs compliance, add-ons, and shuttle logistics—just wire it into your campaign.
+                Tap directly into MPesa-ready collections curated from organiser
+                ops, resale telemetry, and waitlist pressure. Every card already
+                packs compliance, add-ons, and shuttle logistics—just wire it
+                into your campaign.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
@@ -224,11 +321,23 @@ export function FeaturedEventsRail() {
                   key={stat.label}
                   className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-[0_6px_20px_rgba(15,23,42,0.06)]"
                 >
-                  <p className="text-2xl font-semibold text-slate-900">{stat.value}</p>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                    {stat.label}
-                  </p>
-                  <p className="text-xs text-emerald-500">{stat.detail}</p>
+                  {analyticsLoading ? (
+                    <div className="animate-pulse">
+                      <div className="h-7 w-16 bg-slate-200 rounded mb-2"></div>
+                      <div className="h-3 w-20 bg-slate-200 rounded mb-1"></div>
+                      <div className="h-3 w-12 bg-slate-200 rounded"></div>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-2xl font-semibold text-slate-900">
+                        {stat.value}
+                      </p>
+                      <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                        {stat.label}
+                      </p>
+                      <p className="text-xs text-emerald-500">{stat.detail}</p>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
@@ -253,17 +362,17 @@ export function FeaturedEventsRail() {
                     }`}
                   >
                     <Icon className="size-4" />
-                  {isActive && segment.pulseColor ? (
-                    <span className="relative flex items-center">
-                      <span
-                        className={`absolute inline-flex h-4 w-4 animate-ping rounded-full opacity-40 ${segment.pulseColor}`}
-                        aria-hidden
-                      />
-                      <span
-                        className={`relative inline-flex h-2 w-2 rounded-full ${segment.pulseColor}`}
-                      />
-                    </span>
-                  ) : null}
+                    {isActive && segment.pulseColor ? (
+                      <span className="relative flex items-center">
+                        <span
+                          className={`absolute inline-flex h-4 w-4 animate-ping rounded-full opacity-40 ${segment.pulseColor}`}
+                          aria-hidden
+                        />
+                        <span
+                          className={`relative inline-flex h-2 w-2 rounded-full ${segment.pulseColor}`}
+                        />
+                      </span>
+                    ) : null}
                     {segment.label}
                   </button>
                 );
@@ -282,105 +391,121 @@ export function FeaturedEventsRail() {
               const isPast = isEventPast(event);
               const status = getEventStatus(event);
               return (
-              <Link
-                key={event.slug}
-                href={`/events/${event.slug}${!isPast ? '?openTickets=true' : ''}`}
-                className={`group relative w-80 shrink-0 snap-center overflow-hidden rounded-[28px] border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-4 shadow-[0_12px_45px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(15,23,42,0.16)] ${isPast ? 'opacity-75' : ''}`}
-              >
-                <div className="relative h-56 overflow-hidden rounded-2xl">
-                  <Image
-                    src={event.heroImage}
-                    alt={event.title}
-                    fill
-                    sizes="320px"
-                    className={`object-cover transition duration-500 ${isPast ? 'grayscale' : 'group-hover:scale-110'}`}
-                    onError={(e) => {
-                      // Fallback to placeholder if image fails to load
-                      const target = e.target as HTMLImageElement;
-                      if (target.src && !target.src.includes('data:image/svg+xml')) {
-                        target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect fill='%23f1f5f9' width='1200' height='800'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='48' font-weight='600' fill='%2394a3b8'%3EEvent Image%3C/text%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='24' fill='%23cbd5e1'%3EPlaceholder%3C/text%3E%3C/svg%3E";
-                      }
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-                  {isPast && (
-                    <div className="absolute top-3 right-3 z-20">
-                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${status.className} backdrop-blur-md shadow-lg`}>
-                        <Clock className="size-3" />
-                        {status.label}
-                      </span>
-                    </div>
-                  )}
-                  {liveSegments.has(activeSegment) ? (
-                    <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 rounded-full bg-black px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-black/60">
-                      <span className="relative flex h-3 w-3">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-                        <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500" />
-                      </span>
-                      <span>Live</span>
-                      <div className="ml-2 flex items-end gap-0.5">
-                        {[0, 1, 2].map((bar) => (
-                          <span
-                            key={`rail-live-bar-${bar}-${event.slug}`}
-                            className="inline-block w-0.5 rounded-full bg-white"
-                            style={{
-                              height: `${6 + bar * 2}px`,
-                              animation: "equalizerBar 0.9s ease-in-out infinite",
-                              animationDelay: `${bar * 0.15}s`,
-                              transformOrigin: "center bottom",
-                            }}
-                          />
-                        ))}
+                <Link
+                  key={event.slug}
+                  href={`/events/${event.slug}${!isPast ? "?openTickets=true" : ""}`}
+                  className={`group relative w-80 shrink-0 snap-center overflow-hidden rounded-[28px] border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-4 shadow-[0_12px_45px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(15,23,42,0.16)] ${isPast ? "opacity-75" : ""}`}
+                >
+                  <div className="relative h-56 overflow-hidden rounded-2xl">
+                    <Image
+                      src={event.heroImage}
+                      alt={event.title}
+                      fill
+                      sizes="320px"
+                      className={`object-cover transition duration-500 ${isPast ? "grayscale" : "group-hover:scale-110"}`}
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        if (
+                          target.src &&
+                          !target.src.includes("data:image/svg+xml")
+                        ) {
+                          target.src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect fill='%23f1f5f9' width='1200' height='800'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='48' font-weight='600' fill='%2394a3b8'%3EEvent Image%3C/text%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, -apple-system, sans-serif' font-size='24' fill='%23cbd5e1'%3EPlaceholder%3C/text%3E%3C/svg%3E";
+                        }
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                    {isPast && (
+                      <div className="absolute top-3 right-3 z-20">
+                        <span
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${status.className} backdrop-blur-md shadow-lg`}
+                        >
+                          <Clock className="size-3" />
+                          {status.label}
+                        </span>
                       </div>
-                    </div>
-                  ) : null}
-                  <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/80">
-                    <span>{event.region}</span>
-                    <span>
-                      {activeConfig.label} • #{(idx + 1).toString().padStart(2, "0")}
-                    </span>
-                  </div>
-                </div>
-                <div className="mt-4 space-y-3">
-                  <h3 className="text-xl font-semibold text-slate-900">{event.title}</h3>
-                  <p className="text-sm text-slate-600 line-clamp-3">{event.summary}</p>
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600">
-                    <span className="flex items-center gap-1">
-                      <CalendarDays className="size-4 text-slate-500" />
-                      {event.dateCard || event.dateFull}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Ticket className="size-4 text-slate-500" />
-                      {event.price}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {event.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs text-slate-600"
-                      >
-                        {tag}
+                    )}
+                    {liveSegments.has(activeSegment) ? (
+                      <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 rounded-full bg-black px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-black/60">
+                        <span className="relative flex h-3 w-3">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+                          <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500" />
+                        </span>
+                        <span>Live</span>
+                        <div className="ml-2 flex items-end gap-0.5">
+                          {[0, 1, 2].map((bar) => (
+                            <span
+                              key={`rail-live-bar-${bar}-${event.slug}`}
+                              className="inline-block w-0.5 rounded-full bg-white"
+                              style={{
+                                height: `${6 + bar * 2}px`,
+                                animation:
+                                  "equalizerBar 0.9s ease-in-out infinite",
+                                animationDelay: `${bar * 0.15}s`,
+                                transformOrigin: "center bottom",
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                    <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/80">
+                      <span>{event.region}</span>
+                      <span>
+                        {activeConfig.label} • #
+                        {(idx + 1).toString().padStart(2, "0")}
                       </span>
-                    ))}
+                    </div>
                   </div>
-                  <div className="pt-2">
-                    <div className="flex items-center justify-between">
-                      <span className={`text-sm font-semibold ${isPast ? 'text-slate-500' : 'text-slate-900'}`}>
+                  <div className="mt-4 space-y-3">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      {event.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 line-clamp-3">
+                      {event.summary}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600">
+                      <span className="flex items-center gap-1">
+                        <CalendarDays className="size-4 text-slate-500" />
+                        {event.dateCard || event.dateFull}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Ticket className="size-4 text-slate-500" />
                         {event.price}
                       </span>
-                      <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide ${
-                        isPast 
-                          ? 'bg-slate-300 text-slate-500 cursor-not-allowed' 
-                          : 'bg-slate-900 text-white'
-                      }`}>
-                        {isPast ? 'Event Ended' : 'Get tickets'}
-                        {!isPast && <span aria-hidden>→</span>}
-                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {event.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs text-slate-600"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="pt-2">
+                      <div className="flex items-center justify-between">
+                        <span
+                          className={`text-sm font-semibold ${isPast ? "text-slate-500" : "text-slate-900"}`}
+                        >
+                          {event.price}
+                        </span>
+                        <span
+                          className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide ${
+                            isPast
+                              ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+                              : "bg-slate-900 text-white"
+                          }`}
+                        >
+                          {isPast ? "Event Ended" : "Get tickets"}
+                          {!isPast && <span aria-hidden>→</span>}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
               );
             })}
           </div>

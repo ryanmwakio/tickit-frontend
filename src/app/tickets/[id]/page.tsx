@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Your Ticket | Tixhub",
+  title: "Your Ticket | Tickit",
   description: "View and manage your event ticket",
 };
 

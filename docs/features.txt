@@ -1320,7 +1320,7 @@ TixCloud
 
 TixBase
 
-TixHub
+Tickit
 
 EventGrid
 

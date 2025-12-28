@@ -112,7 +112,7 @@ export default function SignupPage() {
           </div>
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Create your account</h1>
           <p className="text-slate-600">
-            Join Tixhub and start creating amazing events
+            Join Tickit and start creating amazing events
           </p>
         </div>
 

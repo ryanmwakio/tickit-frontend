@@ -34,7 +34,7 @@ interface TicketData {
 // Get tracking ID from localStorage
 function getTrackingId(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("tixhub_tracking_id");
+  return localStorage.getItem("tickit_tracking_id");
 }
 
 export function ViewMyTickets({ event, isOpen, onClose }: ViewMyTicketsProps) {

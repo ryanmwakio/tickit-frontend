@@ -69,7 +69,7 @@ export function HostApplicationForm() {
       <div className="space-y-4 rounded-3xl border-2 border-green-300 bg-green-50 p-6 shadow-xl shadow-slate-200/70">
         <h2 className="text-lg font-semibold text-green-900">Application Submitted!</h2>
         <p className="text-sm text-green-700">
-          Thank you for your interest in hosting on Tixhub. We've received your application and will review it within 1 business day.
+          Thank you for your interest in hosting on Tickit. We've received your application and will review it within 1 business day.
         </p>
         <p className="text-sm text-green-700">
           You'll receive an email at {submittedEmail} with next steps and an onboarding call slot.

@@ -73,10 +73,10 @@ const STEPS = [
 function getOrCreateTrackingId(): string {
   if (typeof window === "undefined") return "";
   
-  let trackingId = localStorage.getItem("tixhub_tracking_id");
+  let trackingId = localStorage.getItem("tickit_tracking_id");
   if (!trackingId) {
     trackingId = `guest_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-    localStorage.setItem("tixhub_tracking_id", trackingId);
+    localStorage.setItem("tickit_tracking_id", trackingId);
   }
   return trackingId;
 }

@@ -42,9 +42,9 @@ const ticketPackages = [
 ];
 
 export const metadata = {
-  title: "Sample Tickets | Tixhub",
+  title: "Sample Tickets | Tickit",
   description:
-    "Premium ticket concepts showing how GA, VIP, and Platinum tiers translate to the Tixhub design system.",
+    "Premium ticket concepts showing how GA, VIP, and Platinum tiers translate to the Tickit design system.",
 };
 
 export default function TicketsPage() {
@@ -59,7 +59,7 @@ export default function TicketsPage() {
             Premium ticket designs for every package tier.
           </h1>
           <p className="mt-3 max-w-3xl text-lg text-slate-600">
-            Use these concepts during sponsor pitches, organiser walkthroughs, or investor demos. They map directly to Tixhub’s
+            Use these concepts during sponsor pitches, organiser walkthroughs, or investor demos. They map directly to Tickit’s
             ticketing primitives—QR/NFC, resale guardrails, and MPesa-ready flows.
           </p>
         </div>

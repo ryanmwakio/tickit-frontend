@@ -26,12 +26,12 @@ export default function AuthLayout({
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logo-icon.svg"
-              alt="Tixhub"
+              alt="Tickit"
               width={32}
               height={32}
               className="h-8 w-8"
             />
-            <span className="text-sm font-bold text-slate-900">Tixhub</span>
+            <span className="text-sm font-bold text-slate-900">Tickit</span>
           </Link>
           <Link
             href="/"

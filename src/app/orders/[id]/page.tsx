@@ -1,7 +1,7 @@
 import { OrderDetailPageClient } from "@/components/orders/order-detail-page-client";
 
 export const metadata = {
-  title: "Order Details | Tixhub",
+  title: "Order Details | Tickit",
   description: "View your order details and tickets",
 };
 

@@ -1,5 +1,49 @@
 import { apiClient } from "./api";
 
+export interface PlatformAnalytics {
+  totalEvents: number;
+  upcomingEvents: number;
+  totalTicketsSold: number;
+  totalRevenue: number;
+  totalUsers: number;
+  totalOrganisers: number;
+  recentOrders: number;
+  weeklyRevenue: number;
+  checkInRate: number;
+  salesVelocityChange: number;
+  paymentMethods: Array<{
+    method: string;
+    count: number;
+    total: number;
+  }>;
+  topCategories: Array<{
+    category: string;
+    count: number;
+  }>;
+  salesVelocity: Array<{
+    date: string;
+    count: number;
+    revenue: number;
+  }>;
+  insights: Array<{
+    label: string;
+    metric: string;
+    change: string;
+    detail: string;
+  }>;
+}
+
+export interface PlatformStats {
+  totalEvents: number;
+  totalTicketsSold: number;
+  totalRevenue: number;
+  totalUsers: number;
+  upcomingEvents: number;
+  checkInRate: number;
+  weeklyRevenue: number;
+  salesVelocityChange: number;
+}
+
 export interface DashboardStats {
   ticketsSoldToday: number;
   grossRevenue: number;
@@ -150,17 +194,39 @@ export interface FinanceReportsData {
 }
 
 /**
+ * Get public platform analytics for home page
+ */
+export async function getPlatformAnalytics(): Promise<PlatformAnalytics> {
+  return apiClient.get<PlatformAnalytics>("/analytics/platform");
+}
+
+/**
+ * Get platform statistics summary
+ */
+export async function getPlatformStats(): Promise<PlatformStats> {
+  return apiClient.get<PlatformStats>("/analytics/platform/stats");
+}
+
+/**
  * Get dashboard statistics for an organiser
  */
-export async function getDashboardStats(organiserId: string): Promise<DashboardStats> {
-  return apiClient.get<DashboardStats>(`/organisers/${organiserId}/dashboard/stats`);
+export async function getDashboardStats(
+  organiserId: string,
+): Promise<DashboardStats> {
+  return apiClient.get<DashboardStats>(
+    `/organisers/${organiserId}/dashboard/stats`,
+  );
 }
 
 /**
  * Get organiser analytics
  */
-export async function getOrganiserAnalytics(organiserId: string): Promise<OrganiserAnalytics> {
-  return apiClient.get<OrganiserAnalytics>(`/analytics/organisers/${organiserId}`);
+export async function getOrganiserAnalytics(
+  organiserId: string,
+): Promise<OrganiserAnalytics> {
+  return apiClient.get<OrganiserAnalytics>(
+    `/analytics/organisers/${organiserId}`,
+  );
 }
 
 /**
@@ -168,9 +234,11 @@ export async function getOrganiserAnalytics(organiserId: string): Promise<Organi
  */
 export async function getSalesTrend(
   organiserId: string,
-  days: number = 30
+  days: number = 30,
 ): Promise<SalesTrendData[]> {
-  return apiClient.get<SalesTrendData[]>(`/analytics/organisers/${organiserId}/sales-trend?days=${days}`);
+  return apiClient.get<SalesTrendData[]>(
+    `/analytics/organisers/${organiserId}/sales-trend?days=${days}`,
+  );
 }
 
 /**
@@ -178,7 +246,7 @@ export async function getSalesTrend(
  */
 export async function getEventAnalytics(
   eventId: string,
-  organiserId?: string
+  organiserId?: string,
 ): Promise<EventAnalytics> {
   const query = organiserId ? `?organiserId=${organiserId}` : "";
   return apiClient.get<EventAnalytics>(`/analytics/events/${eventId}${query}`);
@@ -191,13 +259,22 @@ export async function getEventAnalytics(
 export async function getSalesAnalytics(
   organiserId: string,
   timeRange: string = "6months",
-  eventId?: string
+  eventId?: string,
 ): Promise<SalesAnalyticsData> {
   // For now, we'll use the sales trend and build the data structure
   // In the future, this should be a dedicated endpoint
-  const days = timeRange === "7days" ? 7 : timeRange === "30days" ? 30 : timeRange === "3months" ? 90 : timeRange === "6months" ? 180 : 365;
+  const days =
+    timeRange === "7days"
+      ? 7
+      : timeRange === "30days"
+        ? 30
+        : timeRange === "3months"
+          ? 90
+          : timeRange === "6months"
+            ? 180
+            : 365;
   const salesTrend = await getSalesTrend(organiserId, days);
-  
+
   // Transform sales trend into sales over time format
   const salesOverTime = salesTrend.map((item) => ({
     date: new Date(item.date).toLocaleDateString("en-US", { month: "short" }),
@@ -222,7 +299,7 @@ export async function getSalesAnalytics(
  */
 export async function getCustomerInsights(
   organiserId: string,
-  timeRange: string = "30days"
+  timeRange: string = "30days",
 ): Promise<CustomerInsightsData> {
   // TODO: Create dedicated endpoint for customer insights
   return {
@@ -240,7 +317,7 @@ export async function getCustomerInsights(
  */
 export async function getEventPerformance(
   organiserId: string,
-  eventId?: string
+  eventId?: string,
 ): Promise<EventPerformanceData> {
   // TODO: Create dedicated endpoint for event performance
   return {
@@ -257,7 +334,7 @@ export async function getEventPerformance(
  */
 export async function getFinanceReports(
   organiserId: string,
-  timeRange: string = "6months"
+  timeRange: string = "6months",
 ): Promise<FinanceReportsData> {
   // TODO: Create dedicated endpoint for finance reports
   return {
@@ -268,4 +345,3 @@ export async function getFinanceReports(
     revenueByEvent: [],
   };
 }
-

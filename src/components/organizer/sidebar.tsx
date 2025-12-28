@@ -168,7 +168,7 @@ export function OrganizerSidebar() {
           {/* Footer */}
           <div className="border-t border-slate-200 bg-white px-6 py-4 shrink-0">
             <p className="text-center text-xs font-medium text-slate-600">
-              © 2025 Tixhub. All rights reserved.
+              © 2025 Tickit. All rights reserved.
             </p>
           </div>
         </div>

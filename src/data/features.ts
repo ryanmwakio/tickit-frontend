@@ -449,7 +449,7 @@ const exclusive = <const>[
     title: "Q. Data & AI features",
     range: "121–135 (Exclusive)",
     summary:
-      "AI copywriting, pricing, segmentation, chatbot, scheduling, and predictive insights purpose-built for Tixhub.",
+      "AI copywriting, pricing, segmentation, chatbot, scheduling, and predictive insights purpose-built for Tickit.",
     features: [
       "AI event description & hashtag generator (optimise for search).",
       "Smart pricing suggestions based on past demand & competitor signals.",

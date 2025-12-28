@@ -407,7 +407,7 @@ function AffiliatesTab({ user, toast }: { user: any; toast: any }) {
       setAffiliates(data.map((aff) => ({
         id: aff.id,
         name: aff.name,
-        link: `tixhub.com/ref/${aff.code}`,
+        link: `tickit.com/ref/${aff.code}`,
         clicks: 0, // Would need tracking
         conversions: 0,
         revenue: 0,

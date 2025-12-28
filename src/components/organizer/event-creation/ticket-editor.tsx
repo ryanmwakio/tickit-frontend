@@ -65,7 +65,7 @@ const ClassicVertical = ({ eventName, venue, date, ticketNumber }: any) => (
 const ModernVertical = ({ eventName, venue, date, ticketNumber }: any) => (
   <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-blue-600 bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-xl">
     <div className="flex-1 p-4">
-      <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-blue-100">Tixhub</div>
+      <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-blue-100">Tickit</div>
       <h3 className="mb-4 text-xl font-extrabold leading-tight">{eventName}</h3>
       <div className="space-y-2 text-xs">
         <div className="font-semibold">{date}</div>

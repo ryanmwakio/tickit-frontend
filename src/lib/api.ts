@@ -136,7 +136,7 @@ export class ApiClient {
         ? `Cannot connect to backend at ${this.baseURL}. 
 
 🔧 Start the backend server:
-cd tixhub-backend && npm run start:dev
+cd tickit-backend && npm run start:dev
 
 Then verify it's running on http://localhost:5000/api/v1`
         : `Network error: ${errorMessage}`;

@@ -97,7 +97,7 @@ export const adminSections: AdminSection[] = [
     id: "organiser-applications",
     title: "Organiser Applications",
     description:
-      "Review and manage applications from organisers who want to host events on Tixhub.",
+      "Review and manage applications from organisers who want to host events on Tickit.",
     groups: [
       {
         title: "Application Management",

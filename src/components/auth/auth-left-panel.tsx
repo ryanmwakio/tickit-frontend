@@ -62,7 +62,7 @@ export function AuthLeftPanel() {
           <h1 className="text-5xl font-bold text-white leading-tight">
             Welcome to
             <br />
-            <span className="bg-gradient-to-r from-emerald-300 via-teal-300 to-blue-300 bg-clip-text text-transparent">Tixhub</span>
+            <span className="bg-gradient-to-r from-emerald-300 via-teal-300 to-blue-300 bg-clip-text text-transparent">Tickit</span>
           </h1>
           
           <p className="text-xl text-white/80 max-w-md leading-relaxed">

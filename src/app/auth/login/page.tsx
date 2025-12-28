@@ -69,7 +69,7 @@ export default function LoginPage() {
           </div>
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome back</h1>
           <p className="text-slate-600">
-            Sign in to continue to your Tixhub account
+            Sign in to continue to your Tickit account
           </p>
         </div>
 

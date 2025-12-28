@@ -257,7 +257,7 @@ export function ChatWidget() {
             <Bot className="size-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">TixHub Assistant</h3>
+            <h3 className="text-sm font-semibold text-slate-900">Tickit Assistant</h3>
             <p className="text-xs text-slate-500">We&apos;re here to help</p>
           </div>
         </div>

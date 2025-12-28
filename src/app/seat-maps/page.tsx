@@ -4,9 +4,9 @@ import { SeatMapCanvas } from "@/components/seat-map-canvas";
 import { events } from "@/data/events";
 
 export const metadata: Metadata = {
-  title: "Seat maps | Tixhub",
+  title: "Seat maps | Tickit",
   description:
-    "Mix SVG blueprints and 3D layouts to blueprint premium seating, capacity guardrails, and hospitality pods inside Tixhub.",
+    "Mix SVG blueprints and 3D layouts to blueprint premium seating, capacity guardrails, and hospitality pods inside Tickit.",
 };
 
 const referenceEvent = events.find((event) => Boolean(event.seatMap)) ?? events[0];

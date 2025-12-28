@@ -16,10 +16,10 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: FeatureDetailProps) {
   const category = getFeatureCategoryBySlug(params.slug);
   if (!category) {
-    return { title: "Feature not found | Tixhub" };
+    return { title: "Feature not found | Tickit" };
   }
   return {
-    title: `${category.title} | Tixhub features`,
+    title: `${category.title} | Tickit features`,
     description: category.summary,
   };
 }

@@ -46,7 +46,7 @@ export default function SettingsPage() {
           <div className="space-y-3 text-sm text-slate-600">
             <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
               <p className="font-semibold text-slate-900">Payments & MPesa</p>
-              <p>Express, Paybill, Till, Airtel Money, cards, escrow. Contact <strong>payouts@tixhub.app</strong> to adjust schedules.</p>
+              <p>Express, Paybill, Till, Airtel Money, cards, escrow. Contact <strong>payouts@tickit.app</strong> to adjust schedules.</p>
             </div>
             <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
               <p className="font-semibold text-slate-900">Partner APIs</p>

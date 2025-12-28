@@ -1,4 +1,4 @@
-# TixHub Frontend
+# Tickit Frontend
 
 A modern event & ticketing platform frontend built with Next.js 16, React, and TypeScript. This frontend provides a complete user interface for event discovery, ticket purchasing, admin management, and organiser dashboards.
 
@@ -22,7 +22,7 @@ A modern event & ticketing platform frontend built with Next.js 16, React, and T
 
 1. **Navigate to frontend directory**
    ```bash
-   cd tixhub-frontend
+   cd tickit-frontend
    ```
 
 2. **Install dependencies**
@@ -286,7 +286,7 @@ Or deploy to platforms like:
 
 ## 📄 License
 
-Private - TixHub Platform
+Private - Tickit Platform
 
 ## 🤝 Contributing
 

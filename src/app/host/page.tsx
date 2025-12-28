@@ -33,9 +33,9 @@ const checklist = [
 ];
 
 export const metadata = {
-  title: "Host on Tixhub",
+  title: "Host on Tickit",
   description:
-    "Bring your events, festivals, conferences, and venues to Tixhub’s Kenya-first ticketing OS with MPesa-ready rails.",
+    "Bring your events, festivals, conferences, and venues to Tickit’s Kenya-first ticketing OS with MPesa-ready rails.",
 };
 
 export default function HostPage() {
@@ -45,7 +45,7 @@ export default function HostPage() {
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-8 py-16 lg:grid-cols-[1fr,0.7fr]">
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.4em] text-slate-500">
-              Host on Tixhub
+              Host on Tickit
             </p>
             <h1 className="text-4xl font-semibold">
               Ticket Kenyan events with MPesa-first rails, offline ops, and
@@ -53,7 +53,7 @@ export default function HostPage() {
             </h1>
             <p className="text-lg text-slate-600">
               Whether you run festivals, conferences, wellness retreats, or
-              venues, Tixhub gives you commerce, operations, and intelligence in
+              venues, Tickit gives you commerce, operations, and intelligence in
               one stack. Share a few details below and we'll curate your launch
               plan.
             </p>
@@ -106,9 +106,9 @@ export default function HostPage() {
               Email{" "}
               <Link
                 className="text-slate-900 underline"
-                href="mailto:organisers@tixhub.app"
+                href="mailto:organisers@tickit.app"
               >
-                organisers@tixhub.app
+                organisers@tickit.app
               </Link>{" "}
               or call +254 700 000 000. We can share case studies (concerts,
               conferences, wellness retreats) and connect you with existing

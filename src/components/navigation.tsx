@@ -215,13 +215,13 @@ function MobileMenu({
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo-icon.svg"
-              alt="Tixhub"
+              alt="Tickit"
               width={40}
               height={40}
               className="h-10 w-10"
             />
             <div>
-              <p className="text-sm font-bold text-slate-900">Tixhub</p>
+              <p className="text-sm font-bold text-slate-900">Tickit</p>
               <p className="text-xs text-slate-500">Menu</p>
             </div>
           </Link>
@@ -325,7 +325,7 @@ function MobileMenu({
               className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-4 py-3.5 text-sm font-bold text-white shadow-lg transition hover:from-slate-800 hover:to-slate-700"
             >
               <Plus className="size-5" />
-              <span>Host on Tixhub</span>
+              <span>Host on Tickit</span>
             </Link>
           </div>
 
@@ -415,7 +415,7 @@ function MobileMenu({
           {/* Footer - Fixed at bottom */}
           <div className="border-t border-slate-200 bg-white px-6 py-4 mt-auto shrink-0">
             <p className="text-center text-xs font-medium text-slate-600">
-              © 2025 Tixhub. All rights reserved.
+              © 2025 Tickit. All rights reserved.
             </p>
           </div>
         </div>
@@ -567,7 +567,7 @@ export function Navigation() {
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <Image
             src="/logo-small.svg"
-            alt="Tixhub Logo"
+            alt="Tickit Logo"
             width={120}
             height={40}
             className="h-8 w-auto"
@@ -587,7 +587,7 @@ export function Navigation() {
               href="/host"
               className="rounded-xl bg-slate-900 px-4 py-2 font-semibold text-white shadow-lg shadow-slate-300/80 transition hover:bg-slate-800 whitespace-nowrap"
             >
-              Host on Tixhub
+              Host on Tickit
             </Link>
           </div>
           <NotificationBell />

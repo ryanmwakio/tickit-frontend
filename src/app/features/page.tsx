@@ -5,9 +5,9 @@ import {
 } from "@/data/features";
 
 export const metadata = {
-  title: "Features | Tixhub",
+  title: "Features | Tickit",
   description:
-    "Explore every core and exclusive capability inside the Tixhub blueprint — 200 must-haves plus 100 differentiators.",
+    "Explore every core and exclusive capability inside the Tickit blueprint — 200 must-haves plus 100 differentiators.",
 };
 
 function FeatureSection({
@@ -65,7 +65,7 @@ export default function FeaturesPage() {
           </h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-600">
             Core features (A–I) cover the 200 must-haves for launch. Exclusive
-            features (J–V) differentiate Tixhub across Kenya with local-first
+            features (J–V) differentiate Tickit across Kenya with local-first
             commerce, AR, AI, trust, and governance.
           </p>
         </div>

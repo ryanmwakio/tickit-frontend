@@ -28,21 +28,21 @@ export function generateICSContent(event: EventContent): string {
       .replace(/\n/g, "\\n");
   };
 
-  const uid = `${event.slug}-${startDate.getTime()}@tixhub.app`;
+  const uid = `${event.slug}-${startDate.getTime()}@tickit.app`;
   const dtstamp = formatICSDate(new Date());
   const dtstart = formatICSDate(startDate);
   const dtend = formatICSDate(endDate);
 
   const summary = escapeICS(event.title);
   const description = escapeICS(
-    `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tixhub.app/events/${event.slug}`
+    `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tickit.app/events/${event.slug}`
   );
   const location = escapeICS(event.location);
 
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Tixhub//Event Calendar//EN",
+    "PRODID:-//Tickit//Event Calendar//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
@@ -90,12 +90,12 @@ export function generateICSContentMultiple(events: EventContent[]): string {
         ? new Date(event.endDate)
         : new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
 
-      const uid = `${event.slug}-${startDate.getTime()}@tixhub.app`;
+      const uid = `${event.slug}-${startDate.getTime()}@tickit.app`;
       const dtstart = formatICSDate(startDate);
       const dtend = formatICSDate(endDate);
       const summary = escapeICS(event.title);
       const description = escapeICS(
-        `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tixhub.app/events/${event.slug}`
+        `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tickit.app/events/${event.slug}`
       );
       const location = escapeICS(event.location);
 
@@ -118,7 +118,7 @@ export function generateICSContentMultiple(events: EventContent[]): string {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Tixhub//Event Calendar//EN",
+    "PRODID:-//Tickit//Event Calendar//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     eventsContent,
@@ -168,7 +168,7 @@ export function generateGoogleCalendarURL(event: EventContent): string {
     action: "TEMPLATE",
     text: event.title,
     dates: `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`,
-    details: `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tixhub.app/events/${event.slug}`,
+    details: `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tickit.app/events/${event.slug}`,
     location: event.location,
   });
 
@@ -192,7 +192,7 @@ export function generateOutlookCalendarURL(event: EventContent): string {
     subject: event.title,
     startdt: formatOutlookDate(startDate),
     enddt: formatOutlookDate(endDate),
-    body: `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tixhub.app/events/${event.slug}`,
+    body: `${event.summary}\n\nLocation: ${event.location}\nPrice: ${event.price}\n\nView event: https://tickit.app/events/${event.slug}`,
     location: event.location,
   });
 

@@ -89,7 +89,7 @@ const mockAdminUsers: AdminUser[] = [
   {
     id: "admin-1",
     name: "Sarah Johnson",
-    email: "sarah.johnson@tixhub.com",
+    email: "sarah.johnson@tickit.com",
     phone: "+254 700 123 456",
     role: "super_admin",
     status: "active",
@@ -105,7 +105,7 @@ const mockAdminUsers: AdminUser[] = [
   {
     id: "admin-2",
     name: "Michael Chen",
-    email: "michael.chen@tixhub.com",
+    email: "michael.chen@tickit.com",
     role: "finance",
     status: "active",
     twoFactorEnabled: true,
@@ -120,7 +120,7 @@ const mockAdminUsers: AdminUser[] = [
   {
     id: "admin-3",
     name: "Emma Williams",
-    email: "emma.williams@tixhub.com",
+    email: "emma.williams@tickit.com",
     role: "support",
     status: "active",
     twoFactorEnabled: false,

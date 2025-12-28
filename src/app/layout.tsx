@@ -19,10 +19,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tixhub | Premium Kenya-first ticketing OS",
+  title: "Tickit | Premium Kenya-first ticketing OS",
   description:
-    "Tixhub is a Kenya-first event, ticketing, and operations platform spanning discovery, MPesa commerce, onsite command, and intelligence.",
-  metadataBase: new URL("https://tixhub.app"),
+    "Tickit is a Kenya-first event, ticketing, and operations platform spanning discovery, MPesa commerce, onsite command, and intelligence.",
+  metadataBase: new URL("https://tickit.app"),
   icons: {
     icon: [
       { url: "/logo-icon.svg", type: "image/svg+xml" },
@@ -41,31 +41,31 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Tixhub | Premium Kenya-first ticketing OS",
+    title: "Tickit | Premium Kenya-first ticketing OS",
     description:
       "Web + mobile experience that unifies attendees, organisers, operations, and finance with MPesa, safety, and analytics baked in.",
-    url: "https://tixhub.local",
-    siteName: "Tixhub",
+    url: "https://tickit.local",
+    siteName: "Tickit",
     images: [
       {
         url: "/logo-1200x630.png",
         width: 1200,
         height: 630,
-        alt: "Tixhub Logo",
+        alt: "Tickit Logo",
         type: "image/png",
       },
       {
         url: "/logo-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Tixhub Logo",
+        alt: "Tickit Logo",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tixhub | Premium ticketing suite",
+    title: "Tickit | Premium ticketing suite",
     description:
       "Discovery to payouts, Kenya-first ticketing stack with MPesa and operational intelligence.",
     images: ["/logo-1200x630.png", "/logo-1200x630.jpg"],
