@@ -581,7 +581,7 @@ Integrated CCTV event analytics (people flow, safety signals).
 
 Drone-friendly area booking & compliance flows for outdoor events.
 
-VIP concierge workflows with staff assignment & tasking.
+VIP service workflows with staff assignment & tasking.
 
 Venue sponsorship overlays (digital) on event live streams.
 

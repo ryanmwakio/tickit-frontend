@@ -1,12 +1,9 @@
-import { CTA } from "@/components/cta";
 import { EventShowcase } from "@/components/event-showcase";
-import { FeatureTabs } from "@/components/feature-tabs";
 import { FeaturedEventsRail } from "@/components/featured-events-rail";
+import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
-import { InsightsBoard } from "@/components/insights-board";
-import { JourneyRail } from "@/components/journey-rail";
-import { OpsMatrix } from "@/components/ops-matrix";
-import { Suites } from "@/components/suites";
+import { EventBlog } from "@/components/event-blog";
+import { EventInsights } from "@/components/event-insights";
 
 export default function Home() {
   return (
@@ -18,19 +15,11 @@ export default function Home() {
         </div>
         <div className="bg-white">
           <EventShowcase />
-          <FeatureTabs />
-          <Suites />
-          <JourneyRail />
-          <OpsMatrix />
-          <InsightsBoard />
+          <EventBlog />
+          <EventInsights />
         </div>
-        <CTA />
       </main>
-      <footer className="border-t border-slate-200 bg-white/70 px-6 py-10 text-center text-sm text-slate-500">
-        Built with Next.js 14, Radix UI, Tailwind CSS 4.0, and Unsplash imagery.
-        Backend hooks for MPesa, NestJS, and analytics can attach to the
-        prepared surfaces above.
-      </footer>
+      <Footer />
     </div>
   );
 }

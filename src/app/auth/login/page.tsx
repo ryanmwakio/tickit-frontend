@@ -28,12 +28,16 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await login(formData.identifier, formData.password, formData.twoFactorCode || undefined);
-      
-      // Redirect to intended page or role-based dashboard
-      const redirectTo = searchParams.get("redirect") || "/";
-      router.push(redirectTo);
-      router.refresh();
+      const user = await login(formData.identifier, formData.password, formData.twoFactorCode || undefined);
+
+      if (user) {
+        // Redirect: respect ?redirect= param, or send admins to /admin, others to /
+        const explicitRedirect = searchParams.get("redirect");
+        const isAdmin = user.roles?.includes("ADMIN") || user.activeRole === "ADMIN";
+        const redirectTo = explicitRedirect ?? (isAdmin ? "/admin" : "/");
+        router.push(redirectTo);
+        router.refresh();
+      }
     } catch (error: any) {
       if (error.requiresTwoFactor) {
         setShowTwoFactor(true);

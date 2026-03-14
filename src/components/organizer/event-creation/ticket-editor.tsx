@@ -1,9 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { Palette, Type, Image as ImageIcon, Layers, Layout, QrCode, Calendar, MapPin } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  Type,
+  Image as ImageIcon,
+  Layout,
+  Palette,
+  Save,
+  Download,
+  Eye,
+  Plus,
+  Trash2,
+  Copy,
+  RotateCcw,
+  Settings,
+  Upload,
+  Grid,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Bold,
+  Italic,
+  Underline,
+  X,
+  Maximize2,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -11,773 +35,1086 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  TicketDesignConfig,
+  ticketDesignTemplates,
+  getDefaultTicketDesignConfig,
+  createTicketDesign,
+  updateTicketDesign,
+  getTicketDesigns,
+  TicketDesign,
+} from "@/lib/ticket-designs-api";
+import { useToast } from "@/contexts/toast-context";
+import { DefaultTicketPreview } from "@/components/organizer/default-ticket-design";
+import { TicketTemplateGrid } from "@/components/organizer/ticket-template-previews";
 
-type TicketTemplate = {
+interface DesignElement {
   id: string;
-  name: string;
-  layout: "vertical" | "horizontal";
-  component: (props: { eventName?: string; venue?: string; date?: string; ticketNumber?: string }) => JSX.Element;
-};
-
-const TicketTemplatePreview = ({ 
-  template, 
-  eventName = "Event Name", 
-  venue = "Venue Location",
-  date = "Fri, Jan 15 • 7:00 PM",
-  ticketNumber = "TIX-2024-001234"
-}: { 
-  template: TicketTemplate;
-  eventName?: string;
-  venue?: string;
-  date?: string;
-  ticketNumber?: string;
-}) => {
-  return <template.component eventName={eventName} venue={venue} date={date} ticketNumber={ticketNumber} />;
-};
-
-// Classic Vertical Template
-const ClassicVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-slate-900 bg-gradient-to-br from-slate-900 to-slate-700 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">Admit One</div>
-      <h3 className="mb-3 text-lg font-bold leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs text-slate-200">
-        <div className="flex items-center gap-2">
-          <Calendar className="size-3" />
-          <span>{date}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <MapPin className="size-3" />
-          <span>{venue}</span>
-        </div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-dashed border-slate-600 bg-slate-800/50 p-3">
-      <div className="text-xs font-semibold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded bg-white">
-        <QrCode className="size-8 text-slate-900" />
-      </div>
-    </div>
-  </div>
-);
-
-// Modern Vertical Template
-const ModernVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-blue-600 bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-blue-100">Tickit</div>
-      <h3 className="mb-4 text-xl font-extrabold leading-tight">{eventName}</h3>
-      <div className="space-y-2 text-xs">
-        <div className="font-semibold">{date}</div>
-        <div className="text-blue-100">{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between bg-white/20 p-3 backdrop-blur-sm">
-      <div className="text-[10px] font-mono font-bold text-white">{ticketNumber}</div>
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-        <QrCode className="size-7 text-purple-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Elegant Horizontal Template
-const ElegantHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-amber-600 bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-semibold uppercase tracking-wider text-amber-100">Premium Event</div>
-      <h3 className="mb-2 text-base font-bold">{eventName}</h3>
-      <div className="text-[10px] text-amber-50">{date} • {venue}</div>
-    </div>
-    <div className="flex w-32 flex-col items-center justify-center border-l-2 border-dashed border-amber-400 bg-amber-700/30">
-      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded bg-white">
-        <QrCode className="size-8 text-amber-600" />
-      </div>
-      <div className="text-[9px] font-mono font-bold">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Minimal Template
-const MinimalVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-4 border-slate-900 bg-white text-slate-900 shadow-xl">
-    <div className="flex-1 p-5">
-      <h3 className="mb-4 text-xl font-bold">{eventName}</h3>
-      <div className="space-y-2 text-sm text-slate-600">
-        <div>{date}</div>
-        <div>{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-4 border-slate-900 bg-slate-50 p-4">
-      <div className="text-xs font-mono font-semibold">{ticketNumber}</div>
-      <QrCode className="size-10 text-slate-900" />
-    </div>
-  </div>
-);
-
-// Vibrant Template
-const VibrantVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-pink-500 bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-[10px] font-bold uppercase">
-        Live Event
-      </div>
-      <h3 className="mb-3 text-lg font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-medium">
-        <div>{date}</div>
-        <div className="text-pink-100">{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between bg-rose-700/50 p-3">
-      <div className="text-xs font-bold">{ticketNumber}</div>
-      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white">
-        <QrCode className="size-8 text-rose-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Corporate Horizontal Template
-const CorporateHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-slate-800 bg-gradient-to-r from-slate-800 to-slate-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-semibold uppercase tracking-wider text-slate-300">Business Event</div>
-      <h3 className="mb-2 text-base font-bold">{eventName}</h3>
-      <div className="text-[10px] text-slate-200">{date} • {venue}</div>
-    </div>
-    <div className="flex w-28 flex-col items-center justify-center border-l-2 border-slate-500 bg-slate-700/50">
-      <QrCode className="mb-1 size-9 text-white" />
-      <div className="text-[9px] font-mono">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Festival Template
-const FestivalVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-extrabold uppercase tracking-widest text-green-100">Festival Pass</div>
-      <h3 className="mb-3 text-xl font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-semibold">
-        <div>{date}</div>
-        <div className="text-green-100">{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between bg-teal-700/50 p-3">
-      <div className="text-xs font-bold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-        <QrCode className="size-8 text-teal-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Premium Template
-const PremiumVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-amber-400 bg-gradient-to-br from-amber-400 to-yellow-600 text-slate-900 shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-amber-800">VIP Access</div>
-      <h3 className="mb-3 text-lg font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-semibold text-amber-900">
-        <div>{date}</div>
-        <div>{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-amber-600 bg-amber-500/50 p-3">
-      <div className="text-xs font-mono font-bold text-amber-900">{ticketNumber}</div>
-      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-900">
-        <QrCode className="size-8 text-amber-400" />
-      </div>
-    </div>
-  </div>
-);
-
-// Artistic Horizontal Template
-const ArtisticHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-purple-500 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-bold uppercase tracking-wider text-purple-100">Art & Culture</div>
-      <h3 className="mb-2 text-base font-black">{eventName}</h3>
-      <div className="text-[10px] font-medium text-pink-100">{date} • {venue}</div>
-    </div>
-    <div className="flex w-28 flex-col items-center justify-center border-l-2 border-pink-400 bg-pink-600/50">
-      <div className="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-white">
-        <QrCode className="size-7 text-pink-600" />
-      </div>
-      <div className="text-[9px] font-mono font-bold">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Silver Gradient Vertical Template
-const SilverGradientVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-slate-300 bg-gradient-to-br from-slate-300 via-slate-200 to-slate-100 text-slate-900 shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-600">Silver Pass</div>
-      <h3 className="mb-3 text-lg font-bold leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs text-slate-700">
-        <div className="flex items-center gap-2">
-          <Calendar className="size-3" />
-          <span>{date}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <MapPin className="size-3" />
-          <span>{venue}</span>
-        </div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-slate-400 bg-slate-200/50 p-3">
-      <div className="text-xs font-semibold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded bg-slate-900">
-        <QrCode className="size-8 text-slate-300" />
-      </div>
-    </div>
-  </div>
-);
-
-// Gold Luxury Vertical Template
-const GoldLuxuryVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-amber-500 bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-300 text-slate-900 shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-extrabold uppercase tracking-wider text-amber-800">Gold Premium</div>
-      <h3 className="mb-3 text-xl font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-semibold text-amber-900">
-        <div>{date}</div>
-        <div>{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-amber-600 bg-amber-500/50 p-3">
-      <div className="text-xs font-mono font-bold text-amber-900">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-900">
-        <QrCode className="size-8 text-amber-400" />
-      </div>
-    </div>
-  </div>
-);
-
-// Striped Vertical Template
-const StripedVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="relative flex h-64 flex-col overflow-hidden rounded-lg border-2 border-indigo-600 bg-indigo-600 text-white shadow-xl">
-    <div className="absolute inset-0 opacity-20" style={{
-      backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)"
-    }} />
-    <div className="relative flex-1 p-4">
-      <div className="mb-2 text-xs font-bold uppercase tracking-wider">Striped Design</div>
-      <h3 className="mb-3 text-lg font-bold leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs">
-        <div>{date}</div>
-        <div>{venue}</div>
-      </div>
-    </div>
-    <div className="relative flex items-center justify-between border-t-2 border-indigo-400 bg-indigo-700/50 p-3">
-      <div className="text-xs font-semibold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded bg-white">
-        <QrCode className="size-8 text-indigo-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Barcode Horizontal Template
-const BarcodeHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-slate-900 bg-white text-slate-900 shadow-xl">
-    <div className="flex-1 p-4">
-      <h3 className="mb-2 text-base font-bold">{eventName}</h3>
-      <div className="text-[10px] text-slate-600">{date} • {venue}</div>
-      <div className="mt-2 flex h-8 items-center gap-1">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <div key={i} className="h-full w-1 bg-slate-900" style={{ height: `${30 + Math.random() * 40}%` }} />
-        ))}
-      </div>
-    </div>
-    <div className="flex w-32 flex-col items-center justify-center border-l-2 border-slate-900 bg-slate-50">
-      <QrCode className="size-10 text-slate-900" />
-      <div className="mt-1 text-[9px] font-mono">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Retro Vertical Template
-const RetroVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-4 border-red-600 bg-gradient-to-br from-red-500 to-orange-500 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-extrabold uppercase tracking-widest">Retro Ticket</div>
-      <h3 className="mb-3 text-xl font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-bold">
-        <div>{date}</div>
-        <div>{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-4 border-dashed border-white bg-red-600/50 p-3">
-      <div className="text-xs font-mono font-bold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-white">
-        <QrCode className="size-7 text-red-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Neon Vertical Template
-const NeonVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-cyan-400 bg-gradient-to-br from-cyan-600 via-purple-600 to-pink-600 text-white shadow-xl shadow-cyan-500/50">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-bold uppercase tracking-wider text-cyan-200">Neon Nights</div>
-      <h3 className="mb-3 text-xl font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-semibold">
-        <div>{date}</div>
-        <div className="text-cyan-100">{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-cyan-400 bg-purple-700/50 p-3">
-      <div className="text-xs font-mono font-bold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-400">
-        <QrCode className="size-8 text-slate-900" />
-      </div>
-    </div>
-  </div>
-);
-
-// Elegant Stripe Horizontal Template
-const ElegantStripeHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="relative flex h-32 overflow-hidden rounded-lg border-2 border-rose-600 bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-xl">
-    <div className="absolute left-0 top-0 h-full w-2 bg-white/30" />
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-semibold uppercase tracking-wider">Elegant</div>
-      <h3 className="mb-2 text-base font-bold">{eventName}</h3>
-      <div className="text-[10px]">{date} • {venue}</div>
-    </div>
-    <div className="flex w-28 flex-col items-center justify-center border-l-2 border-rose-400 bg-rose-700/50">
-      <div className="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-white">
-        <QrCode className="size-7 text-rose-600" />
-      </div>
-      <div className="text-[9px] font-mono font-bold">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Sport Vertical Template
-const SportVertical = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-64 flex-col overflow-hidden rounded-lg border-2 border-emerald-600 bg-gradient-to-br from-emerald-600 to-green-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-2 text-xs font-extrabold uppercase tracking-widest">Sports Event</div>
-      <h3 className="mb-3 text-xl font-black leading-tight">{eventName}</h3>
-      <div className="space-y-1.5 text-xs font-bold">
-        <div>{date}</div>
-        <div className="text-emerald-100">{venue}</div>
-      </div>
-    </div>
-    <div className="flex items-center justify-between border-t-2 border-emerald-400 bg-emerald-700/50 p-3">
-      <div className="text-xs font-bold">{ticketNumber}</div>
-      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white">
-        <QrCode className="size-8 text-emerald-600" />
-      </div>
-    </div>
-  </div>
-);
-
-// Music Horizontal Template
-const MusicHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-violet-600 bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-bold uppercase tracking-wider text-violet-100">Music Show</div>
-      <h3 className="mb-2 text-base font-black">{eventName}</h3>
-      <div className="text-[10px] font-medium text-violet-100">{date} • {venue}</div>
-    </div>
-    <div className="flex w-28 flex-col items-center justify-center border-l-2 border-violet-400 bg-violet-700/50">
-      <div className="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-white">
-        <QrCode className="size-7 text-violet-600" />
-      </div>
-      <div className="text-[9px] font-mono font-bold">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-// Luxury Horizontal Template
-const LuxuryHorizontal = ({ eventName, venue, date, ticketNumber }: any) => (
-  <div className="flex h-32 overflow-hidden rounded-lg border-2 border-amber-500 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-400 text-slate-900 shadow-xl">
-    <div className="flex-1 p-4">
-      <div className="mb-1 text-[9px] font-extrabold uppercase tracking-wider text-amber-800">Luxury Access</div>
-      <h3 className="mb-2 text-base font-black">{eventName}</h3>
-      <div className="text-[10px] font-semibold text-amber-900">{date} • {venue}</div>
-    </div>
-    <div className="flex w-28 flex-col items-center justify-center border-l-2 border-amber-600 bg-amber-600/50">
-      <div className="mb-1 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900">
-        <QrCode className="size-7 text-amber-400" />
-      </div>
-      <div className="text-[9px] font-mono font-bold text-slate-900">{ticketNumber}</div>
-    </div>
-  </div>
-);
-
-const ticketTemplates: TicketTemplate[] = [
-  {
-    id: "classic",
-    name: "Classic",
-    layout: "vertical",
-    component: ClassicVertical,
-  },
-  {
-    id: "modern",
-    name: "Modern",
-    layout: "vertical",
-    component: ModernVertical,
-  },
-  {
-    id: "elegant",
-    name: "Elegant",
-    layout: "horizontal",
-    component: ElegantHorizontal,
-  },
-  {
-    id: "minimal",
-    name: "Minimal",
-    layout: "vertical",
-    component: MinimalVertical,
-  },
-  {
-    id: "vibrant",
-    name: "Vibrant",
-    layout: "vertical",
-    component: VibrantVertical,
-  },
-  {
-    id: "corporate",
-    name: "Corporate",
-    layout: "horizontal",
-    component: CorporateHorizontal,
-  },
-  {
-    id: "festival",
-    name: "Festival",
-    layout: "vertical",
-    component: FestivalVertical,
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    layout: "vertical",
-    component: PremiumVertical,
-  },
-  {
-    id: "artistic",
-    name: "Artistic",
-    layout: "horizontal",
-    component: ArtisticHorizontal,
-  },
-  {
-    id: "silver",
-    name: "Silver Gradient",
-    layout: "vertical",
-    component: SilverGradientVertical,
-  },
-  {
-    id: "gold",
-    name: "Gold Luxury",
-    layout: "vertical",
-    component: GoldLuxuryVertical,
-  },
-  {
-    id: "striped",
-    name: "Striped",
-    layout: "vertical",
-    component: StripedVertical,
-  },
-  {
-    id: "barcode",
-    name: "Barcode",
-    layout: "horizontal",
-    component: BarcodeHorizontal,
-  },
-  {
-    id: "retro",
-    name: "Retro",
-    layout: "vertical",
-    component: RetroVertical,
-  },
-  {
-    id: "neon",
-    name: "Neon",
-    layout: "vertical",
-    component: NeonVertical,
-  },
-  {
-    id: "elegant-stripe",
-    name: "Elegant Stripe",
-    layout: "horizontal",
-    component: ElegantStripeHorizontal,
-  },
-  {
-    id: "sport",
-    name: "Sports",
-    layout: "vertical",
-    component: SportVertical,
-  },
-  {
-    id: "music",
-    name: "Music",
-    layout: "horizontal",
-    component: MusicHorizontal,
-  },
-  {
-    id: "luxury",
-    name: "Luxury",
-    layout: "horizontal",
-    component: LuxuryHorizontal,
-  },
-];
-
-type DesignElement = {
-  id: string;
-  type: "text" | "image" | "shape" | "barcode" | "qrcode" | "gradient" | "stripe";
+  type: "text" | "image" | "qr" | "logo";
   content: string;
   x: number;
   y: number;
   width: number;
   height: number;
+  rotation?: number;
   fontSize?: number;
-  color?: string;
   fontFamily?: string;
-  imageUrl?: string;
-  gradientType?: "silver" | "gold" | "custom";
-  stripePattern?: "diagonal" | "horizontal" | "vertical";
-};
+  fontWeight?: "normal" | "bold";
+  fontStyle?: "normal" | "italic";
+  textDecoration?: "none" | "underline";
+  textAlign?: "left" | "center" | "right";
+  color?: string;
+  backgroundColor?: string;
+  borderWidth?: number;
+  borderColor?: string;
+  borderRadius?: number;
+  opacity?: number;
+  zIndex?: number;
+  locked?: boolean;
+}
 
-type TicketDesignEditorProps = {
-  initialData?: any;
-  onDataChange?: (updates: any) => void;
-};
+interface TicketDesignEditorProps {
+  initialData?: {
+    ticketDesign?: TicketDesign;
+    selectedFeatures?: string[];
+    organiserId?: string;
+    eventId?: string;
+  };
+  onDataChange?: (updates: {
+    ticketDesign?: TicketDesign;
+    designConfig?: TicketDesignConfig;
+  }) => void;
+}
 
-export function TicketDesignEditor({ initialData, onDataChange }: TicketDesignEditorProps = {}) {
+export function TicketDesignEditor({
+  initialData,
+  onDataChange,
+}: TicketDesignEditorProps = {}) {
+  const hasCustomDesignFeature = initialData?.selectedFeatures?.includes(
+    "custom_ticket_design",
+  );
+  const { toast } = useToast();
+  const canvasRef = useRef<HTMLDivElement>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  const [selectedTool, setSelectedTool] = useState<"select" | "text" | "image">("select");
+  const [designConfig, setDesignConfig] = useState<TicketDesignConfig>(
+    initialData?.ticketDesign?.designConfig || getDefaultTicketDesignConfig(),
+  );
   const [elements, setElements] = useState<DesignElement[]>([]);
   const [selectedElement, setSelectedElement] = useState<string | null>(null);
+  const [selectedTool, setSelectedTool] = useState<
+    "select" | "text" | "image" | "qr"
+  >("select");
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [isResizing, setIsResizing] = useState(false);
+  const [showGrid, setShowGrid] = useState(true);
+  const [zoom, setZoom] = useState(1);
+  const [designName, setDesignName] = useState(
+    initialData?.ticketDesign?.name || "New Ticket Design",
+  );
+  const [savedDesigns, setSavedDesigns] = useState<TicketDesign[]>([]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
 
-  const handleTemplateSelect = (templateId: string) => {
-    setSelectedTemplate(templateId);
-    setElements([]);
+  // If custom design feature is not enabled, show default design
+  if (!hasCustomDesignFeature) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Ticket Design
+          </h2>
+          <p className="text-sm text-slate-600">
+            Your tickets will use our default professional design
+          </p>
+        </div>
+
+        <DefaultTicketPreview
+          eventData={{
+            title: initialData?.title || "Your Event Title",
+            startDate: initialData?.startDate,
+            startTime: initialData?.startTime,
+            location: initialData?.location,
+            price: initialData?.price,
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Load existing designs
+  useEffect(() => {
+    if (initialData?.organiserId) {
+      loadSavedDesigns();
+    }
+  }, [initialData?.organiserId]);
+
+  const loadSavedDesigns = async () => {
+    if (!initialData?.organiserId) return;
+    try {
+      const designs = await getTicketDesigns(
+        initialData.organiserId,
+        initialData.eventId,
+      );
+      setSavedDesigns(designs);
+    } catch (error) {
+      console.error("Failed to load saved designs:", error);
+    }
   };
 
-  const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (selectedTool === "text") {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
+  // Handle template selection
+  const handleTemplateSelect = (templateId: string) => {
+    const template = ticketDesignTemplates.find((t) => t.id === templateId);
+    if (template) {
+      setSelectedTemplate(templateId);
+      setDesignConfig(template.config);
+      setElements([]);
+      setSelectedElement(null);
+      setShowTemplateModal(false);
+    }
+  };
 
+  // Handle canvas click
+  const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!canvasRef.current) return;
+
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    if (selectedTool === "text") {
       const newElement: DesignElement = {
         id: `text-${Date.now()}`,
         type: "text",
-        content: "Double click to edit",
-        x,
-        y,
-        width: 200,
-        height: 40,
+        content: "Click to edit text",
+        x: Math.max(0, Math.min(85, x)),
+        y: Math.max(0, Math.min(85, y)),
+        width: 150,
+        height: 30,
         fontSize: 16,
-        color: "#000000",
         fontFamily: "Inter",
+        fontWeight: "normal",
+        fontStyle: "normal",
+        textDecoration: "none",
+        textAlign: "left",
+        color: "#1f2937",
+        backgroundColor: "transparent",
+        opacity: 1,
+        zIndex: elements.length + 1,
       };
       setElements([...elements, newElement]);
+      setSelectedElement(newElement.id);
       setSelectedTool("select");
+    } else if (selectedTool === "image") {
+      const newElement: DesignElement = {
+        id: `image-${Date.now()}`,
+        type: "image",
+        content: "https://via.placeholder.com/150x100/e2e8f0/64748b?text=Image",
+        x: Math.max(0, Math.min(75, x)),
+        y: Math.max(0, Math.min(75, y)),
+        width: 100,
+        height: 75,
+        opacity: 1,
+        zIndex: elements.length + 1,
+      };
+      setElements([...elements, newElement]);
+      setSelectedElement(newElement.id);
+      setSelectedTool("select");
+    } else if (selectedTool === "qr") {
+      const newElement: DesignElement = {
+        id: `qr-${Date.now()}`,
+        type: "qr",
+        content: "QR_CODE_PLACEHOLDER",
+        x: Math.max(0, Math.min(80, x)),
+        y: Math.max(0, Math.min(80, y)),
+        width: 80,
+        height: 80,
+        opacity: 1,
+        zIndex: elements.length + 1,
+      };
+      setElements([...elements, newElement]);
+      setSelectedElement(newElement.id);
+      setSelectedTool("select");
+    }
+  };
+
+  // Handle element drag
+  const handleElementMouseDown = (e: React.MouseEvent, elementId: string) => {
+    e.stopPropagation();
+    setSelectedElement(elementId);
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  // Handle mouse move for dragging
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging || !selectedElement || !canvasRef.current) return;
+
+      const rect = canvasRef.current.getBoundingClientRect();
+      const deltaX = ((e.clientX - dragStart.x) / rect.width) * 100;
+      const deltaY = ((e.clientY - dragStart.y) / rect.height) * 100;
+
+      setElements((prev) =>
+        prev.map((el) =>
+          el.id === selectedElement
+            ? {
+                ...el,
+                x: Math.max(0, Math.min(100 - el.width / 3, el.x + deltaX)),
+                y: Math.max(0, Math.min(100 - el.height / 3, el.y + deltaY)),
+              }
+            : el,
+        ),
+      );
+
+      setDragStart({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, selectedElement, dragStart]);
+
+  // Update element properties
+  const updateElement = (
+    elementId: string,
+    updates: Partial<DesignElement>,
+  ) => {
+    setElements((prev) =>
+      prev.map((el) => (el.id === elementId ? { ...el, ...updates } : el)),
+    );
+  };
+
+  // Delete element
+  const deleteElement = (elementId: string) => {
+    setElements((prev) => prev.filter((el) => el.id !== elementId));
+    if (selectedElement === elementId) {
+      setSelectedElement(null);
+    }
+  };
+
+  // Duplicate element
+  const duplicateElement = (elementId: string) => {
+    const element = elements.find((el) => el.id === elementId);
+    if (element) {
+      const newElement: DesignElement = {
+        ...element,
+        id: `${element.type}-${Date.now()}`,
+        x: Math.min(85, element.x + 5),
+        y: Math.min(85, element.y + 5),
+        zIndex: Math.max(...elements.map((el) => el.zIndex || 0)) + 1,
+      };
+      setElements([...elements, newElement]);
       setSelectedElement(newElement.id);
     }
   };
 
-  const selectedTemplateData = ticketTemplates.find((t) => t.id === selectedTemplate);
+  // Save design
+  const handleSaveDesign = async () => {
+    if (!initialData?.organiserId) {
+      toast.error("No organizer ID available");
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const designData = {
+        name: designName,
+        description: `Custom ticket design with ${elements.length} elements`,
+        designConfig: {
+          ...designConfig,
+          elements: elements,
+        },
+        eventId: initialData.eventId,
+        isDefault: false,
+      };
+
+      let savedDesign: TicketDesign;
+      if (initialData?.ticketDesign?.id) {
+        // Update existing design
+        savedDesign = await updateTicketDesign(
+          initialData.ticketDesign.id,
+          designData,
+        );
+      } else {
+        // Create new design
+        savedDesign = await createTicketDesign(
+          initialData.organiserId,
+          designData,
+        );
+      }
+
+      toast.success("Design saved successfully!");
+      onDataChange?.({
+        ticketDesign: savedDesign,
+        designConfig: savedDesign.designConfig,
+      });
+      await loadSavedDesigns();
+    } catch (error) {
+      console.error("Failed to save design:", error);
+      toast.error("Failed to save design");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Load saved design
+  const handleLoadDesign = (design: TicketDesign) => {
+    setDesignConfig(design.designConfig);
+    setDesignName(design.name);
+    setElements((design.designConfig as any).elements || []);
+    setSelectedElement(null);
+    onDataChange?.({
+      ticketDesign: design,
+      designConfig: design.designConfig,
+    });
+  };
+
+  // Get selected element
+  const selectedElementData = selectedElement
+    ? elements.find((el) => el.id === selectedElement)
+    : null;
+
+  // Export design as image (placeholder)
+  const handleExportDesign = () => {
+    toast.info("Export functionality coming soon!");
+  };
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-semibold text-slate-900">Ticket Design Studio</h2>
-        <p className="mt-1 text-sm text-slate-600">
-          Choose a template or design your ticket from scratch with our visual editor
-        </p>
-      </div>
-
-      {/* Template Selection */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-slate-900">Choose Template</h3>
-        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3">
-          {ticketTemplates.map((template) => (
-            <button
-              key={template.id}
-              onClick={() => handleTemplateSelect(template.id)}
-              className={`group relative overflow-hidden rounded-xl border-2 p-4 text-left transition ${
-                selectedTemplate === template.id
-                  ? "border-slate-900 ring-2 ring-slate-900"
-                  : "border-slate-200 hover:border-slate-300"
-              }`}
-            >
-              <TicketTemplatePreview template={template} />
-              <p className="mt-3 text-sm font-semibold text-slate-900">{template.name}</p>
-              <p className="mt-1 text-xs text-slate-500 capitalize">
-                {template.layout} layout
-              </p>
-            </button>
-          ))}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Ticket Design Studio
+          </h2>
+          <p className="text-sm text-slate-600">
+            Create custom ticket designs with our visual editor
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowTemplateModal(true)}
+          >
+            <Layout className="size-4 mr-2" />
+            Templates
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPreviewMode(!previewMode)}
+          >
+            <Eye className="size-4 mr-2" />
+            {previewMode ? "Edit Mode" : "Preview"}
+          </Button>
+          <Button variant="outline" size="sm" onClick={handleExportDesign}>
+            <Download className="size-4 mr-2" />
+            Export
+          </Button>
+          <Button size="sm" onClick={handleSaveDesign} disabled={isSaving}>
+            <Save className="size-4 mr-2" />
+            {isSaving ? "Saving..." : "Save Design"}
+          </Button>
         </div>
       </div>
 
-      {selectedTemplate && selectedTemplateData && (
-        <div className="grid gap-6 lg:grid-cols-[300px,1fr]">
-          {/* Toolbar */}
-          <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 bg-white p-4">
-              <h4 className="mb-3 text-sm font-semibold text-slate-900">Tools</h4>
-              <div className="space-y-2">
-                <button
-                  onClick={() => setSelectedTool("select")}
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm font-semibold transition ${
-                    selectedTool === "select"
-                      ? "bg-slate-900 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  <Layout className="mr-2 inline size-4" />
-                  Select
-                </button>
-                <button
-                  onClick={() => setSelectedTool("text")}
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm font-semibold transition ${
-                    selectedTool === "text"
-                      ? "bg-slate-900 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  <Type className="mr-2 inline size-4" />
-                  Text
-                </button>
-                <button
-                  onClick={() => setSelectedTool("image")}
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm font-semibold transition ${
-                    selectedTool === "image"
-                      ? "bg-slate-900 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  <ImageIcon className="mr-2 inline size-4" />
-                  Image
-                </button>
-              </div>
-            </div>
+      <div className="grid gap-6 lg:grid-cols-[300px,1fr,300px]">
+        {/* Left Panel - Templates & Tools */}
+        <div className="space-y-4">
+          <Tabs defaultValue="templates" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="templates">Templates</TabsTrigger>
+              <TabsTrigger value="tools">Tools</TabsTrigger>
+              <TabsTrigger value="saved">Saved</TabsTrigger>
+            </TabsList>
 
-            {/* Properties Panel */}
-            {selectedElement && (
-              <div className="rounded-xl border border-slate-200 bg-white p-4">
-                <h4 className="mb-3 text-sm font-semibold text-slate-900">Properties</h4>
-                <div className="space-y-3">
-                  <div>
-                    <Label className="block text-xs font-semibold text-slate-700">
-                      Font Size
-                    </Label>
-                    <Input
-                      type="number"
-                      min="8"
-                      max="72"
-                      defaultValue="16"
-                      className="mt-1"
-                    />
-                  </div>
-                  <div>
-                    <Label className="block text-xs font-semibold text-slate-700">Color</Label>
-                    <Input
-                      type="color"
-                      defaultValue="#000000"
-                      className="mt-1 h-10 w-full cursor-pointer"
-                    />
-                  </div>
-                  <div>
-                    <Label className="block text-xs font-semibold text-slate-700">
-                      Font Family
-                    </Label>
-                    <Select defaultValue="Inter">
-                      <SelectTrigger className="mt-1">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Inter">Inter</SelectItem>
-                        <SelectItem value="Arial">Arial</SelectItem>
-                        <SelectItem value="Helvetica">Helvetica</SelectItem>
-                        <SelectItem value="Times New Roman">Times New Roman</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+            <TabsContent value="templates" className="space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-medium text-slate-900">
+                    Quick Templates
+                  </h3>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowTemplateModal(true)}
+                  >
+                    <Maximize2 className="size-3 mr-1" />
+                    View All
+                  </Button>
+                </div>
+                <div className="grid gap-2">
+                  {ticketDesignTemplates.slice(0, 3).map((template) => (
+                    <button
+                      key={template.id}
+                      onClick={() => handleTemplateSelect(template.id)}
+                      className={`p-3 text-left rounded-lg border transition ${
+                        selectedTemplate === template.id
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-slate-200 hover:border-slate-300"
+                      }`}
+                    >
+                      <h4 className="font-medium text-slate-900 text-sm">
+                        {template.name}
+                      </h4>
+                      <p className="text-xs text-slate-600">
+                        {template.description}
+                      </p>
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
+            </TabsContent>
+
+            <TabsContent value="tools" className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-medium text-slate-900">Add Elements</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant={selectedTool === "text" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedTool("text")}
+                    className="justify-start"
+                  >
+                    <Type className="size-4 mr-2" />
+                    Text
+                  </Button>
+                  <Button
+                    variant={selectedTool === "image" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedTool("image")}
+                    className="justify-start"
+                  >
+                    <ImageIcon className="size-4 mr-2" />
+                    Image
+                  </Button>
+                  <Button
+                    variant={selectedTool === "qr" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedTool("qr")}
+                    className="justify-start"
+                  >
+                    <Grid className="size-4 mr-2" />
+                    QR Code
+                  </Button>
+                  <Button
+                    variant={selectedTool === "select" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedTool("select")}
+                    className="justify-start"
+                  >
+                    <Layout className="size-4 mr-2" />
+                    Select
+                  </Button>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-medium text-slate-900">Canvas Settings</h3>
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm">Show Grid</Label>
+                  <Switch checked={showGrid} onCheckedChange={setShowGrid} />
+                </div>
+                <div>
+                  <Label className="text-sm">
+                    Zoom ({Math.round(zoom * 100)}%)
+                  </Label>
+                  <Slider
+                    value={[zoom * 100]}
+                    onValueChange={([value]) => setZoom(value / 100)}
+                    min={25}
+                    max={200}
+                    step={25}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="saved" className="space-y-4">
+              <div>
+                <Input
+                  placeholder="Design name"
+                  value={designName}
+                  onChange={(e) => setDesignName(e.target.value)}
+                  className="mb-3"
+                />
+              </div>
+              <div className="space-y-2">
+                {savedDesigns.map((design) => (
+                  <button
+                    key={design.id}
+                    onClick={() => handleLoadDesign(design)}
+                    className="w-full p-3 text-left rounded-lg border border-slate-200 hover:border-slate-300 transition"
+                  >
+                    <h4 className="font-medium text-slate-900">
+                      {design.name}
+                    </h4>
+                    <p className="text-sm text-slate-600">
+                      {design.isDefault && (
+                        <span className="text-blue-600">Default • </span>
+                      )}
+                      {new Date(design.updatedAt).toLocaleDateString()}
+                    </p>
+                  </button>
+                ))}
+                {savedDesigns.length === 0 && (
+                  <p className="text-sm text-slate-500 text-center py-4">
+                    No saved designs yet
+                  </p>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Center Panel - Canvas */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium text-slate-900">Design Canvas</h3>
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <span>Layout: {designConfig.layout || "Portrait"}</span>
+              <span>•</span>
+              <span>
+                {designConfig.width || 300} × {designConfig.height || 450}px
+              </span>
+            </div>
           </div>
 
-          {/* Canvas */}
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h4 className="text-sm font-semibold text-slate-900">Design Canvas</h4>
-              <div className="flex gap-2">
-                <button className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
-                  Preview
-                </button>
-                <button className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50">
-                  Export
-                </button>
-              </div>
-            </div>
+          <div
+            className="relative bg-slate-100 rounded-lg p-8 overflow-hidden"
+            style={{
+              transform: `scale(${zoom})`,
+              transformOrigin: "center top",
+            }}
+          >
+            {/* Grid */}
+            {showGrid && (
+              <div
+                className="absolute inset-8 opacity-20"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(to right, #64748b 1px, transparent 1px),
+                    linear-gradient(to bottom, #64748b 1px, transparent 1px)
+                  `,
+                  backgroundSize: "20px 20px",
+                }}
+              />
+            )}
+
+            {/* Canvas */}
             <div
+              ref={canvasRef}
               onClick={handleCanvasClick}
-              className={`relative mx-auto w-full max-w-sm cursor-crosshair overflow-hidden rounded-lg border-2 border-slate-300 bg-white shadow-xl ${
-                selectedTemplateData.layout === "horizontal" ? "aspect-[16/9]" : "aspect-[2/3]"
+              className={`relative mx-auto bg-white shadow-lg overflow-hidden ${
+                selectedTool !== "select"
+                  ? "cursor-crosshair"
+                  : "cursor-default"
               }`}
+              style={{
+                width: designConfig.width || 300,
+                height: designConfig.height || 450,
+                backgroundColor: designConfig.backgroundColor || "#ffffff",
+                borderRadius: `${designConfig.border?.radius || 8}px`,
+                border: designConfig.border?.enabled
+                  ? `${designConfig.border.width || 2}px ${
+                      designConfig.border.style || "solid"
+                    } ${designConfig.border.color || "#e2e8f0"}`
+                  : "none",
+              }}
             >
-              <TicketTemplatePreview template={selectedTemplateData} />
+              {/* Background */}
+              {designConfig.backgroundImage && (
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: `url(${designConfig.backgroundImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+              )}
+              {designConfig.backgroundGradient && (
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(${
+                      designConfig.backgroundGradient.direction || "to-br"
+                    }, ${designConfig.backgroundGradient.colors.join(", ")})`,
+                  }}
+                />
+              )}
+
+              {/* Header */}
+              {designConfig.header?.enabled && (
+                <div
+                  className="absolute top-0 left-0 right-0 flex items-center justify-center"
+                  style={{
+                    height: designConfig.header.height || 80,
+                    backgroundColor:
+                      designConfig.header.backgroundColor || "#1f2937",
+                  }}
+                >
+                  {designConfig.header.text && (
+                    <span
+                      style={{
+                        fontSize: `${designConfig.header.text.fontSize || 24}px`,
+                        fontFamily:
+                          designConfig.header.text.fontFamily || "Inter",
+                        color: designConfig.header.text.color || "#ffffff",
+                        fontWeight:
+                          designConfig.header.text.fontWeight || "bold",
+                      }}
+                    >
+                      {designConfig.header.text.content}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* Custom Elements */}
               {elements.map((element) => (
                 <div
                   key={element.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedElement(element.id);
-                  }}
+                  onMouseDown={(e) => handleElementMouseDown(e, element.id)}
                   className={`absolute cursor-move border-2 ${
-                    selectedElement === element.id
+                    selectedElement === element.id && !previewMode
                       ? "border-blue-500"
                       : "border-transparent"
                   }`}
                   style={{
                     left: `${element.x}%`,
                     top: `${element.y}%`,
-                    width: `${element.width}px`,
-                    height: `${element.height}px`,
+                    width: element.width,
+                    height: element.height,
+                    transform: `rotate(${element.rotation || 0}deg)`,
+                    opacity: element.opacity || 1,
+                    zIndex: element.zIndex || 1,
+                    backgroundColor: element.backgroundColor || "transparent",
+                    borderRadius: `${element.borderRadius || 0}px`,
                   }}
                 >
                   {element.type === "text" && (
                     <div
+                      className="w-full h-full flex items-center"
                       style={{
-                        fontSize: `${element.fontSize}px`,
-                        color: element.color,
-                        fontFamily: element.fontFamily,
+                        fontSize: `${element.fontSize || 16}px`,
+                        fontFamily: element.fontFamily || "Inter",
+                        fontWeight: element.fontWeight || "normal",
+                        fontStyle: element.fontStyle || "normal",
+                        textDecoration: element.textDecoration || "none",
+                        textAlign: element.textAlign || "left",
+                        color: element.color || "#1f2937",
+                        padding: "4px",
                       }}
                     >
                       {element.content}
                     </div>
                   )}
+                  {element.type === "image" && (
+                    <img
+                      src={element.content}
+                      alt="Design element"
+                      className="w-full h-full object-cover"
+                      style={{ borderRadius: `${element.borderRadius || 0}px` }}
+                    />
+                  )}
+                  {element.type === "qr" && (
+                    <div className="w-full h-full bg-slate-200 flex items-center justify-center text-xs text-slate-600">
+                      QR Code
+                    </div>
+                  )}
+
+                  {/* Selection handles */}
+                  {selectedElement === element.id && !previewMode && (
+                    <>
+                      <div className="absolute -top-1 -left-1 w-2 h-2 bg-blue-500 rounded-full" />
+                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full" />
+                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-500 rounded-full" />
+                      <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-500 rounded-full" />
+                    </>
+                  )}
                 </div>
               ))}
-              {selectedTool === "text" && (
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-900/5">
-                  <p className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-lg">
-                    Click to add text
-                  </p>
+
+              {/* Tool hint */}
+              {selectedTool !== "select" && !previewMode && (
+                <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
+                  <div className="bg-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium text-slate-900">
+                    Click to add {selectedTool}
+                  </div>
                 </div>
               )}
             </div>
           </div>
         </div>
-      )}
 
-      {!selectedTemplate && (
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-12 text-center">
-          <Layers className="mx-auto size-16 text-slate-300" />
-          <p className="mt-4 text-sm text-slate-600">
-            Select a template above to start designing your ticket
-          </p>
+        {/* Right Panel - Properties */}
+        <div className="space-y-4">
+          {selectedElementData ? (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium text-slate-900">
+                  Element Properties
+                </h3>
+                <div className="flex items-center gap-1">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => duplicateElement(selectedElementData.id)}
+                  >
+                    <Copy className="size-4" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => deleteElement(selectedElementData.id)}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {/* Content */}
+                {selectedElementData.type === "text" && (
+                  <div>
+                    <Label className="text-sm font-medium">Text Content</Label>
+                    <Input
+                      value={selectedElementData.content}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          content: e.target.value,
+                        })
+                      }
+                      className="mt-1"
+                    />
+                  </div>
+                )}
+
+                {selectedElementData.type === "image" && (
+                  <div>
+                    <Label className="text-sm font-medium">Image URL</Label>
+                    <Input
+                      value={selectedElementData.content}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          content: e.target.value,
+                        })
+                      }
+                      className="mt-1"
+                      placeholder="https://example.com/image.jpg"
+                    />
+                  </div>
+                )}
+
+                {/* Typography (for text elements) */}
+                {selectedElementData.type === "text" && (
+                  <>
+                    <div>
+                      <Label className="text-sm font-medium">Font Size</Label>
+                      <Input
+                        type="number"
+                        value={selectedElementData.fontSize || 16}
+                        onChange={(e) =>
+                          updateElement(selectedElementData.id, {
+                            fontSize: parseInt(e.target.value),
+                          })
+                        }
+                        className="mt-1"
+                        min="8"
+                        max="72"
+                      />
+                    </div>
+
+                    <div>
+                      <Label className="text-sm font-medium">Font Family</Label>
+                      <Select
+                        value={selectedElementData.fontFamily || "Inter"}
+                        onValueChange={(value) =>
+                          updateElement(selectedElementData.id, {
+                            fontFamily: value,
+                          })
+                        }
+                      >
+                        <SelectTrigger className="mt-1">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Inter">Inter</SelectItem>
+                          <SelectItem value="Arial">Arial</SelectItem>
+                          <SelectItem value="Helvetica">Helvetica</SelectItem>
+                          <SelectItem value="Georgia">Georgia</SelectItem>
+                          <SelectItem value="Times New Roman">
+                            Times New Roman
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label className="text-sm font-medium">Text Style</Label>
+                      <div className="flex gap-1 mt-1">
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.fontWeight === "bold"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              fontWeight:
+                                selectedElementData.fontWeight === "bold"
+                                  ? "normal"
+                                  : "bold",
+                            })
+                          }
+                        >
+                          <Bold className="size-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.fontStyle === "italic"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              fontStyle:
+                                selectedElementData.fontStyle === "italic"
+                                  ? "normal"
+                                  : "italic",
+                            })
+                          }
+                        >
+                          <Italic className="size-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.textDecoration === "underline"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              textDecoration:
+                                selectedElementData.textDecoration ===
+                                "underline"
+                                  ? "none"
+                                  : "underline",
+                            })
+                          }
+                        >
+                          <Underline className="size-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-sm font-medium">Text Align</Label>
+                      <div className="flex gap-1 mt-1">
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.textAlign === "left"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              textAlign: "left",
+                            })
+                          }
+                        >
+                          <AlignLeft className="size-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.textAlign === "center"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              textAlign: "center",
+                            })
+                          }
+                        >
+                          <AlignCenter className="size-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={
+                            selectedElementData.textAlign === "right"
+                              ? "default"
+                              : "outline"
+                          }
+                          onClick={() =>
+                            updateElement(selectedElementData.id, {
+                              textAlign: "right",
+                            })
+                          }
+                        >
+                          <AlignRight className="size-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Color */}
+                <div>
+                  <Label className="text-sm font-medium">Text Color</Label>
+                  <div className="flex gap-2 mt-1">
+                    <Input
+                      type="color"
+                      value={selectedElementData.color || "#1f2937"}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          color: e.target.value,
+                        })
+                      }
+                      className="w-12 h-9 p-1"
+                    />
+                    <Input
+                      value={selectedElementData.color || "#1f2937"}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          color: e.target.value,
+                        })
+                      }
+                      className="flex-1"
+                      placeholder="#1f2937"
+                    />
+                  </div>
+                </div>
+
+                {/* Size */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label className="text-sm font-medium">Width</Label>
+                    <Input
+                      type="number"
+                      value={selectedElementData.width}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          width: parseInt(e.target.value),
+                        })
+                      }
+                      className="mt-1"
+                      min="10"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">Height</Label>
+                    <Input
+                      type="number"
+                      value={selectedElementData.height}
+                      onChange={(e) =>
+                        updateElement(selectedElementData.id, {
+                          height: parseInt(e.target.value),
+                        })
+                      }
+                      className="mt-1"
+                      min="10"
+                    />
+                  </div>
+                </div>
+
+                {/* Opacity */}
+                <div>
+                  <Label className="text-sm font-medium">
+                    Opacity (
+                    {Math.round((selectedElementData.opacity || 1) * 100)}%)
+                  </Label>
+                  <Slider
+                    value={[(selectedElementData.opacity || 1) * 100]}
+                    onValueChange={([value]) =>
+                      updateElement(selectedElementData.id, {
+                        opacity: value / 100,
+                      })
+                    }
+                    min={0}
+                    max={100}
+                    step={5}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <Settings className="size-12 text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-500">
+                Select an element to edit its properties
+              </p>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Template Selection Modal */}
+        {showTemplateModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+              {/* Modal Header */}
+              <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">
+                    Choose Your Ticket Design
+                  </h3>
+                  <p className="text-sm text-slate-600 mt-1">
+                    Select a professional template that matches your event's
+                    style
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowTemplateModal(false)}
+                  className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                >
+                  <X className="size-5 text-slate-500" />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                <TicketTemplateGrid
+                  selectedTemplate={selectedTemplate}
+                  onTemplateSelect={handleTemplateSelect}
+                  eventData={{
+                    title: initialData?.title,
+                    startDate: initialData?.startDate,
+                    startTime: initialData?.startTime,
+                    location: initialData?.location,
+                    price: initialData?.price,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

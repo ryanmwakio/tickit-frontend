@@ -112,6 +112,35 @@ export const adminSections: AdminSection[] = [
     ],
   },
   {
+    id: "organisers",
+    title: "Organisers",
+    description:
+      "Comprehensive management of all organisers on the platform including CRUD operations and event oversight.",
+    groups: [
+      {
+        title: "Organiser Management",
+        items: [
+          "View all organisers with advanced search and filtering",
+          "Create new organiser profiles and link to existing users",
+          "Edit organiser details, descriptions, and contact information",
+          "Suspend, activate, or delete organiser accounts",
+          "View organiser statistics and performance metrics",
+          "Access organiser analytics and revenue reports",
+        ],
+      },
+      {
+        title: "Event Management",
+        items: [
+          "View all events under each organiser",
+          "Publish or unpublish events with admin override",
+          "Approve or reject pending event submissions",
+          "Monitor event performance and ticket sales",
+          "Handle event disputes and compliance issues",
+        ],
+      },
+    ],
+  },
+  {
     id: "users",
     title: "User & Role Management",
     description:
@@ -347,8 +376,7 @@ export const adminSections: AdminSection[] = [
   {
     id: "fraud",
     title: "Fraud Prevention & Security",
-    description:
-      "Signals, device intelligence, and immutable audit trails.",
+    description: "Signals, device intelligence, and immutable audit trails.",
     groups: [
       {
         title: "Fraud Prevention Tools",
@@ -373,8 +401,7 @@ export const adminSections: AdminSection[] = [
   {
     id: "analytics",
     title: "Reporting & Analytics",
-    description:
-      "Self-serve boards plus export-ready financial statements.",
+    description: "Self-serve boards plus export-ready financial statements.",
     groups: [
       {
         title: "Sales Reports",
@@ -449,8 +476,7 @@ export const adminSections: AdminSection[] = [
   {
     id: "venues",
     title: "Venues & Seat Maps",
-    description:
-      "Venue catalogue, seating models, and pricing zones.",
+    description: "Venue catalogue, seating models, and pricing zones.",
     groups: [
       {
         title: "Venue Database",
@@ -563,4 +589,3 @@ export const adminSections: AdminSection[] = [
     ],
   },
 ];
-

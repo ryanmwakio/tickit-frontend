@@ -228,11 +228,27 @@ export function FeaturedEventsRail() {
   const updateScrollState = useCallback(() => {
     const rail = railRef.current;
     if (!rail) return;
-    setCanScrollLeft(rail.scrollLeft > 16);
-    setCanScrollRight(
-      rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 16,
-    );
+
+    // Use requestAnimationFrame to ensure DOM is rendered
+    requestAnimationFrame(() => {
+      if (!rail) return;
+      const scrollLeft = rail.scrollLeft;
+      const clientWidth = rail.clientWidth;
+      const scrollWidth = rail.scrollWidth;
+
+      // Enable left scroll if we've scrolled right
+      setCanScrollLeft(scrollLeft > 5);
+
+      // Enable right scroll if there's more content to scroll
+      const hasMoreContent = scrollLeft + clientWidth < scrollWidth - 5;
+      setCanScrollRight(hasMoreContent);
+    });
   }, []);
+
+  // Determine if navigation buttons should be visible
+  const shouldShowNavigation = useMemo(() => {
+    return activeCards.length > 3 && !loading;
+  }, [activeCards.length, loading]);
 
   const scrollRail = useCallback((direction: "left" | "right") => {
     const rail = railRef.current;
@@ -245,20 +261,43 @@ export function FeaturedEventsRail() {
     const rail = railRef.current;
     if (!rail) return;
     rail.scrollTo({ left: 0, behavior: "smooth" });
-    updateScrollState();
+    // Update scroll state after content changes and scroll completes
+    setTimeout(() => updateScrollState(), 300);
   }, [activeSegment, updateScrollState]);
 
   useEffect(() => {
     const rail = railRef.current;
     if (!rail) return;
-    updateScrollState();
+
+    // Initial state update with delay for content rendering
+    const timeoutId = setTimeout(() => {
+      updateScrollState();
+    }, 400);
+
     rail.addEventListener("scroll", updateScrollState);
     window.addEventListener("resize", updateScrollState);
+
     return () => {
+      clearTimeout(timeoutId);
       rail.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, [updateScrollState]);
+  }, [updateScrollState, loading]);
+
+  // Update scroll state when content changes
+  useEffect(() => {
+    if (!loading && activeCards.length > 0) {
+      // If we have many events, enable right scroll immediately
+      if (activeCards.length > 3) {
+        setCanScrollRight(true);
+      }
+
+      const timeoutId = setTimeout(() => {
+        updateScrollState();
+      }, 200);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [activeCards, loading, updateScrollState]);
 
   if (loading) {
     return (
@@ -393,7 +432,7 @@ export function FeaturedEventsRail() {
               return (
                 <Link
                   key={event.slug}
-                  href={`/events/${event.slug}${!isPast ? "?openTickets=true" : ""}`}
+                  href={`/events/${event.slug}`}
                   className={`group relative w-80 shrink-0 snap-center overflow-hidden rounded-[28px] border border-slate-100 bg-gradient-to-b from-white to-slate-50 p-4 shadow-[0_12px_45px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(15,23,42,0.16)] ${isPast ? "opacity-75" : ""}`}
                 >
                   <div className="relative h-56 overflow-hidden rounded-2xl">
@@ -510,30 +549,34 @@ export function FeaturedEventsRail() {
             })}
           </div>
 
-          <div className="pointer-events-auto absolute left-4 top-1/2 hidden -translate-y-1/2 gap-3 lg:flex">
-            <button
-              type="button"
-              aria-label="Scroll events left"
-              onClick={() => scrollRail("left")}
-              disabled={!canScrollLeft}
-              className={`rounded-full border border-slate-200 bg-white/80 p-3 text-slate-700 transition hover:bg-white ${
-                !canScrollLeft && "cursor-not-allowed opacity-40"
-              }`}
-            >
-              <ChevronLeft className="size-5" />
-            </button>
-            <button
-              type="button"
-              aria-label="Scroll events right"
-              onClick={() => scrollRail("right")}
-              disabled={!canScrollRight}
-              className={`rounded-full border border-slate-200 bg-white/80 p-3 text-slate-700 transition hover:bg-white ${
-                !canScrollRight && "cursor-not-allowed opacity-40"
-              }`}
-            >
-              <ChevronRight className="size-5" />
-            </button>
-          </div>
+          {shouldShowNavigation && (
+            <div className="pointer-events-auto absolute left-4 top-1/2 hidden -translate-y-1/2 gap-3 lg:flex">
+              <button
+                type="button"
+                aria-label="Scroll events left"
+                onClick={() => scrollRail("left")}
+                disabled={!canScrollLeft}
+                className={`rounded-full border-2 border-slate-300 bg-white p-3 text-slate-900 transition-all shadow-lg hover:bg-slate-50 hover:border-slate-400 hover:shadow-xl ${
+                  !canScrollLeft &&
+                  "cursor-not-allowed opacity-50 bg-slate-100 border-slate-200 text-slate-400"
+                }`}
+              >
+                <ChevronLeft className="size-5" />
+              </button>
+              <button
+                type="button"
+                aria-label="Scroll events right"
+                onClick={() => scrollRail("right")}
+                disabled={!canScrollRight}
+                className={`rounded-full border-2 border-slate-300 bg-white p-3 text-slate-900 transition-all shadow-lg hover:bg-slate-50 hover:border-slate-400 hover:shadow-xl ${
+                  !canScrollRight &&
+                  "cursor-not-allowed opacity-50 bg-slate-100 border-slate-200 text-slate-400"
+                }`}
+              >
+                <ChevronRight className="size-5" />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="rounded-full border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600 shadow-[0_6px_24px_rgba(15,23,42,0.06)]">

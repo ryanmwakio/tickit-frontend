@@ -1,10 +1,21 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api";
 
-export type UserRole = "ATTENDEE" | "ORGANISER" | "PROMOTER" | "STAFF" | "ADMIN";
+export type UserRole =
+  | "ATTENDEE"
+  | "ORGANISER"
+  | "PROMOTER"
+  | "STAFF"
+  | "ADMIN";
 
 export interface User {
   id: string;
@@ -29,7 +40,11 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   isAuthenticated: boolean;
-  login: (identifier: string, password: string, twoFactorCode?: string) => Promise<void>;
+  login: (
+    identifier: string,
+    password: string,
+    twoFactorCode?: string,
+  ) => Promise<User | null>;
   signup: (data: SignupData) => Promise<void>;
   logout: () => void;
   refreshUser: () => Promise<void>;
@@ -63,8 +78,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userData = await apiClient.get<User>("/users/me");
       setUser(userData);
       // Initialize WebSocket if authenticated
-      if (typeof window !== 'undefined') {
-        const { getSocket } = await import('@/lib/websocket');
+      if (typeof window !== "undefined") {
+        const { getSocket } = await import("@/lib/websocket");
         getSocket();
       }
     } catch (error: any) {
@@ -75,8 +90,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(null);
       apiClient.clearTokens();
       // Disconnect WebSocket on logout
-      if (typeof window !== 'undefined') {
-        const { disconnectSocket } = await import('@/lib/websocket');
+      if (typeof window !== "undefined") {
+        const { disconnectSocket } = await import("@/lib/websocket");
         disconnectSocket();
       }
     } finally {
@@ -84,38 +99,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (identifier: string, password: string, twoFactorCode?: string) => {
+  const login = async (
+    identifier: string,
+    password: string,
+    twoFactorCode?: string,
+  ): Promise<User | null> => {
     try {
-      const response = await apiClient.post<{ tokens: { accessToken: string; refreshToken: string }; user?: User; requiresTwoFactor?: boolean }>("/auth/login", {
+      const response = await apiClient.post<{
+        tokens: { accessToken: string; refreshToken: string };
+        user?: User;
+        requiresTwoFactor?: boolean;
+      }>("/auth/login", {
         identifier,
         password,
         ...(twoFactorCode && { twoFactorCode }),
       });
 
       if (response.requiresTwoFactor) {
-        throw { message: "Two-factor authentication required", requiresTwoFactor: true };
+        throw {
+          message: "Two-factor authentication required",
+          requiresTwoFactor: true,
+        };
       }
 
       if (response.tokens) {
-        apiClient.setTokens(response.tokens.accessToken, response.tokens.refreshToken);
+        apiClient.setTokens(
+          response.tokens.accessToken,
+          response.tokens.refreshToken,
+        );
         // Initialize WebSocket connection after login
-        if (typeof window !== 'undefined') {
-          const { getSocket } = await import('@/lib/websocket');
+        if (typeof window !== "undefined") {
+          const { getSocket } = await import("@/lib/websocket");
           getSocket();
         }
       }
 
-      if (response.user) {
-        setUser(response.user);
-      } else {
-        await refreshUser();
-      }
+      // Fetch full user from /users/me so roles/activeRole are correct, then set state and return for redirect
+      const freshUser = await apiClient.get<User>("/users/me");
+      setUser(freshUser);
+      return freshUser;
     } catch (error: any) {
       // Improve error message for network errors
-      if (error.statusCode === 0 || error.error === 'NETWORK_ERROR') {
+      if (error.statusCode === 0 || error.error === "NETWORK_ERROR") {
         throw {
           ...error,
-          message: error.message || 'Cannot connect to server. Please ensure the backend is running on http://localhost:5000',
+          message:
+            error.message ||
+            "Cannot connect to server. Please ensure the backend is running on http://localhost:5000",
         };
       }
       throw error;
@@ -124,13 +154,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (data: SignupData) => {
     try {
-      const response = await apiClient.post<{ tokens: { accessToken: string; refreshToken: string }; user?: User }>("/auth/signup", data);
+      const response = await apiClient.post<{
+        tokens: { accessToken: string; refreshToken: string };
+        user?: User;
+      }>("/auth/signup", data);
 
       if (response.tokens) {
-        apiClient.setTokens(response.tokens.accessToken, response.tokens.refreshToken);
+        apiClient.setTokens(
+          response.tokens.accessToken,
+          response.tokens.refreshToken,
+        );
         // Initialize WebSocket connection after signup
-        if (typeof window !== 'undefined') {
-          const { getSocket } = await import('@/lib/websocket');
+        if (typeof window !== "undefined") {
+          const { getSocket } = await import("@/lib/websocket");
           getSocket();
         }
       }
@@ -148,9 +184,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     apiClient.clearTokens();
     setUser(null);
-    // Disconnect WebSocket on logout
-    if (typeof window !== 'undefined') {
-      import('@/lib/websocket').then(({ disconnectSocket }) => {
+    // Clear session monitoring state on explicit logout
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("tickit_session_state");
+      import("@/lib/websocket").then(({ disconnectSocket }) => {
         disconnectSocket();
       });
     }
@@ -183,7 +220,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const hasAnyRole = (roles: UserRole[]): boolean => {
     if (!user) return false;
-    return roles.some((role) => user.roles.includes(role) || user.activeRole === role);
+    return roles.some(
+      (role) => user.roles.includes(role) || user.activeRole === role,
+    );
   };
 
   return (
@@ -213,4 +252,3 @@ export function useAuth() {
   }
   return context;
 }
-

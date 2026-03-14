@@ -12,16 +12,15 @@ export interface SocialLoginResponse {
 }
 
 /**
- * Handle Google OAuth login
+ * Handle Google OAuth login (sends ID token to backend for verification).
+ * Use the credential from Google Sign-In (e.g. @react-oauth/google).
  */
 export async function handleGoogleLogin(
-  credential: string
+  idToken: string
 ): Promise<SocialLoginResponse> {
   try {
-    const response = await apiClient.post<SocialLoginResponse>('/auth/social', {
-      provider: 'google',
-      accessToken: '', // Google uses idToken instead
-      idToken: credential,
+    const response = await apiClient.post<SocialLoginResponse>('/auth/google', {
+      idToken,
     });
 
     return response;

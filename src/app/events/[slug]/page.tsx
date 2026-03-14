@@ -175,7 +175,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                   {isPast
                     ? "This event has concluded. Thank you for your interest."
-                    : "Instant MPesa rails, waitlists, and concierge settlement baked in."}
+                    : "Instant MPesa rails, waitlists, and secure settlement baked in."}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
                   {isPast ? (
@@ -195,14 +195,6 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
                     >
                       <AutoOpenTicketButton event={event} isPast={false} />
                     </Suspense>
-                  )}
-                  {!isPast && (
-                    <Link
-                      href="/tickets"
-                      className="inline-flex items-center justify-center rounded-xl sm:rounded-2xl border border-slate-200 px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-slate-900 transition hover:border-slate-400"
-                    >
-                      Talk to concierge
-                    </Link>
                   )}
                 </div>
               </div>
@@ -293,7 +285,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
               <div className="-mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-3 rounded-2xl sm:rounded-3xl border border-slate-100 bg-white p-4 shadow-xl shadow-slate-200/70 sm:-mt-10 lg:translate-x-8">
                 <div>
                   <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                    Concierge ready
+                    Support available
                   </p>
                   <p className="text-sm text-slate-600">
                     Instant MPesa rails + curated hospitality upgrades.
@@ -595,7 +587,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
                   {event.price}
                 </p>
                 <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-600 break-words">
-                  Includes MPesa, card rails, and concierge settlement.
+                  Includes MPesa and card payment processing.
                 </p>
                 <div className="mt-4 sm:mt-5 lg:mt-6 space-y-2 sm:space-y-3">
                   <Suspense
@@ -621,11 +613,11 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
                 </div>
                 <div className="mt-4 sm:mt-5 lg:mt-6 rounded-xl sm:rounded-2xl border border-slate-100 bg-slate-50/80 p-3 sm:p-4 text-xs sm:text-sm text-slate-600">
                   <p className="font-semibold text-slate-900 break-words">
-                    Group & hospitality
+                    Group bookings
                   </p>
                   <p className="mt-1 break-words leading-relaxed">
-                    Private lounges, artist meetups, secure transport, and
-                    multi-day itineraries.
+                    Special rates and seating arrangements for groups of 10 or
+                    more.
                   </p>
                 </div>
               </article>

@@ -19,7 +19,7 @@ const ticketPackages = [
     border: "border-amber-200",
     perks: [
       "Printed acrylic ticket + NFC wristband",
-      "Reserved seating & concierge chat",
+      "Reserved seating & VIP service",
       "MPesa escrow for resale transfers",
       "Front-of-house welcome cocktail + merch",
     ],
@@ -34,7 +34,7 @@ const ticketPackages = [
       "Metallic ticket with laser-etched QR",
       "Private lounge & curated tasting menu",
       "On-demand shuttle + security briefings",
-      "White-glove resale concierge w/ insurance",
+      "White-glove resale service w/ insurance",
     ],
     tag: "Collector",
     dark: true,
@@ -59,8 +59,9 @@ export default function TicketsPage() {
             Premium ticket designs for every package tier.
           </h1>
           <p className="mt-3 max-w-3xl text-lg text-slate-600">
-            Use these concepts during sponsor pitches, organiser walkthroughs, or investor demos. They map directly to Tickit’s
-            ticketing primitives—QR/NFC, resale guardrails, and MPesa-ready flows.
+            Use these concepts during sponsor pitches, organiser walkthroughs,
+            or investor demos. They map directly to Tickit’s ticketing
+            primitives—QR/NFC, resale guardrails, and MPesa-ready flows.
           </p>
         </div>
       </section>
@@ -73,24 +74,39 @@ export default function TicketsPage() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className={`text-xs uppercase tracking-[0.3em] ${pkg.dark ? "text-slate-200" : "text-slate-500"}`}>
+                <p
+                  className={`text-xs uppercase tracking-[0.3em] ${pkg.dark ? "text-slate-200" : "text-slate-500"}`}
+                >
                   {pkg.tag}
                 </p>
-                <h2 className={`mt-2 text-2xl font-semibold ${pkg.dark ? "text-white" : "text-slate-900"}`}>
+                <h2
+                  className={`mt-2 text-2xl font-semibold ${pkg.dark ? "text-white" : "text-slate-900"}`}
+                >
                   {pkg.name}
                 </h2>
               </div>
-              <div className={`rounded-full border ${pkg.dark ? "border-white/30" : "border-slate-200"} px-3 py-1 text-xs ${pkg.dark ? "text-white" : "text-slate-600"}`}>
+              <div
+                className={`rounded-full border ${pkg.dark ? "border-white/30" : "border-slate-200"} px-3 py-1 text-xs ${pkg.dark ? "text-white" : "text-slate-600"}`}
+              >
                 NFC + QR
               </div>
             </div>
-            <div className={`mt-6 rounded-2xl border ${pkg.dark ? "border-white/20 bg-white/5" : "border-slate-100 bg-white"} p-4`}
+            <div
+              className={`mt-6 rounded-2xl border ${pkg.dark ? "border-white/20 bg-white/5" : "border-slate-100 bg-white"} p-4`}
             >
-              <div className={`text-sm uppercase tracking-[0.3em] ${pkg.dark ? "text-white/70" : "text-slate-500"}`}>
+              <div
+                className={`text-sm uppercase tracking-[0.3em] ${pkg.dark ? "text-white/70" : "text-slate-500"}`}
+              >
                 Price
               </div>
-              <p className={`mt-1 text-3xl font-semibold ${pkg.dark ? "text-white" : "text-slate-900"}`}>{pkg.price}</p>
-              <p className={`text-xs ${pkg.dark ? "text-white/70" : "text-slate-500"}`}>
+              <p
+                className={`mt-1 text-3xl font-semibold ${pkg.dark ? "text-white" : "text-slate-900"}`}
+              >
+                {pkg.price}
+              </p>
+              <p
+                className={`text-xs ${pkg.dark ? "text-white/70" : "text-slate-500"}`}
+              >
                 Includes taxes & platform fees handled via MPesa.
               </p>
             </div>
@@ -100,7 +116,9 @@ export default function TicketsPage() {
                   key={perk}
                   className={`flex items-start gap-2 ${pkg.dark ? "text-white/85" : "text-slate-700"}`}
                 >
-                  <span className={`mt-1 size-1.5 rounded-full ${pkg.dark ? "bg-emerald-300" : "bg-emerald-500"}`} />
+                  <span
+                    className={`mt-1 size-1.5 rounded-full ${pkg.dark ? "bg-emerald-300" : "bg-emerald-500"}`}
+                  />
                   <span>{perk}</span>
                 </li>
               ))}
@@ -121,7 +139,8 @@ export default function TicketsPage() {
             Sample print-ready layouts for event day.
           </h2>
           <p className="max-w-3xl text-sm text-slate-600">
-            Each ticket mirrors the packages above. Use them for box office mockups, merch drops, or sponsor previews.
+            Each ticket mirrors the packages above. Use them for box office
+            mockups, merch drops, or sponsor previews.
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -131,16 +150,24 @@ export default function TicketsPage() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs uppercase tracking-[0.4em] text-slate-500">
                   GA · 00234
                 </div>
-              <p className="text-3xl font-semibold text-slate-900">Sunset Sessions</p>
+                <p className="text-3xl font-semibold text-slate-900">
+                  Sunset Sessions
+                </p>
                 <p className="text-sm text-slate-600">
                   Fri 12 Dec · 7:00 PM · Alchemist, Nairobi
                 </p>
-                <p className="text-2xl font-semibold text-slate-900">KES 2,400</p>
-                <div className="text-xs text-slate-500">Seat: GA-128 • MPesa Txn Ref: TIX-99821</div>
+                <p className="text-2xl font-semibold text-slate-900">
+                  KES 2,400
+                </p>
+                <div className="text-xs text-slate-500">
+                  Seat: GA-128 • MPesa Txn Ref: TIX-99821
+                </div>
               </div>
               <div className="flex flex-col items-center justify-between rounded-3xl border border-dashed border-slate-300 px-4 py-6 text-center">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Scan</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                    Scan
+                  </p>
                   <div className="mt-2 h-24 w-24 rounded bg-[radial-gradient(circle,_#0f172a_1px,_transparent_1px)] bg-[length:6px_6px]" />
                 </div>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400">
@@ -157,13 +184,17 @@ export default function TicketsPage() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/70 px-3 py-1 text-xs uppercase tracking-[0.4em] text-amber-600">
                   VIP · 00008
                 </div>
-                <p className="text-3xl font-semibold text-amber-900">Founder Platinum</p>
+                <p className="text-3xl font-semibold text-amber-900">
+                  Founder Platinum
+                </p>
                 <p className="text-sm text-amber-700">
                   Sat 14 Dec · 8:00 PM · Sky Deck, Nairobi
                 </p>
-                <p className="text-2xl font-semibold text-amber-900">KES 14,500</p>
+                <p className="text-2xl font-semibold text-amber-900">
+                  KES 14,500
+                </p>
                 <ul className="text-sm text-amber-800">
-                  <li>• Lounge access • Concierge chat</li>
+                  <li>• Lounge access • VIP service</li>
                   <li>• Shuttle + insurance bundle</li>
                   <li>• Signed holographic laminate</li>
                 </ul>

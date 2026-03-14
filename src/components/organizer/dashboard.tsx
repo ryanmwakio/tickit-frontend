@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
@@ -27,11 +27,13 @@ import {
 import {
   organizerChartSeries,
   organizerDashboardClusters,
-  organizerDashboardSales,
-  organizerOpsSignals,
 } from "@/data/organizer";
 import { useAuth } from "@/contexts/auth-context";
-import { getDashboardStats, getOrganiserAnalytics, getSalesTrend } from "@/lib/analytics-api";
+import {
+  getDashboardStats,
+  getOrganiserAnalytics,
+  getSalesTrend,
+} from "@/lib/analytics-api";
 import { apiClient } from "@/lib/api";
 import {
   AreaChartInteractive,
@@ -106,9 +108,17 @@ const GeoAudiencePie = () => (
   <ResponsiveContainer width="100%" height="100%">
     <RePieChart>
       <ReTooltip content={<ChartTooltipContent />} />
-      <Pie dataKey="value" data={audienceSegments} nameKey="segment" innerRadius="50%">
+      <Pie
+        dataKey="value"
+        data={audienceSegments}
+        nameKey="segment"
+        innerRadius="50%"
+      >
         {audienceSegments.map((entry, index) => (
-          <Cell key={entry.segment} fill={chartColors[index % chartColors.length]} />
+          <Cell
+            key={entry.segment}
+            fill={chartColors[index % chartColors.length]}
+          />
         ))}
       </Pie>
     </RePieChart>
@@ -140,11 +150,7 @@ const StaffRadialChart = () => (
       startAngle={90}
       endAngle={-270}
     >
-      <RadialBar
-        dataKey="value"
-        cornerRadius={8}
-        background
-      >
+      <RadialBar dataKey="value" cornerRadius={8} background>
         {staffUtilization.map((entry) => (
           <Cell key={entry.label} fill={entry.fill} />
         ))}
@@ -165,9 +171,30 @@ const CampaignStackChart = () => (
       />
       <YAxis hide />
       <ReTooltip content={<ChartTooltipContent />} />
-      <Area type="monotone" dataKey="email" stackId="1" stroke="#6366f1" fill="#6366f1" fillOpacity={0.25} />
-      <Area type="monotone" dataKey="sms" stackId="1" stroke="#f97316" fill="#f97316" fillOpacity={0.25} />
-      <Area type="monotone" dataKey="affiliates" stackId="1" stroke="#10b981" fill="#10b981" fillOpacity={0.25} />
+      <Area
+        type="monotone"
+        dataKey="email"
+        stackId="1"
+        stroke="#6366f1"
+        fill="#6366f1"
+        fillOpacity={0.25}
+      />
+      <Area
+        type="monotone"
+        dataKey="sms"
+        stackId="1"
+        stroke="#f97316"
+        fill="#f97316"
+        fillOpacity={0.25}
+      />
+      <Area
+        type="monotone"
+        dataKey="affiliates"
+        stackId="1"
+        stroke="#10b981"
+        fill="#10b981"
+        fillOpacity={0.25}
+      />
     </ReAreaChart>
   </ResponsiveContainer>
 );
@@ -186,7 +213,10 @@ const AddOnBarChart = () => (
       <ReTooltip content={<ChartTooltipContent />} />
       <Bar dataKey="value" radius={[8, 8, 0, 0]}>
         {addOnMomentum.map((entry, index) => (
-          <Cell key={entry.label} fill={chartColors[index % chartColors.length]} />
+          <Cell
+            key={entry.label}
+            fill={chartColors[index % chartColors.length]}
+          />
         ))}
       </Bar>
     </ReBarChart>
@@ -205,8 +235,22 @@ const PayoutStackChart = () => (
       />
       <YAxis hide />
       <ReTooltip content={<ChartTooltipContent />} />
-      <Area type="monotone" dataKey="automated" stackId="1" stroke="#0ea5e9" fill="#0ea5e9" fillOpacity={0.25} />
-      <Area type="monotone" dataKey="manual" stackId="1" stroke="#f97316" fill="#f97316" fillOpacity={0.25} />
+      <Area
+        type="monotone"
+        dataKey="automated"
+        stackId="1"
+        stroke="#0ea5e9"
+        fill="#0ea5e9"
+        fillOpacity={0.25}
+      />
+      <Area
+        type="monotone"
+        dataKey="manual"
+        stackId="1"
+        stroke="#f97316"
+        fill="#f97316"
+        fillOpacity={0.25}
+      />
     </ReAreaChart>
   </ResponsiveContainer>
 );
@@ -268,7 +312,7 @@ export function OrganizerDashboardPanels() {
 
   const loadDashboardData = async () => {
     if (!user) return;
-    
+
     try {
       setLoading(true);
       // Get organiserId
@@ -310,7 +354,9 @@ export function OrganizerDashboardPanels() {
     }
   };
 
-  const openSparklineModal = (series: (typeof organizerChartSeries)[number]) => {
+  const openSparklineModal = (
+    series: (typeof organizerChartSeries)[number],
+  ) => {
     setChartModal({
       title: series.title,
       description: `${series.frequency} • ${series.change}`,
@@ -363,7 +409,7 @@ export function OrganizerDashboardPanels() {
           {loading ? (
             // Loading state
             Array.from({ length: 4 }).map((_, i) => (
-            <article
+              <article
                 key={i}
                 className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60 animate-pulse"
               >
@@ -377,17 +423,21 @@ export function OrganizerDashboardPanels() {
             // API data
             <>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Tickets sold today
-              </p>
-              <p className="mt-3 text-2xl font-semibold text-slate-900">
+                </p>
+                <p className="mt-3 text-2xl font-semibold text-slate-900">
                   {dashboardStats.ticketsSoldToday.toLocaleString()}
-              </p>
-              <p className="text-sm font-semibold text-emerald-600">
-                  {organiserAnalytics ? `+${((dashboardStats.ticketsSoldToday / Math.max(organiserAnalytics.totalTicketsSold, 1)) * 100).toFixed(1)}% of total` : "Loading..."}
-              </p>
-                <p className="mt-2 text-xs text-slate-500">Live sales tracking</p>
-            </article>
+                </p>
+                <p className="text-sm font-semibold text-emerald-600">
+                  {organiserAnalytics
+                    ? `+${((dashboardStats.ticketsSoldToday / Math.max(organiserAnalytics.totalTicketsSold, 1)) * 100).toFixed(1)}% of total`
+                    : "Loading..."}
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Live sales tracking
+                </p>
+              </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Gross revenue
@@ -396,21 +446,28 @@ export function OrganizerDashboardPanels() {
                   KES {(dashboardStats.grossRevenue / 100).toLocaleString()}
                 </p>
                 <p className="text-sm font-semibold text-emerald-600">
-                  {organiserAnalytics ? `${((dashboardStats.grossRevenue / Math.max(organiserAnalytics.totalRevenue, 1)) * 100).toFixed(1)}% of total` : "Loading..."}
+                  {organiserAnalytics
+                    ? `${((dashboardStats.grossRevenue / Math.max(organiserAnalytics.totalRevenue, 1)) * 100).toFixed(1)}% of total`
+                    : "Loading..."}
                 </p>
-                <p className="mt-2 text-xs text-slate-500">All payment methods</p>
+                <p className="mt-2 text-xs text-slate-500">
+                  All payment methods
+                </p>
               </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Outstanding payouts
                 </p>
                 <p className="mt-3 text-2xl font-semibold text-slate-900">
-                  KES {(dashboardStats.outstandingPayouts / 100).toLocaleString()}
+                  KES{" "}
+                  {(dashboardStats.outstandingPayouts / 100).toLocaleString()}
                 </p>
                 <p className="text-sm font-semibold text-emerald-600">
                   Pending settlement
                 </p>
-                <p className="mt-2 text-xs text-slate-500">Awaiting processing</p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Awaiting processing
+                </p>
               </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
@@ -420,7 +477,11 @@ export function OrganizerDashboardPanels() {
                   {dashboardStats.checkInRate.toFixed(1)}%
                 </p>
                 <p className="text-sm font-semibold text-emerald-600">
-                  {dashboardStats.checkInRate > 80 ? "Excellent" : dashboardStats.checkInRate > 60 ? "Good" : "Needs attention"}
+                  {dashboardStats.checkInRate > 80
+                    ? "Excellent"
+                    : dashboardStats.checkInRate > 60
+                      ? "Good"
+                      : "Needs attention"}
                 </p>
                 <p className="mt-2 text-xs text-slate-500">Across all events</p>
               </article>
@@ -432,176 +493,217 @@ export function OrganizerDashboardPanels() {
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Tickets sold today
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-slate-900">12,480</p>
-                <p className="text-sm font-semibold text-emerald-600">+14% vs yesterday</p>
-                <p className="mt-2 text-xs text-slate-500">Peak 08:10 after SMS blast</p>
+                <p className="mt-3 text-2xl font-semibold text-slate-900">
+                  12,480
+                </p>
+                <p className="text-sm font-semibold text-emerald-600">
+                  +14% vs yesterday
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Peak 08:10 after SMS blast
+                </p>
               </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Gross revenue
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-slate-900">KES 18.6M</p>
-                <p className="text-sm font-semibold text-emerald-600">+9% WoW</p>
-                <p className="mt-2 text-xs text-slate-500">MPesa 62%, Card 24%, Bank 10%</p>
+                <p className="mt-3 text-2xl font-semibold text-slate-900">
+                  KES 18.6M
+                </p>
+                <p className="text-sm font-semibold text-emerald-600">
+                  +9% WoW
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  MPesa 62%, Card 24%, Bank 10%
+                </p>
               </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Outstanding payouts
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-slate-900">KES 6.4M</p>
-                <p className="text-sm font-semibold text-emerald-600">3 organisers pending</p>
-                <p className="mt-2 text-xs text-slate-500">Soundwave pending KYC</p>
+                <p className="mt-3 text-2xl font-semibold text-slate-900">
+                  KES 6.4M
+                </p>
+                <p className="text-sm font-semibold text-emerald-600">
+                  3 organisers pending
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Soundwave pending KYC
+                </p>
               </article>
               <article className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4 shadow-sm shadow-slate-200/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Check-in rate
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-slate-900">87%</p>
-                <p className="text-sm font-semibold text-emerald-600">+5 pts day</p>
-                <p className="mt-2 text-xs text-slate-500">VIP lanes fastest (92%)</p>
+                <p className="mt-3 text-2xl font-semibold text-slate-900">
+                  87%
+                </p>
+                <p className="text-sm font-semibold text-emerald-600">
+                  +5 pts day
+                </p>
+                <p className="mt-2 text-xs text-slate-500">
+                  VIP lanes fastest (92%)
+                </p>
               </article>
             </>
           )}
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {loading ? (
-            // Loading state for charts
-            Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-3xl border border-slate-200 bg-white/95 p-5 animate-pulse"
-              >
-                <div className="h-4 bg-slate-200 rounded w-32 mb-4"></div>
-                <div className="h-8 bg-slate-200 rounded w-24 mb-2"></div>
-                <div className="h-4 bg-slate-200 rounded w-20 mb-4"></div>
-                <div className="h-40 bg-slate-100 rounded-2xl"></div>
-              </div>
-            ))
-          ) : (
-            // Chart series with API data
-            (() => {
-              // Transform sales trend data for charts
-              const ticketVelocityData = salesTrend.length > 0
-                ? salesTrend.map((item, index) => ({
-                    label: `P${index + 1}`,
-                    value: item.count,
-                  }))
-                : getSeriesData(organizerChartSeries[0]);
-
-              const revenueData = salesTrend.length > 0
-                ? salesTrend.map((item, index) => ({
-                    label: `P${index + 1}`,
-                    value: Math.round(item.revenue / 10000), // Convert to thousands
-                  }))
-                : getSeriesData(organizerChartSeries[1]);
-
-              const totalTickets = salesTrend.reduce((sum, item) => sum + item.count, 0);
-              const totalRevenue = salesTrend.reduce((sum, item) => sum + item.revenue, 0);
-              const avgTicketPrice = totalTickets > 0 ? totalRevenue / totalTickets : 0;
-
-              const charts = [
-                {
-                  title: "Ticket velocity",
-                  value: `${totalTickets.toLocaleString()} sold`,
-                  change: salesTrend.length > 0 ? `Last ${salesTrend.length} days` : "+18% vs last week",
-                  points: ticketVelocityData.map(d => d.value),
-                  accent: "text-rose-500",
-                  frequency: "Rolling 30 days",
-                  data: ticketVelocityData,
-                },
-                {
-                  title: "Revenue capture",
-                  value: `KES ${(totalRevenue / 100).toLocaleString()}`,
-                  change: organiserAnalytics ? `${((totalRevenue / Math.max(organiserAnalytics.totalRevenue, 1)) * 100).toFixed(1)}% of total` : "+11% WoW",
-                  points: revenueData.map(d => d.value),
-                  accent: "text-amber-500",
-                  frequency: "Daily net settlement",
-                  data: revenueData,
-                },
-                {
-                  title: "Marketing ROI",
-                  value: avgTicketPrice > 0 ? `${(avgTicketPrice / 100).toFixed(0)} avg` : "4.3x blended",
-                  change: "+0.6 uplift",
-                  points: organizerChartSeries[2].points,
-                  accent: "text-emerald-500",
-                  frequency: "Channel mix (SMS + affiliates + ads)",
-                  data: getSeriesData(organizerChartSeries[2]),
-                },
-              ];
-
-              return charts.map((chart) => {
-                const strokeColor = accentColorMap[chart.accent] ?? "#0f172a";
-            return (
-              <button
-                type="button"
-                    key={chart.title}
-                    onClick={() => openSparklineModal({
-                      title: chart.title,
-                      value: chart.value,
-                      change: chart.change,
-                      points: chart.points,
-                      accent: chart.accent,
-                      frequency: chart.frequency,
-                    })}
-                className="rounded-3xl border border-slate-200 bg-white/95 p-5 text-left shadow-sm shadow-slate-200/60 transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                          {chart.title}
-                    </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-900">
-                          {chart.value}
-                    </p>
-                    <p className="text-sm font-semibold text-emerald-600">
-                          {chart.change}
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-slate-200 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">
-                    Explore
-                  </span>
+          {loading
+            ? // Loading state for charts
+              Array.from({ length: 3 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="rounded-3xl border border-slate-200 bg-white/95 p-5 animate-pulse"
+                >
+                  <div className="h-4 bg-slate-200 rounded w-32 mb-4"></div>
+                  <div className="h-8 bg-slate-200 rounded w-24 mb-2"></div>
+                  <div className="h-4 bg-slate-200 rounded w-20 mb-4"></div>
+                  <div className="h-40 bg-slate-100 rounded-2xl"></div>
                 </div>
-                <div className="mt-4 rounded-2xl bg-gradient-to-br from-white via-slate-50 to-white p-3">
-                  <div className="h-40">
-                    <ResponsiveContainer width="100%" height="100%">
-                          <ReLineChart data={chart.data}>
-                        <CartesianGrid
-                          strokeDasharray="3 3"
-                          className="stroke-slate-200"
-                          vertical={false}
-                        />
-                        <XAxis
-                          dataKey="label"
-                          tickLine={false}
-                          axisLine={false}
-                          className="text-[10px] uppercase tracking-[0.2em] text-slate-400"
-                        />
-                        <YAxis hide />
-                        <ReTooltip content={<ChartTooltipContent />} />
-                        <Line
-                          type="monotone"
-                          dataKey="value"
-                          stroke={strokeColor}
-                          strokeWidth={3}
-                          dot={false}
-                          activeDot={{ r: 6, fill: strokeColor }}
-                        />
-                      </ReLineChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <div className="flex items-center justify-between text-xs text-slate-500">
-                        <span>{chart.frequency}</span>
-                    <span>Peak</span>
-                  </div>
-                </div>
-              </button>
-            );
-              });
-            })()
-          )}
+              ))
+            : // Chart series with API data
+              (() => {
+                // Transform sales trend data for charts
+                const ticketVelocityData =
+                  salesTrend.length > 0
+                    ? salesTrend.map((item, index) => ({
+                        label: `P${index + 1}`,
+                        value: item.count,
+                      }))
+                    : getSeriesData(organizerChartSeries[0]);
+
+                const revenueData =
+                  salesTrend.length > 0
+                    ? salesTrend.map((item, index) => ({
+                        label: `P${index + 1}`,
+                        value: Math.round(item.revenue / 10000), // Convert to thousands
+                      }))
+                    : getSeriesData(organizerChartSeries[1]);
+
+                const totalTickets = salesTrend.reduce(
+                  (sum, item) => sum + item.count,
+                  0,
+                );
+                const totalRevenue = salesTrend.reduce(
+                  (sum, item) => sum + item.revenue,
+                  0,
+                );
+                const avgTicketPrice =
+                  totalTickets > 0 ? totalRevenue / totalTickets : 0;
+
+                const charts = [
+                  {
+                    title: "Ticket velocity",
+                    value: `${totalTickets.toLocaleString()} sold`,
+                    change:
+                      salesTrend.length > 0
+                        ? `Last ${salesTrend.length} days`
+                        : "+18% vs last week",
+                    points: ticketVelocityData.map((d) => d.value),
+                    accent: "text-rose-500",
+                    frequency: "Rolling 30 days",
+                    data: ticketVelocityData,
+                  },
+                  {
+                    title: "Revenue capture",
+                    value: `KES ${(totalRevenue / 100).toLocaleString()}`,
+                    change: organiserAnalytics
+                      ? `${((totalRevenue / Math.max(organiserAnalytics.totalRevenue, 1)) * 100).toFixed(1)}% of total`
+                      : "+11% WoW",
+                    points: revenueData.map((d) => d.value),
+                    accent: "text-amber-500",
+                    frequency: "Daily net settlement",
+                    data: revenueData,
+                  },
+                  {
+                    title: "Marketing ROI",
+                    value:
+                      avgTicketPrice > 0
+                        ? `${(avgTicketPrice / 100).toFixed(0)} avg`
+                        : "4.3x blended",
+                    change: "+0.6 uplift",
+                    points: organizerChartSeries[2].points,
+                    accent: "text-emerald-500",
+                    frequency: "Channel mix (SMS + affiliates + ads)",
+                    data: getSeriesData(organizerChartSeries[2]),
+                  },
+                ];
+
+                return charts.map((chart) => {
+                  const strokeColor = accentColorMap[chart.accent] ?? "#0f172a";
+                  return (
+                    <button
+                      type="button"
+                      key={chart.title}
+                      onClick={() =>
+                        openSparklineModal({
+                          title: chart.title,
+                          value: chart.value,
+                          change: chart.change,
+                          points: chart.points,
+                          accent: chart.accent,
+                          frequency: chart.frequency,
+                        })
+                      }
+                      className="rounded-3xl border border-slate-200 bg-white/95 p-5 text-left shadow-sm shadow-slate-200/60 transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                            {chart.title}
+                          </p>
+                          <p className="mt-2 text-2xl font-semibold text-slate-900">
+                            {chart.value}
+                          </p>
+                          <p className="text-sm font-semibold text-emerald-600">
+                            {chart.change}
+                          </p>
+                        </div>
+                        <span className="rounded-full border border-slate-200 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">
+                          Explore
+                        </span>
+                      </div>
+                      <div className="mt-4 rounded-2xl bg-gradient-to-br from-white via-slate-50 to-white p-3">
+                        <div className="h-40">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <ReLineChart data={chart.data}>
+                              <CartesianGrid
+                                strokeDasharray="3 3"
+                                className="stroke-slate-200"
+                                vertical={false}
+                              />
+                              <XAxis
+                                dataKey="label"
+                                tickLine={false}
+                                axisLine={false}
+                                className="text-[10px] uppercase tracking-[0.2em] text-slate-400"
+                              />
+                              <YAxis hide />
+                              <ReTooltip content={<ChartTooltipContent />} />
+                              <Line
+                                type="monotone"
+                                dataKey="value"
+                                stroke={strokeColor}
+                                strokeWidth={3}
+                                dot={false}
+                                activeDot={{ r: 6, fill: strokeColor }}
+                              />
+                            </ReLineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <div className="flex items-center justify-between text-xs text-slate-500">
+                          <span>{chart.frequency}</span>
+                          <span>Peak</span>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                });
+              })()}
         </div>
 
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
@@ -821,7 +923,10 @@ export function OrganizerDashboardPanels() {
             <div className="mt-6 h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <ReBarChart data={marketingAttribution}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200" />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    className="stroke-slate-200"
+                  />
                   <XAxis
                     dataKey="label"
                     tickLine={false}
@@ -832,7 +937,10 @@ export function OrganizerDashboardPanels() {
                   <ReTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                     {marketingAttribution.map((entry, index) => (
-                      <Cell key={entry.label} fill={chartColors[index % chartColors.length]} />
+                      <Cell
+                        key={entry.label}
+                        fill={chartColors[index % chartColors.length]}
+                      />
                     ))}
                   </Bar>
                 </ReBarChart>
@@ -854,7 +962,8 @@ export function OrganizerDashboardPanels() {
                   Section heat per drop
                 </h3>
                 <p className="text-sm text-slate-500">
-                  Fused from hold timers + demand models for the last 11 releases.
+                  Fused from hold timers + demand models for the last 11
+                  releases.
                 </p>
               </div>
             </div>
@@ -866,7 +975,10 @@ export function OrganizerDashboardPanels() {
                     value,
                   }))}
                 >
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200" />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    className="stroke-slate-200"
+                  />
                   <XAxis
                     dataKey="label"
                     tickLine={false}
@@ -888,86 +1000,6 @@ export function OrganizerDashboardPanels() {
             </div>
           </button>
         </div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
-                  Sales & marketing
-                </p>
-                <h3 className="text-xl font-semibold text-slate-900">
-                  Promo ROI, affiliates, and tier automation
-                </h3>
-              </div>
-              <span className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-                Live
-              </span>
-            </div>
-            <ul className="mt-6 space-y-4">
-              {organizerDashboardSales.map((insight) => (
-                <li
-                  key={insight.title}
-                  className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-                        {insight.title}
-                      </p>
-                      <p className="text-lg font-semibold text-slate-900">
-                        {insight.metric}
-                      </p>
-                    </div>
-                    <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                      {insight.change}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-slate-600">{insight.description}</p>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
-                  Ops & support
-                </p>
-                <h3 className="text-xl font-semibold text-slate-900">
-                  Gates, fraud, devices, and SLA guardrails
-                </h3>
-              </div>
-              <span className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-                Command
-              </span>
-            </div>
-            <ul className="mt-6 space-y-4">
-              {organizerOpsSignals.map((insight) => (
-                <li
-                  key={insight.title}
-                  className="rounded-3xl border border-slate-100 bg-slate-50/70 p-4"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-                        {insight.title}
-                      </p>
-                      <p className="text-lg font-semibold text-slate-900">
-                        {insight.metric}
-                      </p>
-                    </div>
-                    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-600">
-                      {insight.change}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-slate-600">{insight.description}</p>
-                </li>
-              ))}
-            </ul>
-          </article>
-        </div>
       </div>
 
       <ChartModal
@@ -981,48 +1013,3 @@ export function OrganizerDashboardPanels() {
     </section>
   );
 }
-
-export function OrganizerDashboardOverview() {
-  return (
-    <section className="bg-slate-50 py-16 text-slate-900">
-      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
-        <div className="flex flex-col gap-4 pb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-400">
-            Organizer dashboard
-          </p>
-          <h2 className="text-3xl font-semibold leading-tight">
-            One command centre across events, cash, marketing, and ops.
-          </h2>
-          <p className="text-base text-slate-500">
-            Widgets tuned for Kenyan organisers—MPesa payouts, gate throughput,
-            affiliate ROI, and staff logs—no extra BI stack required.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {organizerDashboardClusters.map((cluster) => (
-            <article
-              key={cluster.title}
-              className="rounded-[28px] border border-slate-200 bg-white/80 p-6 shadow-lg shadow-slate-200/70"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
-                {cluster.title}
-              </p>
-              <h3 className="mt-2 text-xl font-semibold">{cluster.description}</h3>
-              <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                {cluster.items.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-2xl border border-slate-100 bg-slate-50 p-3"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-

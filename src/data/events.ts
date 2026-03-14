@@ -140,7 +140,7 @@ export const events: EventContent[] = [
         name: "VIP Pod",
         price: "KES 4,500",
         benefits: [
-          "Reserved pod + concierge",
+          "Reserved pod + VIP service",
           "Merch bundle & artist meet-up",
           "Dynamic pricing guardrails",
         ],
@@ -181,7 +181,7 @@ export const events: EventContent[] = [
           name: "VIP Pods",
           price: "KES 4,500",
           availability: "15 / 40 pods left",
-          perks: ["Reserved lounge", "Concierge", "Bottle service"],
+          perks: ["Reserved lounge", "VIP service", "Bottle service"],
         },
         {
           name: "Sky Deck",
@@ -274,7 +274,11 @@ export const events: EventContent[] = [
       {
         name: "Marketplace Pass",
         price: "KES 2,200",
-        benefits: ["Access to art stalls", "Kids zone entry", "Community report"],
+        benefits: [
+          "Access to art stalls",
+          "Kids zone entry",
+          "Community report",
+        ],
       },
       {
         name: "VIP Rooftop",
@@ -397,7 +401,7 @@ export const events: EventContent[] = [
         benefits: [
           "VIP lounge",
           "Investor matchmaking",
-          "Concierge + shuttle credits",
+          "VIP service + shuttle credits",
         ],
       },
     ],
@@ -440,7 +444,7 @@ export const events: EventContent[] = [
           name: "Executive",
           price: "KES 11,000",
           availability: "35 / 120",
-          perks: ["VIP lounge", "Investor meetings", "Concierge"],
+          perks: ["VIP lounge", "Investor meetings", "Premium service"],
         },
       ],
       layout:
@@ -502,7 +506,8 @@ export const events: EventContent[] = [
       {
         time: "21:00",
         title: "Afterglow",
-        detail: "Battery saver check-in mode for staff, evacuation macros ready.",
+        detail:
+          "Battery saver check-in mode for staff, evacuation macros ready.",
       },
     ],
     ticketTiers: [
@@ -514,11 +519,7 @@ export const events: EventContent[] = [
       {
         name: "Travel Bundle",
         price: "KES 5,800",
-        benefits: [
-          "Includes shuttle",
-          "VIP terrace",
-          "Insurance micro-policy",
-        ],
+        benefits: ["Includes shuttle", "VIP terrace", "Insurance micro-policy"],
       },
     ],
     experiences: [
@@ -600,9 +601,21 @@ export const events: EventContent[] = [
       "Wellness itineraries + personal schedule sync.",
     ],
     schedule: [
-      { time: "Day 1", title: "Arrival & grounding", detail: "Check-ins, room assignments, MPesa agent assists." },
-      { time: "Day 2", title: "Oceanfront practice", detail: "Geo-fenced wellness notifications + shuttle tie-ins." },
-      { time: "Day 3", title: "Sunset dhow", detail: "Upsell VIP experiences mid-retreat." },
+      {
+        time: "Day 1",
+        title: "Arrival & grounding",
+        detail: "Check-ins, room assignments, MPesa agent assists.",
+      },
+      {
+        time: "Day 2",
+        title: "Oceanfront practice",
+        detail: "Geo-fenced wellness notifications + shuttle tie-ins.",
+      },
+      {
+        time: "Day 3",
+        title: "Sunset dhow",
+        detail: "Upsell VIP experiences mid-retreat.",
+      },
     ],
     ticketTiers: [
       {
@@ -725,7 +738,7 @@ export const events: EventContent[] = [
     experiences: [
       "QR-pay upgrades for meals + merch",
       "Geo-fenced push for safety bulletins",
-      "VIP concierge workflows for proposals",
+      "VIP service workflows for proposals",
     ],
     addOns: ["Shuttle seat", "Insurance micro-policy", "Photography package"],
     compliance: [
@@ -776,29 +789,64 @@ export const events: EventContent[] = [
     dateFull: "Friday 20 December • 9:00 PM",
     startDate: "2024-12-20T21:00:00+03:00",
     price: "From KES 2,000",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Live Afro beats with local DJs and international acts featuring the best of African music.",
+    summary:
+      "Live Afro beats with local DJs and international acts featuring the best of African music.",
     categories: ["Afro house", "Nightlife"],
     tags: ["Live DJs", "Afro beats", "Dance floor"],
-    highlights: ["Premium sound system", "VIP lounge access", "Late night party"],
+    highlights: [
+      "Premium sound system",
+      "VIP lounge access",
+      "Late night party",
+    ],
     schedule: [
-      { time: "21:00", title: "Doors open", detail: "Early bird entry with drink specials" },
+      {
+        time: "21:00",
+        title: "Doors open",
+        detail: "Early bird entry with drink specials",
+      },
       { time: "22:00", title: "Main act", detail: "Headline DJ performance" },
-      { time: "02:00", title: "Afterparty", detail: "Extended hours with special guests" },
+      {
+        time: "02:00",
+        title: "Afterparty",
+        detail: "Extended hours with special guests",
+      },
     ],
     ticketTiers: [
-      { name: "General", price: "KES 2,000", benefits: ["Entry", "1 drink voucher"] },
-      { name: "VIP", price: "KES 5,000", benefits: ["VIP lounge", "Bottle service", "Priority entry"] },
+      {
+        name: "General",
+        price: "KES 2,000",
+        benefits: ["Entry", "1 drink voucher"],
+      },
+      {
+        name: "VIP",
+        price: "KES 5,000",
+        benefits: ["VIP lounge", "Bottle service", "Priority entry"],
+      },
     ],
     experiences: ["Live DJ sets", "Dance competitions", "Photo booth"],
     addOns: ["Parking", "Bottle service", "VIP upgrade"],
-    compliance: ["Age restriction: 18+", "Valid ID required", "Security checks"],
+    compliance: [
+      "Age restriction: 18+",
+      "Valid ID required",
+      "Security checks",
+    ],
     faqs: [
-      { question: "What time does it start?", answer: "Doors open at 9:00 PM, main act at 10:00 PM" },
-      { question: "Is there parking?", answer: "Yes, parking available with add-on purchase" },
+      {
+        question: "What time does it start?",
+        answer: "Doors open at 9:00 PM, main act at 10:00 PM",
+      },
+      {
+        question: "Is there parking?",
+        answer: "Yes, parking available with add-on purchase",
+      },
     ],
   },
   {
@@ -810,29 +858,60 @@ export const events: EventContent[] = [
     dateFull: "Saturday 21 December • 7:00 PM",
     startDate: "2024-12-21T19:00:00+03:00",
     price: "From KES 1,500",
-    heroImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Rooftop party with stunning city views and premium sound system playing Afro house all night.",
+    summary:
+      "Rooftop party with stunning city views and premium sound system playing Afro house all night.",
     categories: ["Afro house", "Nightlife"],
     tags: ["Rooftop", "City views", "Premium sound"],
     highlights: ["360° city views", "Outdoor venue", "Sunset to sunrise"],
     schedule: [
-      { time: "19:00", title: "Sunset session", detail: "Chilled vibes as the sun sets" },
-      { time: "21:00", title: "Main event", detail: "High energy Afro house sets" },
+      {
+        time: "19:00",
+        title: "Sunset session",
+        detail: "Chilled vibes as the sun sets",
+      },
+      {
+        time: "21:00",
+        title: "Main event",
+        detail: "High energy Afro house sets",
+      },
       { time: "01:00", title: "Late night", detail: "Extended party hours" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,500", benefits: ["Entry", "Rooftop access"] },
-      { name: "Premium", price: "KES 3,500", benefits: ["VIP section", "Complimentary drinks", "Best views"] },
+      {
+        name: "Standard",
+        price: "KES 1,500",
+        benefits: ["Entry", "Rooftop access"],
+      },
+      {
+        name: "Premium",
+        price: "KES 3,500",
+        benefits: ["VIP section", "Complimentary drinks", "Best views"],
+      },
     ],
-    experiences: ["Sunset views", "Live DJ performances", "Outdoor dance floor"],
+    experiences: [
+      "Sunset views",
+      "Live DJ performances",
+      "Outdoor dance floor",
+    ],
     addOns: ["Food package", "Drink package", "VIP table"],
     compliance: ["Weather dependent", "Age 18+", "Capacity limited"],
     faqs: [
-      { question: "What if it rains?", answer: "Event will move to indoor area with same vibe" },
-      { question: "Is there food?", answer: "Yes, food packages available for purchase" },
+      {
+        question: "What if it rains?",
+        answer: "Event will move to indoor area with same vibe",
+      },
+      {
+        question: "Is there food?",
+        answer: "Yes, food packages available for purchase",
+      },
     ],
   },
   {
@@ -844,27 +923,55 @@ export const events: EventContent[] = [
     dateFull: "Thursday 26 December • 8:00 PM",
     startDate: "2024-12-26T20:00:00+03:00",
     price: "From KES 1,800",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Classic vinyl spinning with authentic Afro house vibes in an intimate setting.",
+    summary:
+      "Classic vinyl spinning with authentic Afro house vibes in an intimate setting.",
     categories: ["Afro house"],
     tags: ["Vinyl", "Classic", "Intimate"],
-    highlights: ["Authentic vinyl records", "Intimate venue", "Classic Afro house"],
+    highlights: [
+      "Authentic vinyl records",
+      "Intimate venue",
+      "Classic Afro house",
+    ],
     schedule: [
-      { time: "20:00", title: "Doors", detail: "Early entry with vinyl browsing" },
-      { time: "21:00", title: "Main set", detail: "Classic Afro house vinyl session" },
-      { time: "23:00", title: "Late session", detail: "Extended vinyl collection" },
+      {
+        time: "20:00",
+        title: "Doors",
+        detail: "Early entry with vinyl browsing",
+      },
+      {
+        time: "21:00",
+        title: "Main set",
+        detail: "Classic Afro house vinyl session",
+      },
+      {
+        time: "23:00",
+        title: "Late session",
+        detail: "Extended vinyl collection",
+      },
     ],
     ticketTiers: [
-      { name: "Entry", price: "KES 1,800", benefits: ["Access", "Vinyl experience"] },
+      {
+        name: "Entry",
+        price: "KES 1,800",
+        benefits: ["Access", "Vinyl experience"],
+      },
     ],
     experiences: ["Vinyl record collection", "DJ sets", "Music history"],
     addOns: ["Vinyl purchase", "Merchandise"],
     compliance: ["Limited capacity", "Age 18+", "No smoking"],
     faqs: [
-      { question: "Can I buy vinyl?", answer: "Yes, vinyl records available for purchase" },
+      {
+        question: "Can I buy vinyl?",
+        answer: "Yes, vinyl records available for purchase",
+      },
     ],
   },
   {
@@ -876,28 +983,52 @@ export const events: EventContent[] = [
     dateFull: "Friday 27 December • 10:00 PM",
     startDate: "2024-12-27T22:00:00+03:00",
     price: "From KES 2,500",
-    heroImage: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Exclusive underground venue with top-tier sound and lighting for the ultimate Afro house experience.",
+    summary:
+      "Exclusive underground venue with top-tier sound and lighting for the ultimate Afro house experience.",
     categories: ["Afro house", "Nightlife"],
     tags: ["Underground", "Exclusive", "Premium"],
     highlights: ["Exclusive venue", "Premium sound", "Late night"],
     schedule: [
       { time: "22:00", title: "Opening", detail: "Underground vibes begin" },
       { time: "23:00", title: "Main act", detail: "Headline performance" },
-      { time: "03:00", title: "Afterhours", detail: "Extended underground session" },
+      {
+        time: "03:00",
+        title: "Afterhours",
+        detail: "Extended underground session",
+      },
     ],
     ticketTiers: [
-      { name: "General", price: "KES 2,500", benefits: ["Entry", "Underground access"] },
-      { name: "VIP", price: "KES 6,000", benefits: ["VIP area", "Bottle service", "Priority"] },
+      {
+        name: "General",
+        price: "KES 2,500",
+        benefits: ["Entry", "Underground access"],
+      },
+      {
+        name: "VIP",
+        price: "KES 6,000",
+        benefits: ["VIP area", "Bottle service", "Priority"],
+      },
     ],
-    experiences: ["Underground atmosphere", "Premium sound", "Late night party"],
+    experiences: [
+      "Underground atmosphere",
+      "Premium sound",
+      "Late night party",
+    ],
     addOns: ["VIP upgrade", "Bottle service"],
     compliance: ["Age 21+", "Strict security", "Capacity limited"],
     faqs: [
-      { question: "What's the dress code?", answer: "Smart casual, no sportswear" },
+      {
+        question: "What's the dress code?",
+        answer: "Smart casual, no sportswear",
+      },
     ],
   },
   {
@@ -909,11 +1040,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 29 December • 4:00 PM",
     startDate: "2024-12-29T16:00:00+03:00",
     price: "From KES 1,200",
-    heroImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Chilled Sunday afternoon with smooth Afro house tunes perfect for winding down the weekend.",
+    summary:
+      "Chilled Sunday afternoon with smooth Afro house tunes perfect for winding down the weekend.",
     categories: ["Afro house"],
     tags: ["Sunday", "Chilled", "Afternoon"],
     highlights: ["Sunday vibes", "Chilled atmosphere", "Early evening"],
@@ -923,7 +1059,11 @@ export const events: EventContent[] = [
       { time: "20:00", title: "Wind down", detail: "Closing session" },
     ],
     ticketTiers: [
-      { name: "Entry", price: "KES 1,200", benefits: ["Access", "Chilled vibes"] },
+      {
+        name: "Entry",
+        price: "KES 1,200",
+        benefits: ["Access", "Chilled vibes"],
+      },
     ],
     experiences: ["Sunday relaxation", "Smooth music", "Outdoor setting"],
     addOns: ["Food", "Drinks"],
@@ -941,11 +1081,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 4 January • 11:00 PM",
     startDate: "2025-01-04T23:00:00+03:00",
     price: "From KES 3,000",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Late night party with extended hours and premium bar service featuring the best Afro house DJs.",
+    summary:
+      "Late night party with extended hours and premium bar service featuring the best Afro house DJs.",
     categories: ["Afro house", "Nightlife"],
     tags: ["Late night", "Extended hours", "Premium"],
     highlights: ["Late night party", "Extended hours", "Premium service"],
@@ -955,8 +1100,16 @@ export const events: EventContent[] = [
       { time: "05:00", title: "Afterhours", detail: "Extended session" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 3,000", benefits: ["Entry", "Late night access"] },
-      { name: "VIP", price: "KES 7,000", benefits: ["VIP area", "Premium bar", "Extended access"] },
+      {
+        name: "Standard",
+        price: "KES 3,000",
+        benefits: ["Entry", "Late night access"],
+      },
+      {
+        name: "VIP",
+        price: "KES 7,000",
+        benefits: ["VIP area", "Premium bar", "Extended access"],
+      },
     ],
     experiences: ["Late night party", "Extended hours", "Premium bar"],
     addOns: ["VIP upgrade", "Bar package"],
@@ -974,11 +1127,16 @@ export const events: EventContent[] = [
     dateFull: "Friday 10 January • 8:30 PM",
     startDate: "2025-01-10T20:30:00+03:00",
     price: "From KES 2,200",
-    heroImage: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Fusion of traditional and modern Afro house sounds creating a unique musical experience.",
+    summary:
+      "Fusion of traditional and modern Afro house sounds creating a unique musical experience.",
     categories: ["Afro house"],
     tags: ["Fusion", "Traditional", "Modern"],
     highlights: ["Musical fusion", "Unique sound", "Cultural blend"],
@@ -988,13 +1146,20 @@ export const events: EventContent[] = [
       { time: "00:00", title: "Modern set", detail: "Contemporary Afro house" },
     ],
     ticketTiers: [
-      { name: "General", price: "KES 2,200", benefits: ["Entry", "Fusion experience"] },
+      {
+        name: "General",
+        price: "KES 2,200",
+        benefits: ["Entry", "Fusion experience"],
+      },
     ],
     experiences: ["Musical fusion", "Cultural blend", "Unique sound"],
     addOns: ["Food", "Merchandise"],
     compliance: ["Age 18+", "Cultural event"],
     faqs: [
-      { question: "What is Afro fusion?", answer: "A blend of traditional African music with modern house beats" },
+      {
+        question: "What is Afro fusion?",
+        answer: "A blend of traditional African music with modern house beats",
+      },
     ],
   },
   {
@@ -1006,11 +1171,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 9:00 PM",
     startDate: "2025-01-11T21:00:00+03:00",
     price: "From KES 2,800",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Competition between top DJs with crowd voting to determine the ultimate Afro house champion.",
+    summary:
+      "Competition between top DJs with crowd voting to determine the ultimate Afro house champion.",
     categories: ["Afro house"],
     tags: ["Competition", "DJ battle", "Voting"],
     highlights: ["DJ competition", "Crowd voting", "Championship"],
@@ -1020,14 +1190,25 @@ export const events: EventContent[] = [
       { time: "00:00", title: "Finals", detail: "Championship round" },
     ],
     ticketTiers: [
-      { name: "General", price: "KES 2,800", benefits: ["Entry", "Voting rights"] },
-      { name: "VIP", price: "KES 5,500", benefits: ["VIP area", "Judging panel access"] },
+      {
+        name: "General",
+        price: "KES 2,800",
+        benefits: ["Entry", "Voting rights"],
+      },
+      {
+        name: "VIP",
+        price: "KES 5,500",
+        benefits: ["VIP area", "Judging panel access"],
+      },
     ],
     experiences: ["DJ battles", "Crowd voting", "Competition"],
     addOns: ["VIP upgrade", "Judging access"],
     compliance: ["Age 18+", "Competition rules"],
     faqs: [
-      { question: "How does voting work?", answer: "Crowd votes via app, judges also vote" },
+      {
+        question: "How does voting work?",
+        answer: "Crowd votes via app, judges also vote",
+      },
     ],
   },
   // Corporate Events (8 events)
@@ -1040,28 +1221,48 @@ export const events: EventContent[] = [
     dateFull: "Monday 6 January • 9:00 AM - 5:00 PM",
     startDate: "2025-01-06T09:00:00+03:00",
     price: "From KES 8,000",
-    heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Leading tech conference with industry experts, networking opportunities, and cutting-edge technology showcases.",
+    summary:
+      "Leading tech conference with industry experts, networking opportunities, and cutting-edge technology showcases.",
     categories: ["Corporate", "Conference"],
     tags: ["Technology", "Networking", "Innovation"],
     highlights: ["Industry experts", "Networking", "Tech showcases"],
     schedule: [
-      { time: "09:00", title: "Registration", detail: "Check-in and networking breakfast" },
+      {
+        time: "09:00",
+        title: "Registration",
+        detail: "Check-in and networking breakfast",
+      },
       { time: "10:00", title: "Keynote", detail: "Opening keynote address" },
       { time: "14:00", title: "Workshops", detail: "Hands-on tech workshops" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 8,000", benefits: ["Conference access", "Lunch", "Networking"] },
-      { name: "VIP", price: "KES 15,000", benefits: ["VIP access", "Dinner", "Meet speakers"] },
+      {
+        name: "Standard",
+        price: "KES 8,000",
+        benefits: ["Conference access", "Lunch", "Networking"],
+      },
+      {
+        name: "VIP",
+        price: "KES 15,000",
+        benefits: ["VIP access", "Dinner", "Meet speakers"],
+      },
     ],
     experiences: ["Tech demos", "Networking", "Workshops"],
     addOns: ["Dinner ticket", "Workshop access"],
     compliance: ["Professional event", "Business attire"],
     faqs: [
-      { question: "What's included?", answer: "Conference access, lunch, networking, and materials" },
+      {
+        question: "What's included?",
+        answer: "Conference access, lunch, networking, and materials",
+      },
     ],
   },
   {
@@ -1073,27 +1274,59 @@ export const events: EventContent[] = [
     dateFull: "Wednesday 8 January • 6:00 PM - 9:00 PM",
     startDate: "2025-01-08T18:00:00+03:00",
     price: "From KES 3,500",
-    heroImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Professional networking event with cocktails and canapés for business professionals.",
+    summary:
+      "Professional networking event with cocktails and canapés for business professionals.",
     categories: ["Corporate"],
     tags: ["Networking", "Business", "Professional"],
-    highlights: ["Professional networking", "Cocktails", "Business connections"],
+    highlights: [
+      "Professional networking",
+      "Cocktails",
+      "Business connections",
+    ],
     schedule: [
-      { time: "18:00", title: "Arrival", detail: "Registration and welcome drinks" },
-      { time: "19:00", title: "Networking", detail: "Structured networking sessions" },
-      { time: "20:30", title: "Closing", detail: "Final connections and wrap-up" },
+      {
+        time: "18:00",
+        title: "Arrival",
+        detail: "Registration and welcome drinks",
+      },
+      {
+        time: "19:00",
+        title: "Networking",
+        detail: "Structured networking sessions",
+      },
+      {
+        time: "20:30",
+        title: "Closing",
+        detail: "Final connections and wrap-up",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 3,500", benefits: ["Entry", "Cocktails", "Canapés"] },
+      {
+        name: "Standard",
+        price: "KES 3,500",
+        benefits: ["Entry", "Cocktails", "Canapés"],
+      },
     ],
-    experiences: ["Networking", "Business connections", "Professional environment"],
+    experiences: [
+      "Networking",
+      "Business connections",
+      "Professional environment",
+    ],
     addOns: ["Premium drinks", "VIP table"],
     compliance: ["Business attire", "Professional event"],
     faqs: [
-      { question: "What should I wear?", answer: "Business casual or professional attire" },
+      {
+        question: "What should I wear?",
+        answer: "Business casual or professional attire",
+      },
     ],
   },
   {
@@ -1105,28 +1338,61 @@ export const events: EventContent[] = [
     dateFull: "Thursday 9 January • 8:30 AM - 4:00 PM",
     startDate: "2025-01-09T08:30:00+03:00",
     price: "From KES 5,500",
-    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Expert-led workshop on financial planning and investments for professionals.",
+    summary:
+      "Expert-led workshop on financial planning and investments for professionals.",
     categories: ["Corporate", "Conference"],
     tags: ["Finance", "Investment", "Workshop"],
-    highlights: ["Expert speakers", "Practical workshops", "Investment strategies"],
+    highlights: [
+      "Expert speakers",
+      "Practical workshops",
+      "Investment strategies",
+    ],
     schedule: [
-      { time: "08:30", title: "Registration", detail: "Check-in and breakfast" },
-      { time: "09:00", title: "Session 1", detail: "Financial planning basics" },
-      { time: "14:00", title: "Session 2", detail: "Advanced investment strategies" },
+      {
+        time: "08:30",
+        title: "Registration",
+        detail: "Check-in and breakfast",
+      },
+      {
+        time: "09:00",
+        title: "Session 1",
+        detail: "Financial planning basics",
+      },
+      {
+        time: "14:00",
+        title: "Session 2",
+        detail: "Advanced investment strategies",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 5,500", benefits: ["Workshop", "Materials", "Lunch"] },
-      { name: "Premium", price: "KES 8,500", benefits: ["VIP access", "One-on-one session", "Dinner"] },
+      {
+        name: "Standard",
+        price: "KES 5,500",
+        benefits: ["Workshop", "Materials", "Lunch"],
+      },
+      {
+        name: "Premium",
+        price: "KES 8,500",
+        benefits: ["VIP access", "One-on-one session", "Dinner"],
+      },
     ],
     experiences: ["Expert sessions", "Workshops", "Networking"],
     addOns: ["One-on-one consultation", "Materials package"],
     compliance: ["Professional event", "Business attire"],
     faqs: [
-      { question: "What will I learn?", answer: "Financial planning, investment strategies, and wealth management" },
+      {
+        question: "What will I learn?",
+        answer:
+          "Financial planning, investment strategies, and wealth management",
+      },
     ],
   },
   {
@@ -1138,28 +1404,48 @@ export const events: EventContent[] = [
     dateFull: "Friday 10 January • 9:00 AM - 5:00 PM",
     startDate: "2025-01-10T09:00:00+03:00",
     price: "From KES 7,000",
-    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Leadership development sessions with renowned speakers and interactive workshops.",
+    summary:
+      "Leadership development sessions with renowned speakers and interactive workshops.",
     categories: ["Corporate"],
     tags: ["Leadership", "Development", "Workshop"],
-    highlights: ["Renowned speakers", "Interactive workshops", "Leadership skills"],
+    highlights: [
+      "Renowned speakers",
+      "Interactive workshops",
+      "Leadership skills",
+    ],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Welcome and introduction" },
       { time: "10:00", title: "Keynote", detail: "Leadership excellence" },
       { time: "14:00", title: "Workshops", detail: "Interactive sessions" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 7,000", benefits: ["Forum access", "Materials", "Lunch"] },
-      { name: "Executive", price: "KES 12,000", benefits: ["VIP access", "Private session", "Dinner"] },
+      {
+        name: "Standard",
+        price: "KES 7,000",
+        benefits: ["Forum access", "Materials", "Lunch"],
+      },
+      {
+        name: "Executive",
+        price: "KES 12,000",
+        benefits: ["VIP access", "Private session", "Dinner"],
+      },
     ],
     experiences: ["Leadership training", "Networking", "Workshops"],
     addOns: ["Private coaching", "Materials"],
     compliance: ["Professional event"],
     faqs: [
-      { question: "Who should attend?", answer: "Managers, executives, and aspiring leaders" },
+      {
+        question: "Who should attend?",
+        answer: "Managers, executives, and aspiring leaders",
+      },
     ],
   },
   {
@@ -1171,11 +1457,16 @@ export const events: EventContent[] = [
     dateFull: "Monday 13 January • 10:00 AM - 4:00 PM",
     startDate: "2025-01-13T10:00:00+03:00",
     price: "From KES 4,000",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Hands-on innovation workshop with design thinking and creative problem-solving.",
+    summary:
+      "Hands-on innovation workshop with design thinking and creative problem-solving.",
     categories: ["Corporate", "Conference"],
     tags: ["Innovation", "Design thinking", "Workshop"],
     highlights: ["Hands-on workshop", "Design thinking", "Innovation"],
@@ -1185,13 +1476,21 @@ export const events: EventContent[] = [
       { time: "14:00", title: "Application", detail: "Practical exercises" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 4,000", benefits: ["Workshop", "Materials", "Lunch"] },
+      {
+        name: "Standard",
+        price: "KES 4,000",
+        benefits: ["Workshop", "Materials", "Lunch"],
+      },
     ],
     experiences: ["Hands-on learning", "Design thinking", "Innovation"],
     addOns: ["Materials", "Follow-up session"],
     compliance: ["Professional event"],
     faqs: [
-      { question: "What will I learn?", answer: "Design thinking, innovation methods, and creative problem-solving" },
+      {
+        question: "What will I learn?",
+        answer:
+          "Design thinking, innovation methods, and creative problem-solving",
+      },
     ],
   },
   {
@@ -1203,28 +1502,53 @@ export const events: EventContent[] = [
     dateFull: "Tuesday 14 January • 9:00 AM - 5:00 PM",
     startDate: "2025-01-14T09:00:00+03:00",
     price: "From KES 6,000",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Digital marketing strategies and case studies from industry leaders.",
+    summary:
+      "Digital marketing strategies and case studies from industry leaders.",
     categories: ["Corporate"],
     tags: ["Marketing", "Digital", "Strategy"],
     highlights: ["Marketing strategies", "Case studies", "Industry leaders"],
     schedule: [
-      { time: "09:00", title: "Opening", detail: "Marketing landscape overview" },
-      { time: "10:00", title: "Sessions", detail: "Digital marketing strategies" },
+      {
+        time: "09:00",
+        title: "Opening",
+        detail: "Marketing landscape overview",
+      },
+      {
+        time: "10:00",
+        title: "Sessions",
+        detail: "Digital marketing strategies",
+      },
       { time: "14:00", title: "Case studies", detail: "Real-world examples" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 6,000", benefits: ["Masterclass", "Materials", "Lunch"] },
-      { name: "Premium", price: "KES 10,000", benefits: ["VIP access", "One-on-one", "Dinner"] },
+      {
+        name: "Standard",
+        price: "KES 6,000",
+        benefits: ["Masterclass", "Materials", "Lunch"],
+      },
+      {
+        name: "Premium",
+        price: "KES 10,000",
+        benefits: ["VIP access", "One-on-one", "Dinner"],
+      },
     ],
     experiences: ["Marketing training", "Case studies", "Networking"],
     addOns: ["Consultation", "Materials"],
     compliance: ["Professional event"],
     faqs: [
-      { question: "What topics are covered?", answer: "Digital marketing, social media, content strategy, and analytics" },
+      {
+        question: "What topics are covered?",
+        answer:
+          "Digital marketing, social media, content strategy, and analytics",
+      },
     ],
   },
   {
@@ -1236,28 +1560,56 @@ export const events: EventContent[] = [
     dateFull: "Wednesday 15 January • 8:00 AM - 5:00 PM",
     startDate: "2025-01-15T08:00:00+03:00",
     price: "From KES 5,800",
-    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Human resources best practices and talent management strategies for HR professionals.",
+    summary:
+      "Human resources best practices and talent management strategies for HR professionals.",
     categories: ["Corporate", "Conference"],
     tags: ["HR", "Talent", "Management"],
-    highlights: ["HR best practices", "Talent management", "Professional development"],
+    highlights: [
+      "HR best practices",
+      "Talent management",
+      "Professional development",
+    ],
     schedule: [
-      { time: "08:00", title: "Registration", detail: "Check-in and breakfast" },
+      {
+        time: "08:00",
+        title: "Registration",
+        detail: "Check-in and breakfast",
+      },
       { time: "09:00", title: "Keynote", detail: "Future of HR" },
-      { time: "14:00", title: "Sessions", detail: "Talent management workshops" },
+      {
+        time: "14:00",
+        title: "Sessions",
+        detail: "Talent management workshops",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 5,800", benefits: ["Conference", "Materials", "Lunch"] },
-      { name: "VIP", price: "KES 9,500", benefits: ["VIP access", "Networking dinner"] },
+      {
+        name: "Standard",
+        price: "KES 5,800",
+        benefits: ["Conference", "Materials", "Lunch"],
+      },
+      {
+        name: "VIP",
+        price: "KES 9,500",
+        benefits: ["VIP access", "Networking dinner"],
+      },
     ],
     experiences: ["HR training", "Talent strategies", "Networking"],
     addOns: ["Materials", "Networking dinner"],
     compliance: ["Professional event"],
     faqs: [
-      { question: "Who should attend?", answer: "HR professionals, talent managers, and recruiters" },
+      {
+        question: "Who should attend?",
+        answer: "HR professionals, talent managers, and recruiters",
+      },
     ],
   },
   {
@@ -1269,11 +1621,16 @@ export const events: EventContent[] = [
     dateFull: "Thursday 16 January • 2:00 PM - 6:00 PM",
     startDate: "2025-01-16T14:00:00+03:00",
     price: "From KES 2,500",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Startup founders pitch to investors and mentors in a competitive environment.",
+    summary:
+      "Startup founders pitch to investors and mentors in a competitive environment.",
     categories: ["Corporate"],
     tags: ["Startup", "Pitch", "Investment"],
     highlights: ["Startup pitches", "Investor access", "Mentorship"],
@@ -1283,14 +1640,25 @@ export const events: EventContent[] = [
       { time: "17:00", title: "Networking", detail: "Investor meetups" },
     ],
     ticketTiers: [
-      { name: "Observer", price: "KES 2,500", benefits: ["Access", "Networking"] },
-      { name: "Investor", price: "KES 10,000", benefits: ["VIP access", "Pitch deck access"] },
+      {
+        name: "Observer",
+        price: "KES 2,500",
+        benefits: ["Access", "Networking"],
+      },
+      {
+        name: "Investor",
+        price: "KES 10,000",
+        benefits: ["VIP access", "Pitch deck access"],
+      },
     ],
     experiences: ["Startup pitches", "Investor networking", "Mentorship"],
     addOns: ["Pitch deck access", "One-on-one meetings"],
     compliance: ["Professional event"],
     faqs: [
-      { question: "Can I pitch my startup?", answer: "Yes, pitch slots available with separate registration" },
+      {
+        question: "Can I pitch my startup?",
+        answer: "Yes, pitch slots available with separate registration",
+      },
     ],
   },
   // Family & Lifestyle Events (8 events)
@@ -1303,28 +1671,44 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 10:00 AM - 4:00 PM",
     startDate: "2025-01-18T10:00:00+03:00",
     price: "From KES 500",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "A day of fun activities for the whole family with games, food, and entertainment.",
+    summary:
+      "A day of fun activities for the whole family with games, food, and entertainment.",
     categories: ["Family"],
     tags: ["Family", "Kids", "Outdoor"],
     highlights: ["Family activities", "Kids zone", "Food vendors"],
     schedule: [
-      { time: "10:00", title: "Opening", detail: "Welcome and activities begin" },
+      {
+        time: "10:00",
+        title: "Opening",
+        detail: "Welcome and activities begin",
+      },
       { time: "12:00", title: "Lunch", detail: "Food vendors open" },
       { time: "14:00", title: "Games", detail: "Family competitions" },
     ],
     ticketTiers: [
       { name: "Adult", price: "KES 500", benefits: ["Entry", "Activities"] },
-      { name: "Child", price: "KES 300", benefits: ["Entry", "Kids activities"] },
+      {
+        name: "Child",
+        price: "KES 300",
+        benefits: ["Entry", "Kids activities"],
+      },
     ],
     experiences: ["Family games", "Kids zone", "Food vendors"],
     addOns: ["Food package", "Activity pass"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Are kids free?", answer: "Children under 3 are free, others require tickets" },
+      {
+        question: "Are kids free?",
+        answer: "Children under 3 are free, others require tickets",
+      },
     ],
   },
   {
@@ -1336,11 +1720,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 19 January • 9:00 AM - 3:00 PM",
     startDate: "2025-01-19T09:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Local market with fresh produce, crafts, and family-friendly activities.",
+    summary:
+      "Local market with fresh produce, crafts, and family-friendly activities.",
     categories: ["Family", "Food & culture"],
     tags: ["Market", "Local", "Family"],
     highlights: ["Local vendors", "Fresh produce", "Crafts"],
@@ -1356,7 +1745,10 @@ export const events: EventContent[] = [
     addOns: ["Workshop tickets", "Food vouchers"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Is it free?", answer: "Yes, entry is free, vendors sell their products" },
+      {
+        question: "Is it free?",
+        answer: "Yes, entry is free, vendors sell their products",
+      },
     ],
   },
   {
@@ -1368,11 +1760,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 25 January • 2:00 PM - 5:00 PM",
     startDate: "2025-01-25T14:00:00+03:00",
     price: "From KES 800",
-    heroImage: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Creative art workshop for children with professional guidance and materials provided.",
+    summary:
+      "Creative art workshop for children with professional guidance and materials provided.",
     categories: ["Family"],
     tags: ["Art", "Kids", "Workshop"],
     highlights: ["Art workshop", "Kids activities", "Materials included"],
@@ -1382,13 +1779,20 @@ export const events: EventContent[] = [
       { time: "16:30", title: "Showcase", detail: "Display finished artwork" },
     ],
     ticketTiers: [
-      { name: "Child", price: "KES 800", benefits: ["Workshop", "Materials", "Take home art"] },
+      {
+        name: "Child",
+        price: "KES 800",
+        benefits: ["Workshop", "Materials", "Take home art"],
+      },
     ],
     experiences: ["Art creation", "Learning", "Fun activities"],
     addOns: ["Extra materials", "Art supplies"],
     compliance: ["Kids event", "Ages 5-12"],
     faqs: [
-      { question: "What age group?", answer: "Designed for children ages 5-12" },
+      {
+        question: "What age group?",
+        answer: "Designed for children ages 5-12",
+      },
     ],
   },
   {
@@ -1400,28 +1804,48 @@ export const events: EventContent[] = [
     dateFull: "Sunday 26 January • 11:00 AM - 2:00 PM",
     startDate: "2025-01-26T11:00:00+03:00",
     price: "From KES 2,500",
-    heroImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Learn to cook together as a family with professional chefs guiding you through delicious recipes.",
+    summary:
+      "Learn to cook together as a family with professional chefs guiding you through delicious recipes.",
     categories: ["Family", "Food & culture"],
     tags: ["Cooking", "Family", "Food"],
     highlights: ["Family bonding", "Cooking skills", "Delicious food"],
     schedule: [
-      { time: "11:00", title: "Introduction", detail: "Meet chefs and overview" },
+      {
+        time: "11:00",
+        title: "Introduction",
+        detail: "Meet chefs and overview",
+      },
       { time: "11:30", title: "Cooking", detail: "Hands-on cooking session" },
       { time: "13:30", title: "Dining", detail: "Enjoy your creations" },
     ],
     ticketTiers: [
-      { name: "Family (4 people)", price: "KES 8,000", benefits: ["Class", "Ingredients", "Meal"] },
-      { name: "Per person", price: "KES 2,500", benefits: ["Class", "Ingredients", "Meal"] },
+      {
+        name: "Family (4 people)",
+        price: "KES 8,000",
+        benefits: ["Class", "Ingredients", "Meal"],
+      },
+      {
+        name: "Per person",
+        price: "KES 2,500",
+        benefits: ["Class", "Ingredients", "Meal"],
+      },
     ],
     experiences: ["Cooking", "Family time", "Delicious food"],
     addOns: ["Recipe book", "Extra ingredients"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Do we eat what we cook?", answer: "Yes, you'll enjoy the meal you prepare together" },
+      {
+        question: "Do we eat what we cook?",
+        answer: "Yes, you'll enjoy the meal you prepare together",
+      },
     ],
   },
   {
@@ -1433,16 +1857,25 @@ export const events: EventContent[] = [
     dateFull: "Friday 31 January • 7:00 PM - 10:00 PM",
     startDate: "2025-01-31T19:00:00+03:00",
     price: "From KES 600",
-    heroImage: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Family-friendly outdoor movie screening under the stars with snacks and comfortable seating.",
+    summary:
+      "Family-friendly outdoor movie screening under the stars with snacks and comfortable seating.",
     categories: ["Family"],
     tags: ["Movie", "Outdoor", "Family"],
     highlights: ["Outdoor cinema", "Family friendly", "Starry night"],
     schedule: [
-      { time: "19:00", title: "Arrival", detail: "Find your spot and get snacks" },
+      {
+        time: "19:00",
+        title: "Arrival",
+        detail: "Find your spot and get snacks",
+      },
       { time: "19:30", title: "Movie starts", detail: "Feature film begins" },
       { time: "21:30", title: "End", detail: "Movie ends" },
     ],
@@ -1454,7 +1887,10 @@ export const events: EventContent[] = [
     addOns: ["Snack package", "Blanket rental"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "What movie is showing?", answer: "Family-friendly film, announced closer to date" },
+      {
+        question: "What movie is showing?",
+        answer: "Family-friendly film, announced closer to date",
+      },
     ],
   },
   {
@@ -1466,28 +1902,49 @@ export const events: EventContent[] = [
     dateFull: "Saturday 1 February • 8:00 AM - 2:00 PM",
     startDate: "2025-02-01T08:00:00+03:00",
     price: "From KES 400",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Fun sports activities for the whole family with competitions and prizes.",
+    summary:
+      "Fun sports activities for the whole family with competitions and prizes.",
     categories: ["Family"],
     tags: ["Sports", "Family", "Competition"],
     highlights: ["Sports activities", "Family competitions", "Prizes"],
     schedule: [
       { time: "08:00", title: "Registration", detail: "Check-in and warm-up" },
-      { time: "09:00", title: "Activities", detail: "Sports competitions begin" },
+      {
+        time: "09:00",
+        title: "Activities",
+        detail: "Sports competitions begin",
+      },
       { time: "13:00", title: "Awards", detail: "Prize ceremony" },
     ],
     ticketTiers: [
-      { name: "Per person", price: "KES 400", benefits: ["Entry", "Activities", "Snacks"] },
-      { name: "Family (4)", price: "KES 1,200", benefits: ["Entry", "Activities", "Snacks"] },
+      {
+        name: "Per person",
+        price: "KES 400",
+        benefits: ["Entry", "Activities", "Snacks"],
+      },
+      {
+        name: "Family (4)",
+        price: "KES 1,200",
+        benefits: ["Entry", "Activities", "Snacks"],
+      },
     ],
     experiences: ["Sports", "Competitions", "Family fun"],
     addOns: ["T-shirt", "Medal"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "What sports are included?", answer: "Various activities including races, ball games, and team challenges" },
+      {
+        question: "What sports are included?",
+        answer:
+          "Various activities including races, ball games, and team challenges",
+      },
     ],
   },
   {
@@ -1499,11 +1956,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 2 February • 10:00 AM - 4:00 PM",
     startDate: "2025-02-02T10:00:00+03:00",
     price: "From KES 700",
-    heroImage: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Interactive science exhibits and experiments designed to spark curiosity in children.",
+    summary:
+      "Interactive science exhibits and experiments designed to spark curiosity in children.",
     categories: ["Family"],
     tags: ["Science", "Kids", "Education"],
     highlights: ["Interactive exhibits", "Science experiments", "Learning"],
@@ -1513,14 +1975,21 @@ export const events: EventContent[] = [
       { time: "14:00", title: "Workshops", detail: "Hands-on experiments" },
     ],
     ticketTiers: [
-      { name: "Child", price: "KES 700", benefits: ["Entry", "All exhibits", "Workshops"] },
+      {
+        name: "Child",
+        price: "KES 700",
+        benefits: ["Entry", "All exhibits", "Workshops"],
+      },
       { name: "Adult", price: "KES 500", benefits: ["Entry", "All exhibits"] },
     ],
     experiences: ["Science exhibits", "Experiments", "Learning"],
     addOns: ["Science kit", "Workshop materials"],
     compliance: ["Family friendly", "Kids focused"],
     faqs: [
-      { question: "Is it educational?", answer: "Yes, designed to be both fun and educational" },
+      {
+        question: "Is it educational?",
+        answer: "Yes, designed to be both fun and educational",
+      },
     ],
   },
   {
@@ -1532,28 +2001,52 @@ export const events: EventContent[] = [
     dateFull: "Saturday 8 February • 11:00 AM - 4:00 PM",
     startDate: "2025-02-08T11:00:00+03:00",
     price: "From KES 300",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Relaxing family picnic in beautiful natural surroundings with activities for all ages.",
+    summary:
+      "Relaxing family picnic in beautiful natural surroundings with activities for all ages.",
     categories: ["Family"],
     tags: ["Picnic", "Outdoor", "Family"],
     highlights: ["Natural setting", "Family time", "Relaxation"],
     schedule: [
       { time: "11:00", title: "Arrival", detail: "Set up your picnic spot" },
-      { time: "12:00", title: "Activities", detail: "Family games and activities" },
-      { time: "15:00", title: "Nature walk", detail: "Guided nature exploration" },
+      {
+        time: "12:00",
+        title: "Activities",
+        detail: "Family games and activities",
+      },
+      {
+        time: "15:00",
+        title: "Nature walk",
+        detail: "Guided nature exploration",
+      },
     ],
     ticketTiers: [
-      { name: "Per person", price: "KES 300", benefits: ["Entry", "Activities"] },
-      { name: "Family (4)", price: "KES 1,000", benefits: ["Entry", "Activities", "Picnic basket"] },
+      {
+        name: "Per person",
+        price: "KES 300",
+        benefits: ["Entry", "Activities"],
+      },
+      {
+        name: "Family (4)",
+        price: "KES 1,000",
+        benefits: ["Entry", "Activities", "Picnic basket"],
+      },
     ],
     experiences: ["Picnic", "Nature", "Family time"],
     addOns: ["Picnic basket", "Food package"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Can we bring our own food?", answer: "Yes, or purchase food packages" },
+      {
+        question: "Can we bring our own food?",
+        answer: "Yes, or purchase food packages",
+      },
     ],
   },
   // Wellness Events (8 events)
@@ -1566,11 +2059,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 7:00 AM - 8:30 AM",
     startDate: "2025-01-11T07:00:00+03:00",
     price: "From KES 800",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Start your day with a rejuvenating yoga session in the park with experienced instructors.",
+    summary:
+      "Start your day with a rejuvenating yoga session in the park with experienced instructors.",
     categories: ["Wellness"],
     tags: ["Yoga", "Morning", "Wellness"],
     highlights: ["Morning yoga", "Park setting", "Experienced instructors"],
@@ -1580,8 +2078,16 @@ export const events: EventContent[] = [
       { time: "08:15", title: "Meditation", detail: "Closing meditation" },
     ],
     ticketTiers: [
-      { name: "Single session", price: "KES 800", benefits: ["Yoga class", "Mat rental"] },
-      { name: "Monthly pass", price: "KES 2,500", benefits: ["4 sessions", "Mat included"] },
+      {
+        name: "Single session",
+        price: "KES 800",
+        benefits: ["Yoga class", "Mat rental"],
+      },
+      {
+        name: "Monthly pass",
+        price: "KES 2,500",
+        benefits: ["4 sessions", "Mat included"],
+      },
     ],
     experiences: ["Yoga", "Meditation", "Wellness"],
     addOns: ["Yoga mat", "Wellness package"],
@@ -1599,28 +2105,48 @@ export const events: EventContent[] = [
     dateFull: "Sunday 12 January • 9:00 AM - 5:00 PM",
     startDate: "2025-01-12T09:00:00+03:00",
     price: "From KES 3,500",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Full-day meditation retreat with guided sessions, mindfulness practices, and healthy meals.",
+    summary:
+      "Full-day meditation retreat with guided sessions, mindfulness practices, and healthy meals.",
     categories: ["Wellness"],
     tags: ["Meditation", "Retreat", "Mindfulness"],
     highlights: ["Full-day retreat", "Guided meditation", "Healthy meals"],
     schedule: [
-      { time: "09:00", title: "Welcome", detail: "Introduction and orientation" },
+      {
+        time: "09:00",
+        title: "Welcome",
+        detail: "Introduction and orientation",
+      },
       { time: "10:00", title: "Session 1", detail: "Guided meditation" },
       { time: "14:00", title: "Session 2", detail: "Mindfulness practices" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 3,500", benefits: ["Retreat", "Meals", "Materials"] },
-      { name: "VIP", price: "KES 5,500", benefits: ["Retreat", "Meals", "Private session"] },
+      {
+        name: "Standard",
+        price: "KES 3,500",
+        benefits: ["Retreat", "Meals", "Materials"],
+      },
+      {
+        name: "VIP",
+        price: "KES 5,500",
+        benefits: ["Retreat", "Meals", "Private session"],
+      },
     ],
     experiences: ["Meditation", "Mindfulness", "Wellness"],
     addOns: ["Materials", "Follow-up session"],
     compliance: ["Quiet environment", "Comfortable clothing"],
     faqs: [
-      { question: "What should I bring?", answer: "Comfortable clothing, water bottle, and open mind" },
+      {
+        question: "What should I bring?",
+        answer: "Comfortable clothing, water bottle, and open mind",
+      },
     ],
   },
   {
@@ -1632,11 +2158,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 10:00 AM - 2:00 PM",
     startDate: "2025-01-18T10:00:00+03:00",
     price: "From KES 2,000",
-    heroImage: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Comprehensive wellness workshop covering nutrition, fitness, and mental health.",
+    summary:
+      "Comprehensive wellness workshop covering nutrition, fitness, and mental health.",
     categories: ["Wellness"],
     tags: ["Wellness", "Workshop", "Health"],
     highlights: ["Wellness education", "Practical tips", "Expert guidance"],
@@ -1646,13 +2177,20 @@ export const events: EventContent[] = [
       { time: "13:00", title: "Fitness", detail: "Exercise demonstration" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 2,000", benefits: ["Workshop", "Materials", "Lunch"] },
+      {
+        name: "Standard",
+        price: "KES 2,000",
+        benefits: ["Workshop", "Materials", "Lunch"],
+      },
     ],
     experiences: ["Wellness education", "Practical tips", "Expert advice"],
     addOns: ["Materials", "Follow-up consultation"],
     compliance: ["Health focused"],
     faqs: [
-      { question: "What topics are covered?", answer: "Nutrition, fitness, mental health, and lifestyle" },
+      {
+        question: "What topics are covered?",
+        answer: "Nutrition, fitness, mental health, and lifestyle",
+      },
     ],
   },
   {
@@ -1664,27 +2202,43 @@ export const events: EventContent[] = [
     dateFull: "Friday 24 January • 6:00 PM - 7:30 PM",
     startDate: "2025-01-24T18:00:00+03:00",
     price: "From KES 1,200",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Peaceful meditation session as the sun sets over the beautiful Ngong Hills.",
+    summary:
+      "Peaceful meditation session as the sun sets over the beautiful Ngong Hills.",
     categories: ["Wellness"],
     tags: ["Meditation", "Sunset", "Nature"],
     highlights: ["Sunset views", "Nature setting", "Peaceful meditation"],
     schedule: [
       { time: "18:00", title: "Arrival", detail: "Find your spot" },
-      { time: "18:30", title: "Meditation", detail: "Guided sunset meditation" },
+      {
+        time: "18:30",
+        title: "Meditation",
+        detail: "Guided sunset meditation",
+      },
       { time: "19:15", title: "Closing", detail: "Reflection and wrap-up" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,200", benefits: ["Meditation", "Sunset views"] },
+      {
+        name: "Standard",
+        price: "KES 1,200",
+        benefits: ["Meditation", "Sunset views"],
+      },
     ],
     experiences: ["Sunset meditation", "Nature", "Peace"],
     addOns: ["Cushion rental", "Tea"],
     compliance: ["Quiet environment", "Comfortable clothing"],
     faqs: [
-      { question: "What if it's cloudy?", answer: "Event continues, beautiful views regardless" },
+      {
+        question: "What if it's cloudy?",
+        answer: "Event continues, beautiful views regardless",
+      },
     ],
   },
   {
@@ -1696,28 +2250,48 @@ export const events: EventContent[] = [
     dateFull: "Monday 27 January • 6:00 PM - 7:00 PM",
     startDate: "2025-01-27T18:00:00+03:00",
     price: "From KES 1,000",
-    heroImage: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Strengthening Pilates class for all fitness levels with professional instruction.",
+    summary:
+      "Strengthening Pilates class for all fitness levels with professional instruction.",
     categories: ["Wellness"],
     tags: ["Pilates", "Fitness", "Wellness"],
     highlights: ["Pilates training", "All levels", "Professional instruction"],
     schedule: [
       { time: "18:00", title: "Warm-up", detail: "Introduction and warm-up" },
       { time: "18:15", title: "Main class", detail: "Pilates exercises" },
-      { time: "18:50", title: "Cool down", detail: "Stretching and relaxation" },
+      {
+        time: "18:50",
+        title: "Cool down",
+        detail: "Stretching and relaxation",
+      },
     ],
     ticketTiers: [
-      { name: "Single class", price: "KES 1,000", benefits: ["Class", "Equipment"] },
-      { name: "Monthly", price: "KES 3,500", benefits: ["8 classes", "Equipment"] },
+      {
+        name: "Single class",
+        price: "KES 1,000",
+        benefits: ["Class", "Equipment"],
+      },
+      {
+        name: "Monthly",
+        price: "KES 3,500",
+        benefits: ["8 classes", "Equipment"],
+      },
     ],
     experiences: ["Pilates", "Fitness", "Wellness"],
     addOns: ["Mat", "Equipment"],
     compliance: ["Fitness class", "Comfortable clothing"],
     faqs: [
-      { question: "Do I need equipment?", answer: "No, all equipment provided" },
+      {
+        question: "Do I need equipment?",
+        answer: "No, all equipment provided",
+      },
     ],
   },
   {
@@ -1729,11 +2303,16 @@ export const events: EventContent[] = [
     dateFull: "Wednesday 29 January • 7:00 PM - 8:30 PM",
     startDate: "2025-01-29T19:00:00+03:00",
     price: "From KES 1,500",
-    heroImage: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Therapeutic sound healing session using singing bowls and other instruments for deep relaxation.",
+    summary:
+      "Therapeutic sound healing session using singing bowls and other instruments for deep relaxation.",
     categories: ["Wellness"],
     tags: ["Sound healing", "Relaxation", "Therapy"],
     highlights: ["Sound therapy", "Deep relaxation", "Healing"],
@@ -1743,13 +2322,21 @@ export const events: EventContent[] = [
       { time: "20:15", title: "Integration", detail: "Quiet reflection time" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,500", benefits: ["Session", "Cushion", "Blanket"] },
+      {
+        name: "Standard",
+        price: "KES 1,500",
+        benefits: ["Session", "Cushion", "Blanket"],
+      },
     ],
     experiences: ["Sound healing", "Relaxation", "Therapy"],
     addOns: ["Cushion", "Blanket"],
     compliance: ["Quiet environment", "Comfortable clothing"],
     faqs: [
-      { question: "What is sound healing?", answer: "Therapeutic use of sound vibrations for relaxation and healing" },
+      {
+        question: "What is sound healing?",
+        answer:
+          "Therapeutic use of sound vibrations for relaxation and healing",
+      },
     ],
   },
   {
@@ -1761,11 +2348,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 1 February • 8:00 AM - 11:00 AM",
     startDate: "2025-02-01T08:00:00+03:00",
     price: "From KES 1,000",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Guided nature walk combined with wellness activities in the beautiful Karura Forest.",
+    summary:
+      "Guided nature walk combined with wellness activities in the beautiful Karura Forest.",
     categories: ["Wellness"],
     tags: ["Nature", "Walking", "Wellness"],
     highlights: ["Nature walk", "Wellness activities", "Forest setting"],
@@ -1775,13 +2367,20 @@ export const events: EventContent[] = [
       { time: "10:30", title: "Wellness", detail: "Stretching and meditation" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,000", benefits: ["Walk", "Guide", "Wellness session"] },
+      {
+        name: "Standard",
+        price: "KES 1,000",
+        benefits: ["Walk", "Guide", "Wellness session"],
+      },
     ],
     experiences: ["Nature", "Walking", "Wellness"],
     addOns: ["Water bottle", "Snack"],
     compliance: ["Outdoor activity", "Comfortable shoes"],
     faqs: [
-      { question: "How long is the walk?", answer: "Approximately 2-3 hours with breaks" },
+      {
+        question: "How long is the walk?",
+        answer: "Approximately 2-3 hours with breaks",
+      },
     ],
   },
   {
@@ -1793,27 +2392,43 @@ export const events: EventContent[] = [
     dateFull: "Sunday 2 February • 3:00 PM - 5:00 PM",
     startDate: "2025-02-02T15:00:00+03:00",
     price: "From KES 1,800",
-    heroImage: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Learn powerful breathing techniques for stress relief, energy, and overall wellness.",
+    summary:
+      "Learn powerful breathing techniques for stress relief, energy, and overall wellness.",
     categories: ["Wellness"],
     tags: ["Breathwork", "Workshop", "Wellness"],
     highlights: ["Breathing techniques", "Stress relief", "Energy"],
     schedule: [
       { time: "15:00", title: "Introduction", detail: "Breathwork basics" },
-      { time: "15:30", title: "Practice", detail: "Guided breathing exercises" },
+      {
+        time: "15:30",
+        title: "Practice",
+        detail: "Guided breathing exercises",
+      },
       { time: "16:30", title: "Integration", detail: "Discussion and Q&A" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,800", benefits: ["Workshop", "Materials", "Practice"] },
+      {
+        name: "Standard",
+        price: "KES 1,800",
+        benefits: ["Workshop", "Materials", "Practice"],
+      },
     ],
     experiences: ["Breathwork", "Learning", "Wellness"],
     addOns: ["Materials", "Follow-up session"],
     compliance: ["Comfortable clothing", "No prior experience needed"],
     faqs: [
-      { question: "Is it safe?", answer: "Yes, all techniques are safe and guided by professionals" },
+      {
+        question: "Is it safe?",
+        answer: "Yes, all techniques are safe and guided by professionals",
+      },
     ],
   },
   // Food & Culture Events (8 events)
@@ -1826,11 +2441,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 4 January • 11:00 AM - 6:00 PM",
     startDate: "2025-01-04T11:00:00+03:00",
     price: "From KES 500",
-    heroImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Celebrate local cuisine with food vendors, cooking demonstrations, and cultural performances.",
+    summary:
+      "Celebrate local cuisine with food vendors, cooking demonstrations, and cultural performances.",
     categories: ["Food & culture"],
     tags: ["Food", "Culture", "Festival"],
     highlights: ["Local cuisine", "Cooking demos", "Cultural performances"],
@@ -1840,13 +2460,21 @@ export const events: EventContent[] = [
       { time: "15:00", title: "Performances", detail: "Cultural shows" },
     ],
     ticketTiers: [
-      { name: "Entry", price: "KES 500", benefits: ["Festival access", "Food vendors"] },
+      {
+        name: "Entry",
+        price: "KES 500",
+        benefits: ["Festival access", "Food vendors"],
+      },
     ],
     experiences: ["Food tasting", "Cooking demos", "Culture"],
     addOns: ["Food vouchers", "VIP area"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Is food included?", answer: "Entry fee covers access, food purchased separately from vendors" },
+      {
+        question: "Is food included?",
+        answer:
+          "Entry fee covers access, food purchased separately from vendors",
+      },
     ],
   },
   {
@@ -1858,11 +2486,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 5 January • 10:00 AM - 3:00 PM",
     startDate: "2025-01-05T10:00:00+03:00",
     price: "From KES 800",
-    heroImage: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Guided tour of cultural heritage sites with traditional food tasting and storytelling.",
+    summary:
+      "Guided tour of cultural heritage sites with traditional food tasting and storytelling.",
     categories: ["Food & culture", "Culture"],
     tags: ["Heritage", "Tour", "Culture"],
     highlights: ["Cultural sites", "Traditional food", "Storytelling"],
@@ -1872,13 +2505,20 @@ export const events: EventContent[] = [
       { time: "13:00", title: "Food tasting", detail: "Traditional cuisine" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 800", benefits: ["Tour", "Food tasting", "Guide"] },
+      {
+        name: "Standard",
+        price: "KES 800",
+        benefits: ["Tour", "Food tasting", "Guide"],
+      },
     ],
     experiences: ["Heritage", "Culture", "Food"],
     addOns: ["Food package", "Souvenirs"],
     compliance: ["Cultural event", "All ages"],
     faqs: [
-      { question: "How long is the tour?", answer: "Approximately 3-4 hours with breaks" },
+      {
+        question: "How long is the tour?",
+        answer: "Approximately 3-4 hours with breaks",
+      },
     ],
   },
   {
@@ -1890,27 +2530,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 2:00 PM - 5:00 PM",
     startDate: "2025-01-11T14:00:00+03:00",
     price: "From KES 1,200",
-    heroImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Explore Nairobi's best street food with a local guide, tasting authentic flavors.",
+    summary:
+      "Explore Nairobi's best street food with a local guide, tasting authentic flavors.",
     categories: ["Food & culture"],
     tags: ["Street food", "Tour", "Local"],
     highlights: ["Street food", "Local guide", "Authentic flavors"],
     schedule: [
-      { time: "14:00", title: "Meet-up", detail: "Introduction and safety briefing" },
+      {
+        time: "14:00",
+        title: "Meet-up",
+        detail: "Introduction and safety briefing",
+      },
       { time: "14:30", title: "Tour begins", detail: "Visit food vendors" },
       { time: "16:30", title: "Final stop", detail: "Dessert and wrap-up" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,200", benefits: ["Tour", "Food samples", "Guide"] },
+      {
+        name: "Standard",
+        price: "KES 1,200",
+        benefits: ["Tour", "Food samples", "Guide"],
+      },
     ],
     experiences: ["Street food", "Local culture", "Food tasting"],
     addOns: ["Extra food", "Drinks"],
     compliance: ["Food safety", "Walking tour"],
     faqs: [
-      { question: "Is food included?", answer: "Yes, multiple food samples included in ticket" },
+      {
+        question: "Is food included?",
+        answer: "Yes, multiple food samples included in ticket",
+      },
     ],
   },
   {
@@ -1922,27 +2578,43 @@ export const events: EventContent[] = [
     dateFull: "Sunday 12 January • 11:00 AM - 3:00 PM",
     startDate: "2025-01-12T11:00:00+03:00",
     price: "From KES 3,000",
-    heroImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Learn to cook traditional African dishes with expert chefs in a hands-on masterclass.",
+    summary:
+      "Learn to cook traditional African dishes with expert chefs in a hands-on masterclass.",
     categories: ["Food & culture"],
     tags: ["Cooking", "African cuisine", "Masterclass"],
     highlights: ["Traditional recipes", "Expert chefs", "Hands-on"],
     schedule: [
-      { time: "11:00", title: "Introduction", detail: "Meet chefs and overview" },
+      {
+        time: "11:00",
+        title: "Introduction",
+        detail: "Meet chefs and overview",
+      },
       { time: "11:30", title: "Cooking", detail: "Hands-on cooking session" },
       { time: "14:00", title: "Dining", detail: "Enjoy your creations" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 3,000", benefits: ["Class", "Ingredients", "Meal", "Recipe book"] },
+      {
+        name: "Standard",
+        price: "KES 3,000",
+        benefits: ["Class", "Ingredients", "Meal", "Recipe book"],
+      },
     ],
     experiences: ["Cooking", "Learning", "Traditional food"],
     addOns: ["Recipe book", "Extra ingredients"],
     compliance: ["Cooking class", "All ages"],
     faqs: [
-      { question: "What will I cook?", answer: "Traditional African dishes like ugali, sukuma wiki, and more" },
+      {
+        question: "What will I cook?",
+        answer: "Traditional African dishes like ugali, sukuma wiki, and more",
+      },
     ],
   },
   {
@@ -1954,11 +2626,16 @@ export const events: EventContent[] = [
     dateFull: "Friday 17 January • 7:00 PM - 10:00 PM",
     startDate: "2025-01-17T19:00:00+03:00",
     price: "From KES 2,500",
-    heroImage: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Elegant wine tasting event with expert sommelier, cheese pairings, and cultural insights.",
+    summary:
+      "Elegant wine tasting event with expert sommelier, cheese pairings, and cultural insights.",
     categories: ["Food & culture"],
     tags: ["Wine", "Tasting", "Culture"],
     highlights: ["Wine tasting", "Expert sommelier", "Cheese pairings"],
@@ -1968,8 +2645,16 @@ export const events: EventContent[] = [
       { time: "21:00", title: "Pairings", detail: "Cheese and food pairings" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 2,500", benefits: ["Tasting", "Cheese", "Expert guidance"] },
-      { name: "Premium", price: "KES 4,500", benefits: ["Premium wines", "Full meal", "VIP area"] },
+      {
+        name: "Standard",
+        price: "KES 2,500",
+        benefits: ["Tasting", "Cheese", "Expert guidance"],
+      },
+      {
+        name: "Premium",
+        price: "KES 4,500",
+        benefits: ["Premium wines", "Full meal", "VIP area"],
+      },
     ],
     experiences: ["Wine tasting", "Culture", "Food pairings"],
     addOns: ["Wine purchase", "Cheese board"],
@@ -1987,11 +2672,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 3:00 PM - 5:00 PM",
     startDate: "2025-01-18T15:00:00+03:00",
     price: "From KES 1,000",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Vibrant cultural dance performances showcasing traditional dances from across Kenya.",
+    summary:
+      "Vibrant cultural dance performances showcasing traditional dances from across Kenya.",
     categories: ["Food & culture", "Culture"],
     tags: ["Dance", "Culture", "Traditional"],
     highlights: ["Traditional dances", "Cultural performances", "Live music"],
@@ -2001,13 +2691,21 @@ export const events: EventContent[] = [
       { time: "16:30", title: "Interactive", detail: "Audience participation" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,000", benefits: ["Show", "Cultural experience"] },
+      {
+        name: "Standard",
+        price: "KES 1,000",
+        benefits: ["Show", "Cultural experience"],
+      },
     ],
     experiences: ["Cultural dance", "Live music", "Culture"],
     addOns: ["Food package", "Souvenirs"],
     compliance: ["Cultural event", "All ages"],
     faqs: [
-      { question: "Can I participate?", answer: "Yes, there's an interactive session for audience participation" },
+      {
+        question: "Can I participate?",
+        answer:
+          "Yes, there's an interactive session for audience participation",
+      },
     ],
   },
   {
@@ -2019,11 +2717,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 19 January • 9:00 AM - 12:00 PM",
     startDate: "2025-01-19T09:00:00+03:00",
     price: "From KES 800",
-    heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Explore local food markets with a guide, learning about ingredients and local food culture.",
+    summary:
+      "Explore local food markets with a guide, learning about ingredients and local food culture.",
     categories: ["Food & culture"],
     tags: ["Market", "Food", "Culture"],
     highlights: ["Local markets", "Food culture", "Guided tour"],
@@ -2033,13 +2736,21 @@ export const events: EventContent[] = [
       { time: "11:30", title: "Tasting", detail: "Food samples and wrap-up" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 800", benefits: ["Tour", "Guide", "Samples"] },
+      {
+        name: "Standard",
+        price: "KES 800",
+        benefits: ["Tour", "Guide", "Samples"],
+      },
     ],
     experiences: ["Market tour", "Food culture", "Local ingredients"],
     addOns: ["Food purchase", "Recipe cards"],
     compliance: ["Market tour", "Walking"],
     faqs: [
-      { question: "What will I see?", answer: "Local vendors, fresh produce, spices, and traditional ingredients" },
+      {
+        question: "What will I see?",
+        answer:
+          "Local vendors, fresh produce, spices, and traditional ingredients",
+      },
     ],
   },
   {
@@ -2051,28 +2762,48 @@ export const events: EventContent[] = [
     dateFull: "Saturday 25 January • 10:00 AM - 6:00 PM",
     startDate: "2025-01-25T10:00:00+03:00",
     price: "From KES 600",
-    heroImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Multi-cultural food festival celebrating diverse cuisines with live cooking and cultural shows.",
+    summary:
+      "Multi-cultural food festival celebrating diverse cuisines with live cooking and cultural shows.",
     categories: ["Food & culture"],
     tags: ["Festival", "Food", "Culture"],
     highlights: ["Multi-cultural", "Food vendors", "Cultural shows"],
     schedule: [
       { time: "10:00", title: "Opening", detail: "Festival begins" },
       { time: "12:00", title: "Cooking shows", detail: "Live demonstrations" },
-      { time: "15:00", title: "Performances", detail: "Cultural entertainment" },
+      {
+        time: "15:00",
+        title: "Performances",
+        detail: "Cultural entertainment",
+      },
     ],
     ticketTiers: [
-      { name: "Entry", price: "KES 600", benefits: ["Festival access", "All vendors"] },
-      { name: "VIP", price: "KES 2,000", benefits: ["VIP area", "Food vouchers", "Priority seating"] },
+      {
+        name: "Entry",
+        price: "KES 600",
+        benefits: ["Festival access", "All vendors"],
+      },
+      {
+        name: "VIP",
+        price: "KES 2,000",
+        benefits: ["VIP area", "Food vouchers", "Priority seating"],
+      },
     ],
     experiences: ["Food festival", "Culture", "Entertainment"],
     addOns: ["Food vouchers", "VIP upgrade"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "How many food vendors?", answer: "Over 50 food vendors from different cultures" },
+      {
+        question: "How many food vendors?",
+        answer: "Over 50 food vendors from different cultures",
+      },
     ],
   },
   // Campus Life Events (8 events)
@@ -2085,17 +2816,26 @@ export const events: EventContent[] = [
     dateFull: "Friday 3 January • 6:00 PM - 9:00 PM",
     startDate: "2025-01-03T18:00:00+03:00",
     price: "From KES 300",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Showcase of student talent including music, dance, comedy, and spoken word performances.",
+    summary:
+      "Showcase of student talent including music, dance, comedy, and spoken word performances.",
     categories: ["Campus life"],
     tags: ["Talent", "Students", "University"],
     highlights: ["Student talent", "Live performances", "Campus community"],
     schedule: [
       { time: "18:00", title: "Opening", detail: "Welcome and introductions" },
-      { time: "18:30", title: "Performances", detail: "Talent showcase begins" },
+      {
+        time: "18:30",
+        title: "Performances",
+        detail: "Talent showcase begins",
+      },
       { time: "20:30", title: "Awards", detail: "Winners announced" },
     ],
     ticketTiers: [
@@ -2106,7 +2846,10 @@ export const events: EventContent[] = [
     addOns: ["Food", "Merchandise"],
     compliance: ["Campus event", "Student ID for discount"],
     faqs: [
-      { question: "Who can perform?", answer: "Current students can register to perform" },
+      {
+        question: "Who can perform?",
+        answer: "Current students can register to perform",
+      },
     ],
   },
   {
@@ -2118,11 +2861,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 4 January • 2:00 PM - 10:00 PM",
     startDate: "2025-01-04T14:00:00+03:00",
     price: "From KES 500",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Day-long music festival featuring student bands, DJs, and local artists on campus.",
+    summary:
+      "Day-long music festival featuring student bands, DJs, and local artists on campus.",
     categories: ["Campus life"],
     tags: ["Music", "Festival", "Campus"],
     highlights: ["Student bands", "Live music", "Campus vibes"],
@@ -2132,14 +2880,25 @@ export const events: EventContent[] = [
       { time: "20:00", title: "Closing", detail: "Final performances" },
     ],
     ticketTiers: [
-      { name: "Student", price: "KES 500", benefits: ["Full day access", "All stages"] },
-      { name: "General", price: "KES 800", benefits: ["Full day access", "All stages"] },
+      {
+        name: "Student",
+        price: "KES 500",
+        benefits: ["Full day access", "All stages"],
+      },
+      {
+        name: "General",
+        price: "KES 800",
+        benefits: ["Full day access", "All stages"],
+      },
     ],
     experiences: ["Music festival", "Campus culture", "Live performances"],
     addOns: ["Food vouchers", "Merchandise"],
     compliance: ["Campus event", "Student ID required"],
     faqs: [
-      { question: "How many stages?", answer: "Multiple stages with different genres" },
+      {
+        question: "How many stages?",
+        answer: "Multiple stages with different genres",
+      },
     ],
   },
   {
@@ -2151,11 +2910,16 @@ export const events: EventContent[] = [
     dateFull: "Wednesday 8 January • 10:00 AM - 4:00 PM",
     startDate: "2025-01-08T10:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Showcase of student startups and businesses with networking opportunities and mentorship.",
+    summary:
+      "Showcase of student startups and businesses with networking opportunities and mentorship.",
     categories: ["Campus life"],
     tags: ["Entrepreneurship", "Startups", "Students"],
     highlights: ["Student startups", "Networking", "Mentorship"],
@@ -2165,13 +2929,20 @@ export const events: EventContent[] = [
       { time: "14:00", title: "Networking", detail: "Mentor meetups" },
     ],
     ticketTiers: [
-      { name: "Free Entry", price: "Free", benefits: ["Fair access", "Networking"] },
+      {
+        name: "Free Entry",
+        price: "Free",
+        benefits: ["Fair access", "Networking"],
+      },
     ],
     experiences: ["Startups", "Networking", "Mentorship"],
     addOns: ["Workshop tickets", "Materials"],
     compliance: ["Campus event", "Open to all"],
     faqs: [
-      { question: "Can I showcase my startup?", answer: "Yes, student startups can register for booths" },
+      {
+        question: "Can I showcase my startup?",
+        answer: "Yes, student startups can register for booths",
+      },
     ],
   },
   {
@@ -2183,11 +2954,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 8:00 AM - 5:00 PM",
     startDate: "2025-01-11T08:00:00+03:00",
     price: "From KES 200",
-    heroImage: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Inter-university sports tournament featuring football, basketball, and athletics competitions.",
+    summary:
+      "Inter-university sports tournament featuring football, basketball, and athletics competitions.",
     categories: ["Campus life"],
     tags: ["Sports", "Tournament", "Campus"],
     highlights: ["Sports competition", "Inter-university", "Championship"],
@@ -2204,7 +2980,10 @@ export const events: EventContent[] = [
     addOns: ["Food", "Merchandise"],
     compliance: ["Sports event", "Campus grounds"],
     faqs: [
-      { question: "What sports?", answer: "Football, basketball, volleyball, and athletics" },
+      {
+        question: "What sports?",
+        answer: "Football, basketball, volleyball, and athletics",
+      },
     ],
   },
   {
@@ -2216,28 +2995,48 @@ export const events: EventContent[] = [
     dateFull: "Thursday 16 January • 9:00 AM - 5:00 PM",
     startDate: "2025-01-16T09:00:00+03:00",
     price: "From KES 400",
-    heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Academic conference featuring student research presentations and keynote speakers.",
+    summary:
+      "Academic conference featuring student research presentations and keynote speakers.",
     categories: ["Campus life"],
     tags: ["Academic", "Conference", "Research"],
-    highlights: ["Student research", "Academic presentations", "Keynote speakers"],
+    highlights: [
+      "Student research",
+      "Academic presentations",
+      "Keynote speakers",
+    ],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Welcome and keynote" },
       { time: "10:00", title: "Sessions", detail: "Research presentations" },
       { time: "14:00", title: "Poster session", detail: "Research posters" },
     ],
     ticketTiers: [
-      { name: "Student", price: "KES 400", benefits: ["Conference", "Materials", "Lunch"] },
-      { name: "General", price: "KES 800", benefits: ["Conference", "Materials", "Lunch"] },
+      {
+        name: "Student",
+        price: "KES 400",
+        benefits: ["Conference", "Materials", "Lunch"],
+      },
+      {
+        name: "General",
+        price: "KES 800",
+        benefits: ["Conference", "Materials", "Lunch"],
+      },
     ],
     experiences: ["Academic", "Research", "Learning"],
     addOns: ["Materials", "Proceedings"],
     compliance: ["Academic event", "Professional"],
     faqs: [
-      { question: "Can I present?", answer: "Yes, students can submit abstracts for presentation" },
+      {
+        question: "Can I present?",
+        answer: "Yes, students can submit abstracts for presentation",
+      },
     ],
   },
   {
@@ -2249,11 +3048,16 @@ export const events: EventContent[] = [
     dateFull: "Friday 17 January • 7:00 PM - 10:00 PM",
     startDate: "2025-01-17T19:00:00+03:00",
     price: "From KES 400",
-    heroImage: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Stand-up comedy night featuring student comedians and local comedy acts.",
+    summary:
+      "Stand-up comedy night featuring student comedians and local comedy acts.",
     categories: ["Campus life"],
     tags: ["Comedy", "Entertainment", "Campus"],
     highlights: ["Student comedians", "Stand-up comedy", "Entertainment"],
@@ -2270,7 +3074,10 @@ export const events: EventContent[] = [
     addOns: ["Food", "Drinks"],
     compliance: ["Comedy event", "Age 16+"],
     faqs: [
-      { question: "Is it appropriate?", answer: "Content may include mature themes, age 16+" },
+      {
+        question: "Is it appropriate?",
+        answer: "Content may include mature themes, age 16+",
+      },
     ],
   },
   {
@@ -2282,27 +3089,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 10:00 AM - 2:00 PM",
     startDate: "2025-01-18T10:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Organized study group sessions for students to collaborate and learn together.",
+    summary:
+      "Organized study group sessions for students to collaborate and learn together.",
     categories: ["Campus life"],
     tags: ["Study", "Academic", "Students"],
     highlights: ["Study groups", "Collaboration", "Learning"],
     schedule: [
       { time: "10:00", title: "Meet-up", detail: "Introduction and grouping" },
-      { time: "10:30", title: "Study session", detail: "Collaborative studying" },
+      {
+        time: "10:30",
+        title: "Study session",
+        detail: "Collaborative studying",
+      },
       { time: "13:00", title: "Break", detail: "Lunch and networking" },
     ],
     ticketTiers: [
-      { name: "Free Entry", price: "Free", benefits: ["Study session", "Resources"] },
+      {
+        name: "Free Entry",
+        price: "Free",
+        benefits: ["Study session", "Resources"],
+      },
     ],
     experiences: ["Study groups", "Learning", "Networking"],
     addOns: ["Study materials", "Food"],
     compliance: ["Academic event", "Students only"],
     faqs: [
-      { question: "What subjects?", answer: "Various subjects, students grouped by interest" },
+      {
+        question: "What subjects?",
+        answer: "Various subjects, students grouped by interest",
+      },
     ],
   },
   {
@@ -2314,11 +3137,16 @@ export const events: EventContent[] = [
     dateFull: "Friday 24 January • 4:00 PM - 9:00 PM",
     startDate: "2025-01-24T16:00:00+03:00",
     price: "From KES 1,000",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Celebration event for graduating students with food, music, and entertainment.",
+    summary:
+      "Celebration event for graduating students with food, music, and entertainment.",
     categories: ["Campus life"],
     tags: ["Graduation", "Celebration", "Campus"],
     highlights: ["Graduation celebration", "Food", "Entertainment"],
@@ -2328,8 +3156,16 @@ export const events: EventContent[] = [
       { time: "19:00", title: "Party", detail: "Music and dancing" },
     ],
     ticketTiers: [
-      { name: "Graduate", price: "KES 1,000", benefits: ["Entry", "Food", "Entertainment"] },
-      { name: "Guest", price: "KES 1,500", benefits: ["Entry", "Food", "Entertainment"] },
+      {
+        name: "Graduate",
+        price: "KES 1,000",
+        benefits: ["Entry", "Food", "Entertainment"],
+      },
+      {
+        name: "Guest",
+        price: "KES 1,500",
+        benefits: ["Entry", "Food", "Entertainment"],
+      },
     ],
     experiences: ["Celebration", "Graduation", "Campus culture"],
     addOns: ["Food package", "Drinks"],
@@ -2348,27 +3184,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 4 January • 8:00 AM - 12:00 PM",
     startDate: "2025-01-04T08:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Volunteer community cleanup initiative to improve local environment and neighborhoods.",
+    summary:
+      "Volunteer community cleanup initiative to improve local environment and neighborhoods.",
     categories: ["Community impact"],
     tags: ["Volunteer", "Community", "Environment"],
     highlights: ["Community service", "Environmental impact", "Volunteering"],
     schedule: [
       { time: "08:00", title: "Registration", detail: "Check-in and briefing" },
       { time: "08:30", title: "Cleanup", detail: "Community cleanup begins" },
-      { time: "11:30", title: "Wrap-up", detail: "Collection and refreshments" },
+      {
+        time: "11:30",
+        title: "Wrap-up",
+        detail: "Collection and refreshments",
+      },
     ],
     ticketTiers: [
-      { name: "Volunteer", price: "Free", benefits: ["Participation", "Refreshments", "Certificate"] },
+      {
+        name: "Volunteer",
+        price: "Free",
+        benefits: ["Participation", "Refreshments", "Certificate"],
+      },
     ],
     experiences: ["Community service", "Volunteering", "Impact"],
     addOns: ["T-shirt", "Equipment"],
     compliance: ["Volunteer event", "All ages welcome"],
     faqs: [
-      { question: "What should I bring?", answer: "Just yourself, all equipment provided" },
+      {
+        question: "What should I bring?",
+        answer: "Just yourself, all equipment provided",
+      },
     ],
   },
   {
@@ -2380,11 +3232,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 7:00 PM - 11:00 PM",
     startDate: "2025-01-11T19:00:00+03:00",
     price: "From KES 5,000",
-    heroImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Elegant fundraising gala supporting local charities with dinner, entertainment, and auctions.",
+    summary:
+      "Elegant fundraising gala supporting local charities with dinner, entertainment, and auctions.",
     categories: ["Community impact"],
     tags: ["Charity", "Fundraiser", "Gala"],
     highlights: ["Charity support", "Elegant event", "Community impact"],
@@ -2394,14 +3251,25 @@ export const events: EventContent[] = [
       { time: "21:00", title: "Auction", detail: "Charity auction" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 5,000", benefits: ["Gala", "Dinner", "Entertainment"] },
-      { name: "VIP", price: "KES 10,000", benefits: ["VIP table", "Premium dinner", "Meet organizers"] },
+      {
+        name: "Standard",
+        price: "KES 5,000",
+        benefits: ["Gala", "Dinner", "Entertainment"],
+      },
+      {
+        name: "VIP",
+        price: "KES 10,000",
+        benefits: ["VIP table", "Premium dinner", "Meet organizers"],
+      },
     ],
     experiences: ["Charity", "Gala", "Community"],
     addOns: ["Auction items", "Donations"],
     compliance: ["Formal attire", "Charity event"],
     faqs: [
-      { question: "Where do funds go?", answer: "All proceeds support local community charities" },
+      {
+        question: "Where do funds go?",
+        answer: "All proceeds support local community charities",
+      },
     ],
   },
   {
@@ -2413,27 +3281,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 10:00 AM - 2:00 PM",
     startDate: "2025-01-18T10:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Mentorship program connecting youth with professionals for career guidance and support.",
+    summary:
+      "Mentorship program connecting youth with professionals for career guidance and support.",
     categories: ["Community impact"],
     tags: ["Mentorship", "Youth", "Community"],
     highlights: ["Youth support", "Mentorship", "Career guidance"],
     schedule: [
       { time: "10:00", title: "Opening", detail: "Introduction and pairing" },
       { time: "11:00", title: "Sessions", detail: "One-on-one mentorship" },
-      { time: "13:00", title: "Workshop", detail: "Career development workshop" },
+      {
+        time: "13:00",
+        title: "Workshop",
+        detail: "Career development workshop",
+      },
     ],
     ticketTiers: [
-      { name: "Participant", price: "Free", benefits: ["Mentorship", "Workshop", "Materials"] },
+      {
+        name: "Participant",
+        price: "Free",
+        benefits: ["Mentorship", "Workshop", "Materials"],
+      },
     ],
     experiences: ["Mentorship", "Career guidance", "Community"],
     addOns: ["Materials", "Follow-up"],
     compliance: ["Youth program", "Ages 16-25"],
     faqs: [
-      { question: "Who can participate?", answer: "Youth ages 16-25 seeking career guidance" },
+      {
+        question: "Who can participate?",
+        answer: "Youth ages 16-25 seeking career guidance",
+      },
     ],
   },
   {
@@ -2445,27 +3329,43 @@ export const events: EventContent[] = [
     dateFull: "Sunday 19 January • 9:00 AM - 3:00 PM",
     startDate: "2025-01-19T09:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Free health screenings, awareness sessions, and wellness activities for the community.",
+    summary:
+      "Free health screenings, awareness sessions, and wellness activities for the community.",
     categories: ["Community impact", "Wellness"],
     tags: ["Health", "Awareness", "Community"],
     highlights: ["Health screenings", "Awareness", "Community health"],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Campaign begins" },
       { time: "10:00", title: "Screenings", detail: "Free health checks" },
-      { time: "13:00", title: "Workshops", detail: "Health education sessions" },
+      {
+        time: "13:00",
+        title: "Workshops",
+        detail: "Health education sessions",
+      },
     ],
     ticketTiers: [
-      { name: "Free Entry", price: "Free", benefits: ["Screenings", "Workshops", "Information"] },
+      {
+        name: "Free Entry",
+        price: "Free",
+        benefits: ["Screenings", "Workshops", "Information"],
+      },
     ],
     experiences: ["Health", "Awareness", "Community"],
     addOns: ["Health materials", "Consultations"],
     compliance: ["Health event", "All ages"],
     faqs: [
-      { question: "What screenings?", answer: "Blood pressure, blood sugar, BMI, and general health checks" },
+      {
+        question: "What screenings?",
+        answer: "Blood pressure, blood sugar, BMI, and general health checks",
+      },
     ],
   },
   {
@@ -2477,27 +3377,47 @@ export const events: EventContent[] = [
     dateFull: "Saturday 25 January • 9:00 AM - 1:00 PM",
     startDate: "2025-01-25T09:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Community initiative to support education through book donations, tutoring, and school supplies.",
+    summary:
+      "Community initiative to support education through book donations, tutoring, and school supplies.",
     categories: ["Community impact"],
     tags: ["Education", "Community", "Support"],
     highlights: ["Education support", "Book donations", "Tutoring"],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Welcome and overview" },
-      { time: "10:00", title: "Activities", detail: "Tutoring and support sessions" },
-      { time: "12:00", title: "Distribution", detail: "School supplies distribution" },
+      {
+        time: "10:00",
+        title: "Activities",
+        detail: "Tutoring and support sessions",
+      },
+      {
+        time: "12:00",
+        title: "Distribution",
+        detail: "School supplies distribution",
+      },
     ],
     ticketTiers: [
-      { name: "Volunteer", price: "Free", benefits: ["Participation", "Impact"] },
+      {
+        name: "Volunteer",
+        price: "Free",
+        benefits: ["Participation", "Impact"],
+      },
     ],
     experiences: ["Education", "Community", "Impact"],
     addOns: ["Donations", "Supplies"],
     compliance: ["Community event", "All ages"],
     faqs: [
-      { question: "Can I donate?", answer: "Yes, book and supply donations welcome" },
+      {
+        question: "Can I donate?",
+        answer: "Yes, book and supply donations welcome",
+      },
     ],
   },
   {
@@ -2509,27 +3429,43 @@ export const events: EventContent[] = [
     dateFull: "Sunday 26 January • 10:00 AM - 3:00 PM",
     startDate: "2025-01-26T10:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Day of support and activities for elderly community members with health checks and entertainment.",
+    summary:
+      "Day of support and activities for elderly community members with health checks and entertainment.",
     categories: ["Community impact"],
     tags: ["Elderly", "Support", "Community"],
     highlights: ["Elderly support", "Health checks", "Entertainment"],
     schedule: [
       { time: "10:00", title: "Opening", detail: "Welcome and activities" },
-      { time: "11:00", title: "Health checks", detail: "Free medical screenings" },
+      {
+        time: "11:00",
+        title: "Health checks",
+        detail: "Free medical screenings",
+      },
       { time: "13:00", title: "Entertainment", detail: "Music and activities" },
     ],
     ticketTiers: [
-      { name: "Participant", price: "Free", benefits: ["Activities", "Health checks", "Meal"] },
+      {
+        name: "Participant",
+        price: "Free",
+        benefits: ["Activities", "Health checks", "Meal"],
+      },
     ],
     experiences: ["Community support", "Health", "Entertainment"],
     addOns: ["Donations", "Supplies"],
     compliance: ["Community event", "Elderly focused"],
     faqs: [
-      { question: "Who can attend?", answer: "Elderly community members and their families" },
+      {
+        question: "Who can attend?",
+        answer: "Elderly community members and their families",
+      },
     ],
   },
   {
@@ -2541,27 +3477,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 1 February • 8:00 AM - 12:00 PM",
     startDate: "2025-02-01T08:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Community tree planting initiative to support environmental conservation and reforestation.",
+    summary:
+      "Community tree planting initiative to support environmental conservation and reforestation.",
     categories: ["Community impact"],
     tags: ["Environment", "Planting", "Conservation"],
     highlights: ["Tree planting", "Conservation", "Environmental impact"],
     schedule: [
       { time: "08:00", title: "Registration", detail: "Check-in and briefing" },
       { time: "08:30", title: "Planting", detail: "Tree planting begins" },
-      { time: "11:30", title: "Wrap-up", detail: "Refreshments and certificate" },
+      {
+        time: "11:30",
+        title: "Wrap-up",
+        detail: "Refreshments and certificate",
+      },
     ],
     ticketTiers: [
-      { name: "Volunteer", price: "Free", benefits: ["Participation", "Refreshments", "Certificate"] },
+      {
+        name: "Volunteer",
+        price: "Free",
+        benefits: ["Participation", "Refreshments", "Certificate"],
+      },
     ],
     experiences: ["Tree planting", "Conservation", "Community"],
     addOns: ["T-shirt", "Equipment"],
     compliance: ["Environmental event", "All ages"],
     faqs: [
-      { question: "What should I bring?", answer: "Just yourself, all tools and trees provided" },
+      {
+        question: "What should I bring?",
+        answer: "Just yourself, all tools and trees provided",
+      },
     ],
   },
   {
@@ -2573,27 +3525,48 @@ export const events: EventContent[] = [
     dateFull: "Saturday 8 February • 9:00 AM - 4:00 PM",
     startDate: "2025-02-08T09:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Free skills training workshop teaching practical skills for employment and entrepreneurship.",
+    summary:
+      "Free skills training workshop teaching practical skills for employment and entrepreneurship.",
     categories: ["Community impact"],
     tags: ["Skills", "Training", "Community"],
     highlights: ["Skills training", "Employment", "Entrepreneurship"],
     schedule: [
-      { time: "09:00", title: "Opening", detail: "Introduction and registration" },
+      {
+        time: "09:00",
+        title: "Opening",
+        detail: "Introduction and registration",
+      },
       { time: "10:00", title: "Workshops", detail: "Skills training sessions" },
-      { time: "14:00", title: "Certification", detail: "Certificates and wrap-up" },
+      {
+        time: "14:00",
+        title: "Certification",
+        detail: "Certificates and wrap-up",
+      },
     ],
     ticketTiers: [
-      { name: "Participant", price: "Free", benefits: ["Training", "Materials", "Certificate"] },
+      {
+        name: "Participant",
+        price: "Free",
+        benefits: ["Training", "Materials", "Certificate"],
+      },
     ],
     experiences: ["Skills training", "Learning", "Community"],
     addOns: ["Materials", "Follow-up support"],
     compliance: ["Training event", "All ages"],
     faqs: [
-      { question: "What skills are taught?", answer: "Various practical skills including computer, crafts, and business" },
+      {
+        question: "What skills are taught?",
+        answer:
+          "Various practical skills including computer, crafts, and business",
+      },
     ],
   },
   // Creator Exclusives Events (8 events)
@@ -2606,28 +3579,52 @@ export const events: EventContent[] = [
     dateFull: "Saturday 4 January • 10:00 AM - 4:00 PM",
     startDate: "2025-01-04T10:00:00+03:00",
     price: "From KES 2,500",
-    heroImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Exclusive workshop for content creators covering content strategy, monetization, and growth.",
+    summary:
+      "Exclusive workshop for content creators covering content strategy, monetization, and growth.",
     categories: ["Creator exclusives"],
     tags: ["Creator", "Workshop", "Content"],
     highlights: ["Creator education", "Monetization", "Growth strategies"],
     schedule: [
-      { time: "10:00", title: "Opening", detail: "Introduction and networking" },
-      { time: "11:00", title: "Sessions", detail: "Content strategy workshops" },
+      {
+        time: "10:00",
+        title: "Opening",
+        detail: "Introduction and networking",
+      },
+      {
+        time: "11:00",
+        title: "Sessions",
+        detail: "Content strategy workshops",
+      },
       { time: "14:00", title: "Panel", detail: "Creator panel discussion" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 2,500", benefits: ["Workshop", "Materials", "Lunch"] },
-      { name: "VIP", price: "KES 5,000", benefits: ["VIP access", "One-on-one", "Networking dinner"] },
+      {
+        name: "Standard",
+        price: "KES 2,500",
+        benefits: ["Workshop", "Materials", "Lunch"],
+      },
+      {
+        name: "VIP",
+        price: "KES 5,000",
+        benefits: ["VIP access", "One-on-one", "Networking dinner"],
+      },
     ],
     experiences: ["Creator education", "Networking", "Growth"],
     addOns: ["Materials", "Consultation"],
     compliance: ["Creator event", "Professional"],
     faqs: [
-      { question: "Who should attend?", answer: "Content creators, influencers, and aspiring creators" },
+      {
+        question: "Who should attend?",
+        answer: "Content creators, influencers, and aspiring creators",
+      },
     ],
   },
   {
@@ -2639,28 +3636,56 @@ export const events: EventContent[] = [
     dateFull: "Friday 10 January • 6:00 PM - 9:00 PM",
     startDate: "2025-01-10T18:00:00+03:00",
     price: "From KES 3,000",
-    heroImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Exclusive networking event for influencers and content creators to connect and collaborate.",
+    summary:
+      "Exclusive networking event for influencers and content creators to connect and collaborate.",
     categories: ["Creator exclusives"],
     tags: ["Influencer", "Networking", "Creator"],
-    highlights: ["Influencer networking", "Collaborations", "Brand connections"],
+    highlights: [
+      "Influencer networking",
+      "Collaborations",
+      "Brand connections",
+    ],
     schedule: [
       { time: "18:00", title: "Arrival", detail: "Cocktail reception" },
-      { time: "19:00", title: "Networking", detail: "Structured networking sessions" },
-      { time: "20:30", title: "Brand meetups", detail: "Brand partnership opportunities" },
+      {
+        time: "19:00",
+        title: "Networking",
+        detail: "Structured networking sessions",
+      },
+      {
+        time: "20:30",
+        title: "Brand meetups",
+        detail: "Brand partnership opportunities",
+      },
     ],
     ticketTiers: [
-      { name: "Creator", price: "KES 3,000", benefits: ["Networking", "Cocktails", "Brand access"] },
-      { name: "VIP", price: "KES 6,000", benefits: ["VIP area", "Brand meetings", "Premium access"] },
+      {
+        name: "Creator",
+        price: "KES 3,000",
+        benefits: ["Networking", "Cocktails", "Brand access"],
+      },
+      {
+        name: "VIP",
+        price: "KES 6,000",
+        benefits: ["VIP area", "Brand meetings", "Premium access"],
+      },
     ],
     experiences: ["Networking", "Brand connections", "Collaborations"],
     addOns: ["Premium access", "Brand meetings"],
     compliance: ["Creator event", "Professional"],
     faqs: [
-      { question: "Who can attend?", answer: "Influencers, content creators, and brand representatives" },
+      {
+        question: "Who can attend?",
+        answer: "Influencers, content creators, and brand representatives",
+      },
     ],
   },
   {
@@ -2672,11 +3697,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 12 January • 11:00 AM - 5:00 PM",
     startDate: "2025-01-12T11:00:00+03:00",
     price: "From KES 4,000",
-    heroImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Intensive masterclass on content creation covering video, photography, and editing techniques.",
+    summary:
+      "Intensive masterclass on content creation covering video, photography, and editing techniques.",
     categories: ["Creator exclusives"],
     tags: ["Content", "Masterclass", "Creation"],
     highlights: ["Content creation", "Video production", "Photography"],
@@ -2686,14 +3716,25 @@ export const events: EventContent[] = [
       { time: "14:00", title: "Photography", detail: "Photography techniques" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 4,000", benefits: ["Masterclass", "Materials", "Lunch"] },
-      { name: "Premium", price: "KES 7,000", benefits: ["Masterclass", "Equipment access", "One-on-one"] },
+      {
+        name: "Standard",
+        price: "KES 4,000",
+        benefits: ["Masterclass", "Materials", "Lunch"],
+      },
+      {
+        name: "Premium",
+        price: "KES 7,000",
+        benefits: ["Masterclass", "Equipment access", "One-on-one"],
+      },
     ],
     experiences: ["Content creation", "Learning", "Hands-on"],
     addOns: ["Equipment rental", "Materials"],
     compliance: ["Creator event", "Professional"],
     faqs: [
-      { question: "Do I need equipment?", answer: "No, equipment provided, but you can bring your own" },
+      {
+        question: "Do I need equipment?",
+        answer: "No, equipment provided, but you can bring your own",
+      },
     ],
   },
   {
@@ -2705,27 +3746,47 @@ export const events: EventContent[] = [
     dateFull: "Friday 17 January • 7:00 PM - 10:00 PM",
     startDate: "2025-01-17T19:00:00+03:00",
     price: "From KES 1,500",
-    heroImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Showcase event featuring work from local creators including art, photography, and digital content.",
+    summary:
+      "Showcase event featuring work from local creators including art, photography, and digital content.",
     categories: ["Creator exclusives"],
     tags: ["Showcase", "Creator", "Art"],
     highlights: ["Creator work", "Gallery", "Networking"],
     schedule: [
       { time: "19:00", title: "Opening", detail: "Gallery opens" },
-      { time: "20:00", title: "Presentations", detail: "Creator presentations" },
-      { time: "21:00", title: "Networking", detail: "Meet creators and network" },
+      {
+        time: "20:00",
+        title: "Presentations",
+        detail: "Creator presentations",
+      },
+      {
+        time: "21:00",
+        title: "Networking",
+        detail: "Meet creators and network",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,500", benefits: ["Gallery access", "Presentations", "Networking"] },
+      {
+        name: "Standard",
+        price: "KES 1,500",
+        benefits: ["Gallery access", "Presentations", "Networking"],
+      },
     ],
     experiences: ["Creator showcase", "Art", "Networking"],
     addOns: ["Art purchase", "Merchandise"],
     compliance: ["Creator event", "All ages"],
     faqs: [
-      { question: "Can I showcase my work?", answer: "Yes, creators can apply to showcase their work" },
+      {
+        question: "Can I showcase my work?",
+        answer: "Yes, creators can apply to showcase their work",
+      },
     ],
   },
   {
@@ -2737,28 +3798,49 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 10:00 AM - 2:00 PM",
     startDate: "2025-01-18T10:00:00+03:00",
     price: "From KES 3,500",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Seminar on monetizing content through sponsorships, affiliate marketing, and direct sales.",
+    summary:
+      "Seminar on monetizing content through sponsorships, affiliate marketing, and direct sales.",
     categories: ["Creator exclusives"],
     tags: ["Monetization", "Business", "Creator"],
     highlights: ["Monetization strategies", "Business", "Revenue"],
     schedule: [
       { time: "10:00", title: "Opening", detail: "Introduction and overview" },
       { time: "11:00", title: "Sessions", detail: "Monetization strategies" },
-      { time: "13:00", title: "Case studies", detail: "Success stories and examples" },
+      {
+        time: "13:00",
+        title: "Case studies",
+        detail: "Success stories and examples",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 3,500", benefits: ["Seminar", "Materials", "Lunch"] },
-      { name: "Premium", price: "KES 6,000", benefits: ["Seminar", "One-on-one", "Resources"] },
+      {
+        name: "Standard",
+        price: "KES 3,500",
+        benefits: ["Seminar", "Materials", "Lunch"],
+      },
+      {
+        name: "Premium",
+        price: "KES 6,000",
+        benefits: ["Seminar", "One-on-one", "Resources"],
+      },
     ],
     experiences: ["Monetization", "Business", "Learning"],
     addOns: ["Materials", "Consultation"],
     compliance: ["Business event", "Professional"],
     faqs: [
-      { question: "What will I learn?", answer: "Sponsorships, affiliate marketing, direct sales, and revenue streams" },
+      {
+        question: "What will I learn?",
+        answer:
+          "Sponsorships, affiliate marketing, direct sales, and revenue streams",
+      },
     ],
   },
   {
@@ -2771,28 +3853,48 @@ export const events: EventContent[] = [
     startDate: "2025-01-24T10:00:00+03:00",
     endDate: "2025-01-26T16:00:00+03:00",
     price: "From KES 15,000",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Weekend retreat for creators with workshops, networking, and relaxation in beautiful surroundings.",
+    summary:
+      "Weekend retreat for creators with workshops, networking, and relaxation in beautiful surroundings.",
     categories: ["Creator exclusives", "Weekend escapes"],
     tags: ["Retreat", "Creator", "Weekend"],
     highlights: ["Creator retreat", "Workshops", "Networking"],
     schedule: [
       { time: "10:00", title: "Arrival", detail: "Check-in and welcome" },
       { time: "14:00", title: "Workshops", detail: "Creator workshops begin" },
-      { time: "18:00", title: "Networking", detail: "Evening networking sessions" },
+      {
+        time: "18:00",
+        title: "Networking",
+        detail: "Evening networking sessions",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 15,000", benefits: ["Retreat", "Accommodation", "Meals", "Workshops"] },
-      { name: "VIP", price: "KES 25,000", benefits: ["VIP accommodation", "Premium meals", "Private sessions"] },
+      {
+        name: "Standard",
+        price: "KES 15,000",
+        benefits: ["Retreat", "Accommodation", "Meals", "Workshops"],
+      },
+      {
+        name: "VIP",
+        price: "KES 25,000",
+        benefits: ["VIP accommodation", "Premium meals", "Private sessions"],
+      },
     ],
     experiences: ["Retreat", "Workshops", "Networking"],
     addOns: ["Extra activities", "Spa"],
     compliance: ["Retreat event", "Accommodation included"],
     faqs: [
-      { question: "What's included?", answer: "Accommodation, all meals, workshops, and activities" },
+      {
+        question: "What's included?",
+        answer: "Accommodation, all meals, workshops, and activities",
+      },
     ],
   },
   {
@@ -2804,28 +3906,52 @@ export const events: EventContent[] = [
     dateFull: "Thursday 30 January • 2:00 PM - 6:00 PM",
     startDate: "2025-01-30T14:00:00+03:00",
     price: "From KES 4,500",
-    heroImage: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Forum connecting creators with brands for partnership opportunities and collaborations.",
+    summary:
+      "Forum connecting creators with brands for partnership opportunities and collaborations.",
     categories: ["Creator exclusives"],
     tags: ["Brand", "Partnership", "Creator"],
     highlights: ["Brand partnerships", "Collaborations", "Opportunities"],
     schedule: [
       { time: "14:00", title: "Opening", detail: "Introduction and overview" },
-      { time: "15:00", title: "Brand presentations", detail: "Brand partnership opportunities" },
-      { time: "17:00", title: "Networking", detail: "One-on-one brand meetings" },
+      {
+        time: "15:00",
+        title: "Brand presentations",
+        detail: "Brand partnership opportunities",
+      },
+      {
+        time: "17:00",
+        title: "Networking",
+        detail: "One-on-one brand meetings",
+      },
     ],
     ticketTiers: [
-      { name: "Creator", price: "KES 4,500", benefits: ["Forum", "Brand access", "Networking"] },
-      { name: "Brand", price: "KES 8,000", benefits: ["Brand booth", "Creator access", "Premium networking"] },
+      {
+        name: "Creator",
+        price: "KES 4,500",
+        benefits: ["Forum", "Brand access", "Networking"],
+      },
+      {
+        name: "Brand",
+        price: "KES 8,000",
+        benefits: ["Brand booth", "Creator access", "Premium networking"],
+      },
     ],
     experiences: ["Brand partnerships", "Networking", "Opportunities"],
     addOns: ["Premium access", "Brand meetings"],
     compliance: ["Business event", "Professional"],
     faqs: [
-      { question: "Who can attend?", answer: "Content creators and brand representatives" },
+      {
+        question: "Who can attend?",
+        answer: "Content creators and brand representatives",
+      },
     ],
   },
   {
@@ -2837,11 +3963,16 @@ export const events: EventContent[] = [
     dateFull: "Saturday 1 February • 7:00 PM - 11:00 PM",
     startDate: "2025-02-01T19:00:00+03:00",
     price: "From KES 5,000",
-    heroImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Awards ceremony celebrating outstanding creators with dinner, entertainment, and recognition.",
+    summary:
+      "Awards ceremony celebrating outstanding creators with dinner, entertainment, and recognition.",
     categories: ["Creator exclusives"],
     tags: ["Awards", "Creator", "Celebration"],
     highlights: ["Creator awards", "Recognition", "Celebration"],
@@ -2851,14 +3982,25 @@ export const events: EventContent[] = [
       { time: "21:00", title: "Awards", detail: "Awards ceremony" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 5,000", benefits: ["Awards", "Dinner", "Entertainment"] },
-      { name: "VIP", price: "KES 10,000", benefits: ["VIP table", "Premium dinner", "Meet winners"] },
+      {
+        name: "Standard",
+        price: "KES 5,000",
+        benefits: ["Awards", "Dinner", "Entertainment"],
+      },
+      {
+        name: "VIP",
+        price: "KES 10,000",
+        benefits: ["VIP table", "Premium dinner", "Meet winners"],
+      },
     ],
     experiences: ["Awards", "Celebration", "Networking"],
     addOns: ["Premium access", "Afterparty"],
     compliance: ["Formal attire", "Awards event"],
     faqs: [
-      { question: "How are winners chosen?", answer: "Winners selected through public voting and expert panel" },
+      {
+        question: "How are winners chosen?",
+        answer: "Winners selected through public voting and expert panel",
+      },
     ],
   },
   // Weekend Escapes Events (8 events)
@@ -2872,11 +4014,16 @@ export const events: EventContent[] = [
     startDate: "2025-01-04T06:00:00+03:00",
     endDate: "2025-01-05T18:00:00+03:00",
     price: "From KES 8,500",
-    heroImage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Weekend hiking adventure on Mount Kenya with guides, equipment, and accommodation included.",
+    summary:
+      "Weekend hiking adventure on Mount Kenya with guides, equipment, and accommodation included.",
     categories: ["Weekend escapes"],
     tags: ["Hiking", "Adventure", "Weekend"],
     highlights: ["Mountain hiking", "Adventure", "Nature"],
@@ -2886,14 +4033,29 @@ export const events: EventContent[] = [
       { time: "18:00", title: "Camp", detail: "Overnight camping" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 8,500", benefits: ["Hiking", "Guide", "Equipment", "Accommodation", "Meals"] },
-      { name: "Premium", price: "KES 12,000", benefits: ["Premium guide", "Better equipment", "Comfortable accommodation"] },
+      {
+        name: "Standard",
+        price: "KES 8,500",
+        benefits: ["Hiking", "Guide", "Equipment", "Accommodation", "Meals"],
+      },
+      {
+        name: "Premium",
+        price: "KES 12,000",
+        benefits: [
+          "Premium guide",
+          "Better equipment",
+          "Comfortable accommodation",
+        ],
+      },
     ],
     experiences: ["Hiking", "Adventure", "Nature"],
     addOns: ["Equipment upgrade", "Extra meals"],
     compliance: ["Adventure activity", "Fitness required"],
     faqs: [
-      { question: "What fitness level?", answer: "Moderate fitness required, guides will assess" },
+      {
+        question: "What fitness level?",
+        answer: "Moderate fitness required, guides will assess",
+      },
     ],
   },
   {
@@ -2906,11 +4068,16 @@ export const events: EventContent[] = [
     startDate: "2025-01-10T08:00:00+03:00",
     endDate: "2025-01-12T18:00:00+03:00",
     price: "From KES 12,000",
-    heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Relaxing beach weekend with accommodation, meals, and beach activities included.",
+    summary:
+      "Relaxing beach weekend with accommodation, meals, and beach activities included.",
     categories: ["Weekend escapes"],
     tags: ["Beach", "Weekend", "Relaxation"],
     highlights: ["Beach getaway", "Relaxation", "Activities"],
@@ -2920,14 +4087,25 @@ export const events: EventContent[] = [
       { time: "15:00", title: "Beach", detail: "Beach activities begin" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 12,000", benefits: ["Accommodation", "Meals", "Beach access", "Activities"] },
-      { name: "Premium", price: "KES 18,000", benefits: ["Beachfront room", "Premium meals", "Spa access"] },
+      {
+        name: "Standard",
+        price: "KES 12,000",
+        benefits: ["Accommodation", "Meals", "Beach access", "Activities"],
+      },
+      {
+        name: "Premium",
+        price: "KES 18,000",
+        benefits: ["Beachfront room", "Premium meals", "Spa access"],
+      },
     ],
     experiences: ["Beach", "Relaxation", "Activities"],
     addOns: ["Spa", "Water sports", "Excursions"],
     compliance: ["Beach resort", "All ages"],
     faqs: [
-      { question: "What's included?", answer: "Accommodation, all meals, beach access, and basic activities" },
+      {
+        question: "What's included?",
+        answer: "Accommodation, all meals, beach access, and basic activities",
+      },
     ],
   },
   {
@@ -2940,11 +4118,16 @@ export const events: EventContent[] = [
     startDate: "2025-01-11T06:00:00+03:00",
     endDate: "2025-01-12T18:00:00+03:00",
     price: "From KES 15,000",
-    heroImage: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Weekend safari experience with game drives, accommodation, and meals in the Maasai Mara.",
+    summary:
+      "Weekend safari experience with game drives, accommodation, and meals in the Maasai Mara.",
     categories: ["Weekend escapes"],
     tags: ["Safari", "Wildlife", "Weekend"],
     highlights: ["Safari", "Wildlife", "Game drives"],
@@ -2954,14 +4137,25 @@ export const events: EventContent[] = [
       { time: "15:00", title: "Game drive", detail: "Afternoon game drive" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 15,000", benefits: ["Safari", "Accommodation", "Meals", "Game drives"] },
-      { name: "Premium", price: "KES 22,000", benefits: ["Luxury tent", "Premium meals", "Private guide"] },
+      {
+        name: "Standard",
+        price: "KES 15,000",
+        benefits: ["Safari", "Accommodation", "Meals", "Game drives"],
+      },
+      {
+        name: "Premium",
+        price: "KES 22,000",
+        benefits: ["Luxury tent", "Premium meals", "Private guide"],
+      },
     ],
     experiences: ["Safari", "Wildlife", "Nature"],
     addOns: ["Hot air balloon", "Extra game drives"],
     compliance: ["Safari park", "All ages"],
     faqs: [
-      { question: "What animals will I see?", answer: "Big Five and many other wildlife species" },
+      {
+        question: "What animals will I see?",
+        answer: "Big Five and many other wildlife species",
+      },
     ],
   },
   {
@@ -2974,11 +4168,16 @@ export const events: EventContent[] = [
     startDate: "2025-01-17T10:00:00+03:00",
     endDate: "2025-01-19T16:00:00+03:00",
     price: "From KES 10,000",
-    heroImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1452626212852-811d58933cae?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1452626212852-811d58933cae?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Peaceful lake retreat with boat rides, bird watching, and relaxation activities.",
+    summary:
+      "Peaceful lake retreat with boat rides, bird watching, and relaxation activities.",
     categories: ["Weekend escapes"],
     tags: ["Lake", "Retreat", "Weekend"],
     highlights: ["Lake activities", "Bird watching", "Relaxation"],
@@ -2988,14 +4187,25 @@ export const events: EventContent[] = [
       { time: "16:00", title: "Bird watching", detail: "Guided bird watching" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 10,000", benefits: ["Accommodation", "Meals", "Activities"] },
-      { name: "Premium", price: "KES 15,000", benefits: ["Lakefront room", "Premium meals", "Private boat"] },
+      {
+        name: "Standard",
+        price: "KES 10,000",
+        benefits: ["Accommodation", "Meals", "Activities"],
+      },
+      {
+        name: "Premium",
+        price: "KES 15,000",
+        benefits: ["Lakefront room", "Premium meals", "Private boat"],
+      },
     ],
     experiences: ["Lake", "Nature", "Relaxation"],
     addOns: ["Extra activities", "Spa"],
     compliance: ["Lake resort", "All ages"],
     faqs: [
-      { question: "What activities?", answer: "Boat rides, bird watching, nature walks, and relaxation" },
+      {
+        question: "What activities?",
+        answer: "Boat rides, bird watching, nature walks, and relaxation",
+      },
     ],
   },
   {
@@ -3008,28 +4218,48 @@ export const events: EventContent[] = [
     startDate: "2025-01-18T08:00:00+03:00",
     endDate: "2025-01-19T18:00:00+03:00",
     price: "From KES 6,500",
-    heroImage: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Outdoor camping adventure with hiking, rock climbing, and campfire activities.",
+    summary:
+      "Outdoor camping adventure with hiking, rock climbing, and campfire activities.",
     categories: ["Weekend escapes"],
     tags: ["Camping", "Adventure", "Outdoor"],
     highlights: ["Camping", "Adventure", "Outdoor activities"],
     schedule: [
       { time: "08:00", title: "Departure", detail: "Transport to park" },
       { time: "12:00", title: "Setup", detail: "Camp setup and lunch" },
-      { time: "14:00", title: "Activities", detail: "Hiking and rock climbing" },
+      {
+        time: "14:00",
+        title: "Activities",
+        detail: "Hiking and rock climbing",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 6,500", benefits: ["Camping", "Equipment", "Meals", "Activities", "Guide"] },
-      { name: "Premium", price: "KES 9,500", benefits: ["Better equipment", "Premium meals", "Private guide"] },
+      {
+        name: "Standard",
+        price: "KES 6,500",
+        benefits: ["Camping", "Equipment", "Meals", "Activities", "Guide"],
+      },
+      {
+        name: "Premium",
+        price: "KES 9,500",
+        benefits: ["Better equipment", "Premium meals", "Private guide"],
+      },
     ],
     experiences: ["Camping", "Adventure", "Nature"],
     addOns: ["Equipment upgrade", "Extra activities"],
     compliance: ["Adventure activity", "Fitness required"],
     faqs: [
-      { question: "What equipment is provided?", answer: "Tents, sleeping bags, cooking equipment, and safety gear" },
+      {
+        question: "What equipment is provided?",
+        answer: "Tents, sleeping bags, cooking equipment, and safety gear",
+      },
     ],
   },
   {
@@ -3042,11 +4272,16 @@ export const events: EventContent[] = [
     startDate: "2025-01-24T14:00:00+03:00",
     endDate: "2025-01-26T16:00:00+03:00",
     price: "From KES 18,000",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Luxury wellness retreat with spa treatments, yoga, meditation, and healthy meals.",
+    summary:
+      "Luxury wellness retreat with spa treatments, yoga, meditation, and healthy meals.",
     categories: ["Weekend escapes", "Wellness"],
     tags: ["Wellness", "Retreat", "Spa"],
     highlights: ["Wellness retreat", "Spa treatments", "Relaxation"],
@@ -3056,14 +4291,25 @@ export const events: EventContent[] = [
       { time: "18:00", title: "Yoga", detail: "Evening yoga session" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 18,000", benefits: ["Accommodation", "Meals", "Spa", "Yoga", "Activities"] },
-      { name: "Premium", price: "KES 28,000", benefits: ["Luxury room", "Premium spa", "Private sessions"] },
+      {
+        name: "Standard",
+        price: "KES 18,000",
+        benefits: ["Accommodation", "Meals", "Spa", "Yoga", "Activities"],
+      },
+      {
+        name: "Premium",
+        price: "KES 28,000",
+        benefits: ["Luxury room", "Premium spa", "Private sessions"],
+      },
     ],
     experiences: ["Wellness", "Spa", "Relaxation"],
     addOns: ["Extra spa", "Private sessions"],
     compliance: ["Wellness resort", "All ages"],
     faqs: [
-      { question: "What spa treatments?", answer: "Massages, facials, body treatments, and wellness therapies" },
+      {
+        question: "What spa treatments?",
+        answer: "Massages, facials, body treatments, and wellness therapies",
+      },
     ],
   },
   {
@@ -3076,28 +4322,48 @@ export const events: EventContent[] = [
     startDate: "2025-01-25T09:00:00+03:00",
     endDate: "2025-01-26T17:00:00+03:00",
     price: "From KES 7,500",
-    heroImage: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Action-packed weekend with zip-lining, obstacle courses, and outdoor adventure activities.",
+    summary:
+      "Action-packed weekend with zip-lining, obstacle courses, and outdoor adventure activities.",
     categories: ["Weekend escapes"],
     tags: ["Adventure", "Park", "Activities"],
     highlights: ["Adventure activities", "Zip-lining", "Obstacle courses"],
     schedule: [
       { time: "09:00", title: "Arrival", detail: "Check-in and briefing" },
-      { time: "10:00", title: "Activities", detail: "Adventure activities begin" },
+      {
+        time: "10:00",
+        title: "Activities",
+        detail: "Adventure activities begin",
+      },
       { time: "16:00", title: "Wrap-up", detail: "Activities end" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 7,500", benefits: ["Activities", "Accommodation", "Meals"] },
-      { name: "Premium", price: "KES 11,000", benefits: ["All activities", "Premium accommodation", "Extra meals"] },
+      {
+        name: "Standard",
+        price: "KES 7,500",
+        benefits: ["Activities", "Accommodation", "Meals"],
+      },
+      {
+        name: "Premium",
+        price: "KES 11,000",
+        benefits: ["All activities", "Premium accommodation", "Extra meals"],
+      },
     ],
     experiences: ["Adventure", "Activities", "Fun"],
     addOns: ["Extra activities", "Equipment"],
     compliance: ["Adventure park", "Age restrictions apply"],
     faqs: [
-      { question: "What activities?", answer: "Zip-lining, obstacle courses, rock climbing, and more" },
+      {
+        question: "What activities?",
+        answer: "Zip-lining, obstacle courses, rock climbing, and more",
+      },
     ],
   },
   {
@@ -3110,28 +4376,48 @@ export const events: EventContent[] = [
     startDate: "2025-02-01T10:00:00+03:00",
     endDate: "2025-02-02T16:00:00+03:00",
     price: "From KES 9,000",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Peaceful countryside escape with nature walks, farm visits, and relaxation in beautiful surroundings.",
+    summary:
+      "Peaceful countryside escape with nature walks, farm visits, and relaxation in beautiful surroundings.",
     categories: ["Weekend escapes"],
     tags: ["Countryside", "Nature", "Relaxation"],
     highlights: ["Countryside", "Nature", "Relaxation"],
     schedule: [
       { time: "10:00", title: "Arrival", detail: "Check-in and welcome" },
       { time: "12:00", title: "Farm visit", detail: "Local farm tour" },
-      { time: "14:00", title: "Nature walk", detail: "Guided nature exploration" },
+      {
+        time: "14:00",
+        title: "Nature walk",
+        detail: "Guided nature exploration",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 9,000", benefits: ["Accommodation", "Meals", "Activities"] },
-      { name: "Premium", price: "KES 14,000", benefits: ["Luxury accommodation", "Premium meals", "Private tours"] },
+      {
+        name: "Standard",
+        price: "KES 9,000",
+        benefits: ["Accommodation", "Meals", "Activities"],
+      },
+      {
+        name: "Premium",
+        price: "KES 14,000",
+        benefits: ["Luxury accommodation", "Premium meals", "Private tours"],
+      },
     ],
     experiences: ["Countryside", "Nature", "Relaxation"],
     addOns: ["Extra activities", "Spa"],
     compliance: ["Countryside resort", "All ages"],
     faqs: [
-      { question: "What activities?", answer: "Nature walks, farm visits, bird watching, and relaxation" },
+      {
+        question: "What activities?",
+        answer: "Nature walks, farm visits, bird watching, and relaxation",
+      },
     ],
   },
   // Additional events to complete 8 per category
@@ -3144,11 +4430,16 @@ export const events: EventContent[] = [
     dateFull: "Friday 31 January • 6:00 PM - 9:00 PM",
     startDate: "2025-01-31T18:00:00+03:00",
     price: "From KES 400",
-    heroImage: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Fun-filled family game night with board games, card games, and prizes for all ages.",
+    summary:
+      "Fun-filled family game night with board games, card games, and prizes for all ages.",
     categories: ["Family"],
     tags: ["Games", "Family", "Fun"],
     highlights: ["Board games", "Family fun", "Prizes"],
@@ -3158,14 +4449,25 @@ export const events: EventContent[] = [
       { time: "20:30", title: "Prizes", detail: "Award ceremony" },
     ],
     ticketTiers: [
-      { name: "Family (4)", price: "KES 1,200", benefits: ["Entry", "Games", "Snacks"] },
-      { name: "Per person", price: "KES 400", benefits: ["Entry", "Games", "Snacks"] },
+      {
+        name: "Family (4)",
+        price: "KES 1,200",
+        benefits: ["Entry", "Games", "Snacks"],
+      },
+      {
+        name: "Per person",
+        price: "KES 400",
+        benefits: ["Entry", "Games", "Snacks"],
+      },
     ],
     experiences: ["Games", "Family time", "Fun"],
     addOns: ["Food", "Drinks"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "What games?", answer: "Board games, card games, and interactive games for all ages" },
+      {
+        question: "What games?",
+        answer: "Board games, card games, and interactive games for all ages",
+      },
     ],
   },
   {
@@ -3177,11 +4479,16 @@ export const events: EventContent[] = [
     dateFull: "Sunday 9 February • 3:00 PM - 6:00 PM",
     startDate: "2025-02-09T15:00:00+03:00",
     price: "From KES 600",
-    heroImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Family-friendly concert featuring children's music, interactive performances, and entertainment.",
+    summary:
+      "Family-friendly concert featuring children's music, interactive performances, and entertainment.",
     categories: ["Family"],
     tags: ["Concert", "Family", "Music"],
     highlights: ["Family music", "Interactive", "Entertainment"],
@@ -3198,7 +4505,10 @@ export const events: EventContent[] = [
     addOns: ["Food", "Merchandise"],
     compliance: ["Family friendly", "All ages"],
     faqs: [
-      { question: "Is it appropriate for kids?", answer: "Yes, all content is family-friendly" },
+      {
+        question: "Is it appropriate for kids?",
+        answer: "Yes, all content is family-friendly",
+      },
     ],
   },
   {
@@ -3210,27 +4520,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 11 January • 11:00 AM - 3:00 PM",
     startDate: "2025-01-11T11:00:00+03:00",
     price: "From KES 1,500",
-    heroImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Guided tour exploring diverse cultural cuisines across Nairobi with tastings and cultural insights.",
+    summary:
+      "Guided tour exploring diverse cultural cuisines across Nairobi with tastings and cultural insights.",
     categories: ["Food & culture"],
     tags: ["Food tour", "Culture", "Tasting"],
     highlights: ["Cultural cuisine", "Food tasting", "Cultural insights"],
     schedule: [
-      { time: "11:00", title: "Meet-up", detail: "Introduction and first stop" },
+      {
+        time: "11:00",
+        title: "Meet-up",
+        detail: "Introduction and first stop",
+      },
       { time: "12:00", title: "Tour", detail: "Visit cultural restaurants" },
       { time: "14:00", title: "Final stop", detail: "Dessert and wrap-up" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 1,500", benefits: ["Tour", "Food samples", "Guide"] },
+      {
+        name: "Standard",
+        price: "KES 1,500",
+        benefits: ["Tour", "Food samples", "Guide"],
+      },
     ],
     experiences: ["Food tour", "Culture", "Tasting"],
     addOns: ["Extra food", "Drinks"],
     compliance: ["Food tour", "Walking"],
     faqs: [
-      { question: "How many stops?", answer: "4-5 stops at different cultural restaurants" },
+      {
+        question: "How many stops?",
+        answer: "4-5 stops at different cultural restaurants",
+      },
     ],
   },
   {
@@ -3242,28 +4568,52 @@ export const events: EventContent[] = [
     dateFull: "Saturday 18 January • 7:00 PM - 10:00 PM",
     startDate: "2025-01-18T19:00:00+03:00",
     price: "From KES 2,800",
-    heroImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Elegant dinner featuring traditional Kenyan cuisine with cultural storytelling and live music.",
+    summary:
+      "Elegant dinner featuring traditional Kenyan cuisine with cultural storytelling and live music.",
     categories: ["Food & culture"],
     tags: ["Traditional", "Dinner", "Culture"],
     highlights: ["Traditional cuisine", "Cultural storytelling", "Live music"],
     schedule: [
       { time: "19:00", title: "Arrival", detail: "Welcome drinks" },
-      { time: "19:30", title: "Dinner", detail: "Traditional multi-course meal" },
-      { time: "21:00", title: "Entertainment", detail: "Cultural performances" },
+      {
+        time: "19:30",
+        title: "Dinner",
+        detail: "Traditional multi-course meal",
+      },
+      {
+        time: "21:00",
+        title: "Entertainment",
+        detail: "Cultural performances",
+      },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 2,800", benefits: ["Dinner", "Entertainment", "Storytelling"] },
-      { name: "VIP", price: "KES 4,500", benefits: ["Premium dinner", "VIP table", "Meet chef"] },
+      {
+        name: "Standard",
+        price: "KES 2,800",
+        benefits: ["Dinner", "Entertainment", "Storytelling"],
+      },
+      {
+        name: "VIP",
+        price: "KES 4,500",
+        benefits: ["Premium dinner", "VIP table", "Meet chef"],
+      },
     ],
     experiences: ["Traditional food", "Culture", "Entertainment"],
     addOns: ["Wine pairing", "Dessert"],
     compliance: ["Dinner event", "All ages"],
     faqs: [
-      { question: "What cuisine?", answer: "Traditional Kenyan dishes with modern presentation" },
+      {
+        question: "What cuisine?",
+        answer: "Traditional Kenyan dishes with modern presentation",
+      },
     ],
   },
   {
@@ -3275,27 +4625,43 @@ export const events: EventContent[] = [
     dateFull: "Saturday 15 February • 9:00 AM - 1:00 PM",
     startDate: "2025-02-15T09:00:00+03:00",
     price: "Free",
-    heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Community garden initiative teaching sustainable gardening and providing fresh produce to the community.",
+    summary:
+      "Community garden initiative teaching sustainable gardening and providing fresh produce to the community.",
     categories: ["Community impact"],
     tags: ["Garden", "Community", "Sustainability"],
     highlights: ["Community garden", "Sustainability", "Education"],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Introduction and briefing" },
-      { time: "10:00", title: "Gardening", detail: "Hands-on gardening session" },
+      {
+        time: "10:00",
+        title: "Gardening",
+        detail: "Hands-on gardening session",
+      },
       { time: "12:00", title: "Harvest", detail: "Harvest and distribution" },
     ],
     ticketTiers: [
-      { name: "Volunteer", price: "Free", benefits: ["Participation", "Education", "Produce"] },
+      {
+        name: "Volunteer",
+        price: "Free",
+        benefits: ["Participation", "Education", "Produce"],
+      },
     ],
     experiences: ["Gardening", "Community", "Sustainability"],
     addOns: ["Seeds", "Tools"],
     compliance: ["Community event", "All ages"],
     faqs: [
-      { question: "What will I learn?", answer: "Sustainable gardening, composting, and organic farming" },
+      {
+        question: "What will I learn?",
+        answer: "Sustainable gardening, composting, and organic farming",
+      },
     ],
   },
   {
@@ -3307,28 +4673,48 @@ export const events: EventContent[] = [
     dateFull: "Saturday 8 February • 9:00 AM - 5:00 PM",
     startDate: "2025-02-08T09:00:00+03:00",
     price: "From KES 5,500",
-    heroImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    heroImage:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     gallery: [
-      { type: "image", src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80" },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200&q=80",
+      },
     ],
-    summary: "Intensive bootcamp covering content strategy, production, editing, and growth for creators.",
+    summary:
+      "Intensive bootcamp covering content strategy, production, editing, and growth for creators.",
     categories: ["Creator exclusives"],
     tags: ["Bootcamp", "Content", "Creator"],
     highlights: ["Intensive training", "Content creation", "Growth strategies"],
     schedule: [
       { time: "09:00", title: "Opening", detail: "Introduction and overview" },
-      { time: "10:00", title: "Sessions", detail: "Content creation workshops" },
+      {
+        time: "10:00",
+        title: "Sessions",
+        detail: "Content creation workshops",
+      },
       { time: "14:00", title: "Hands-on", detail: "Practical exercises" },
     ],
     ticketTiers: [
-      { name: "Standard", price: "KES 5,500", benefits: ["Bootcamp", "Materials", "Lunch", "Resources"] },
-      { name: "Premium", price: "KES 9,000", benefits: ["Bootcamp", "Equipment access", "One-on-one", "Follow-up"] },
+      {
+        name: "Standard",
+        price: "KES 5,500",
+        benefits: ["Bootcamp", "Materials", "Lunch", "Resources"],
+      },
+      {
+        name: "Premium",
+        price: "KES 9,000",
+        benefits: ["Bootcamp", "Equipment access", "One-on-one", "Follow-up"],
+      },
     ],
     experiences: ["Content creation", "Learning", "Growth"],
     addOns: ["Equipment", "Materials"],
     compliance: ["Creator event", "Professional"],
     faqs: [
-      { question: "What will I learn?", answer: "Content strategy, production, editing, and growth tactics" },
+      {
+        question: "What will I learn?",
+        answer: "Content strategy, production, editing, and growth tactics",
+      },
     ],
   },
 ];
@@ -3338,7 +4724,12 @@ export const eventCollections = [
     id: "top-picks",
     title: "Top picks across Nairobi & beyond",
     highlight: "Curated using behaviour + partner promos",
-    slugs: ["sunset-sessions", "sanaa-fest", "founders-playbook", "vibes-and-vinyl"],
+    slugs: [
+      "sunset-sessions",
+      "sanaa-fest",
+      "founders-playbook",
+      "vibes-and-vinyl",
+    ],
   },
   {
     id: "weekend",
@@ -3366,9 +4757,10 @@ export const eventCollections = [
 
 const normalizeSlug = (slug: string) => slug.trim().toLowerCase();
 
-const eventMap = new Map(events.map((event) => [normalizeSlug(event.slug), event]));
+const eventMap = new Map(
+  events.map((event) => [normalizeSlug(event.slug), event]),
+);
 
 export function getEventBySlug(slug: string) {
   return eventMap.get(normalizeSlug(slug));
 }
-

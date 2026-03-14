@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import { organizerSections, organizerModules } from "@/data/organizer";
-import {
-  OrganizerDashboardOverview,
-  OrganizerDashboardPanels,
-} from "@/components/organizer/dashboard";
+import { OrganizerDashboardPanels } from "@/components/organizer/dashboard";
 import { OrganizerRoleGrid } from "@/components/organizer/roles";
 import { OrganizerModuleDetail } from "@/components/organizer/modules";
 import { OrganizerBonusFeatures } from "@/components/organizer/bonus";
@@ -42,9 +39,7 @@ export async function generateMetadata({
   const { section: sectionId } = await params;
   const section = organizerSections.find((item) => item.id === sectionId);
   return {
-    title: section
-      ? `${section.title} | Organizer Portal`
-      : "Organizer Portal",
+    title: section ? `${section.title} | Organizer Portal` : "Organizer Portal",
     description:
       section?.description ??
       "End-to-end merchant portal for Kenyan event owners, ops, finance, and marketing teams.",
@@ -89,7 +84,6 @@ export default async function OrganizerSectionPage({
     return (
       <div className="space-y-10 pb-10">
         <OrganizerDashboardPanels />
-        <OrganizerDashboardOverview />
       </div>
     );
   }
@@ -295,4 +289,3 @@ export default async function OrganizerSectionPage({
     </div>
   );
 }
-

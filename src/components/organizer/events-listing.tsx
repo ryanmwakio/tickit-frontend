@@ -36,14 +36,34 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { useToast } from "@/contexts/toast-context";
 import { useAuth } from "@/contexts/auth-context";
-import { fetchOrganiserEvents, deleteEvent, requestEventApproval, createEvent, fetchEvent, EventResponseDto } from "@/lib/events-api";
+import {
+  fetchOrganiserEvents,
+  deleteEvent,
+  requestEventApproval,
+  createEvent,
+  fetchEvent,
+  EventResponseDto,
+} from "@/lib/events-api";
 import { apiClient } from "@/lib/api";
 import { mapEventToEventContent } from "@/lib/events-api";
 
-type EventStatus = "draft" | "published" | "live" | "ended" | "cancelled" | "PENDING_APPROVAL" | "COMPLETED";
+type EventStatus =
+  | "draft"
+  | "published"
+  | "live"
+  | "ended"
+  | "cancelled"
+  | "PENDING_APPROVAL"
+  | "COMPLETED";
 
 type OrganizerEvent = {
   id: string;
@@ -54,7 +74,7 @@ type OrganizerEvent = {
   location: string;
   date: string;
   time: string;
-  startDate: string;
+  startDate?: string;
   endDate?: string;
   price: string;
   ticketsSold: number;
@@ -63,6 +83,22 @@ type OrganizerEvent = {
   hasTickets: boolean;
   hasPackages: boolean;
   isComplete: boolean;
+  completionInfo?: {
+    isComplete: boolean;
+    requirements: Array<{
+      type: string;
+      completed: boolean;
+      description: string;
+      location: string;
+    }>;
+    missingRequirements: Array<{
+      type: string;
+      completed: boolean;
+      description: string;
+      location: string;
+    }>;
+    completionPercentage: number;
+  };
 };
 
 // Helper to get organiserId
@@ -70,26 +106,26 @@ async function getUserOrganiserId(userId: string): Promise<string | null> {
   try {
     // Get organisers for the current user (filtered by ownerId on backend)
     const response = await apiClient.get<any>("/organisers?limit=1");
-    
+
     // Handle paginated response - apiClient may return { data: [...], total: ... } or just array
-    const organisers = Array.isArray(response) 
-      ? response 
-      : (response?.data || (response?.data?.data || []));
-    
+    const organisers = Array.isArray(response)
+      ? response
+      : response?.data || response?.data?.data || [];
+
     if (organisers && organisers.length > 0 && organisers[0].id) {
       return organisers[0].id;
     }
-    
+
     // Fallback: try to get from events (for backward compatibility)
     const eventsResponse = await apiClient.get<any>("/events?limit=1");
-    const events = Array.isArray(eventsResponse) 
-      ? eventsResponse 
-      : (eventsResponse?.data || (eventsResponse?.data?.data || []));
-    
+    const events = Array.isArray(eventsResponse)
+      ? eventsResponse
+      : eventsResponse?.data || eventsResponse?.data?.data || [];
+
     if (events && events.length > 0 && events[0].organiserId) {
       return events[0].organiserId;
     }
-    
+
     return null;
   } catch (error) {
     console.error("Failed to get organiserId:", error);
@@ -97,20 +133,144 @@ async function getUserOrganiserId(userId: string): Promise<string | null> {
   }
 }
 
+// Enhanced completion checker for events with selected features
+function getEventCompletionInfo(event: EventResponseDto) {
+  const requirements: Array<{
+    type: string;
+    completed: boolean;
+    description: string;
+    location: string;
+  }> = [];
+  const selectedFeatures =
+    event.metadata?.features || event.metadata?.selectedFeatures || [];
+
+  // Core requirements for all events
+  requirements.push({
+    type: "basic",
+    completed: !!(
+      event.title &&
+      event.description &&
+      event.startsAt &&
+      event.endsAt
+    ),
+    description: "Basic event information (title, description, dates)",
+    location: "Basic Info tab",
+  });
+
+  requirements.push({
+    type: "location",
+    completed: !!(event.venue?.address || event.venue?.name),
+    description: "Event venue/location details",
+    location: "Basic Info tab",
+  });
+
+  requirements.push({
+    type: "image",
+    completed: !!(
+      event.coverImageUrl ||
+      (event.imageGalleryUrls && event.imageGalleryUrls.length > 0)
+    ),
+    description: "Event cover image or gallery images",
+    location: "Gallery tab",
+  });
+
+  // Feature-specific requirements
+  if (selectedFeatures.includes("custom_ticket_design")) {
+    requirements.push({
+      type: "ticket_design",
+      completed: !!(
+        event.metadata?.ticketDesign || event.ticketTypes?.length > 0
+      ),
+      description: "Custom ticket design configuration",
+      location: "Ticket Design tab",
+    });
+  }
+
+  if (selectedFeatures.includes("seat_selection")) {
+    requirements.push({
+      type: "seat_map",
+      completed: !!event.metadata?.seatMap,
+      description: "Seat map configuration",
+      location: "Seat Map tab",
+    });
+  }
+
+  if (selectedFeatures.includes("dynamic_pricing")) {
+    requirements.push({
+      type: "pricing",
+      completed: !!(
+        event.metadata?.pricingRules ||
+        event.ticketTypes?.some((tt) => tt.priceCents > 0)
+      ),
+      description: "Dynamic pricing rules setup",
+      location: "Pricing & Packages tab",
+    });
+  }
+
+  if (selectedFeatures.includes("sponsor_management")) {
+    requirements.push({
+      type: "sponsors",
+      completed: !!(
+        event.metadata?.sponsors && event.metadata.sponsors.length > 0
+      ),
+      description: "Sponsor details and branding",
+      location: "Sponsors tab",
+    });
+  }
+
+  if (selectedFeatures.includes("merchandise")) {
+    requirements.push({
+      type: "merchandise",
+      completed: !!(
+        event.metadata?.merchandise && event.metadata.merchandise.length > 0
+      ),
+      description: "Merchandise items configuration",
+      location: "Merchandise tab",
+    });
+  }
+
+  // Always require ticket types for draft events
+  requirements.push({
+    type: "tickets",
+    completed: !!(event.ticketTypes && event.ticketTypes.length > 0),
+    description: "At least one ticket type configured",
+    location: "Event creation or management",
+  });
+
+  const missingRequirements = requirements.filter((req) => !req.completed);
+  const isComplete = missingRequirements.length === 0;
+
+  return {
+    isComplete,
+    requirements,
+    missingRequirements,
+    completionPercentage: Math.round(
+      ((requirements.length - missingRequirements.length) /
+        requirements.length) *
+        100,
+    ),
+  };
+}
+
 // Map API event to OrganizerEvent format
 function mapApiEventToOrganizerEvent(event: EventResponseDto): OrganizerEvent {
   const eventContent = mapEventToEventContent(event);
   const startsAt = new Date(event.startsAt);
   const endsAt = event.endsAt ? new Date(event.endsAt) : null;
-  
+
   // Calculate tickets sold and total from ticket types
-  const ticketsSold = event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantitySold || 0), 0) || 0;
-  const totalTickets = event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantityTotal || 0), 0) || 0;
-  
+  const ticketsSold =
+    event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantitySold || 0), 0) ||
+    0;
+  const totalTickets =
+    event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantityTotal || 0), 0) ||
+    0;
+
   // Calculate revenue (simplified - would need order data for accurate revenue)
-  const revenue = event.ticketTypes?.reduce((sum, tt) => {
-    return sum + ((tt.quantitySold || 0) * (tt.priceCents || 0) / 100);
-  }, 0) || 0;
+  const revenue =
+    event.ticketTypes?.reduce((sum, tt) => {
+      return sum + ((tt.quantitySold || 0) * (tt.priceCents || 0)) / 100;
+    }, 0) || 0;
 
   // Map backend status to frontend status
   let status: EventStatus = "draft";
@@ -118,24 +278,34 @@ function mapApiEventToOrganizerEvent(event: EventResponseDto): OrganizerEvent {
   else if (event.status === "LIVE") status = "live";
   else if (event.status === "COMPLETED") status = "ended";
   else if (event.status === "CANCELLED") status = "cancelled";
-  else if (event.status === "PENDING_APPROVAL") status = "PENDING_APPROVAL" as EventStatus;
+  else if (event.status === "PENDING_APPROVAL")
+    status = "PENDING_APPROVAL" as EventStatus;
   else status = "draft";
 
   // Format time (HH:MM AM/PM)
-  const time = startsAt.toLocaleTimeString("en-US", { 
-    hour: "numeric", 
+  const time = startsAt.toLocaleTimeString("en-US", {
+    hour: "numeric",
     minute: "2-digit",
-    hour12: true 
+    hour12: true,
   });
+
+  // Get enhanced completion info
+  const completionInfo = getEventCompletionInfo(event);
 
   return {
     id: event.id,
     title: event.title,
     slug: event.slug,
     status,
-    image: event.coverImageUrl || "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80",
+    image:
+      event.coverImageUrl ||
+      "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80",
     location: event.venue?.address || event.venue?.name || "Location TBA",
-    date: startsAt.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+    date: startsAt.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }),
     time,
     startDate: startsAt.toISOString().split("T")[0],
     endDate: endsAt?.toISOString().split("T")[0],
@@ -145,7 +315,8 @@ function mapApiEventToOrganizerEvent(event: EventResponseDto): OrganizerEvent {
     revenue: `KES ${revenue.toLocaleString()}`,
     hasTickets: (event.ticketTypes?.length || 0) > 0,
     hasPackages: false, // TODO: Check if packages exist
-    isComplete: !!(event.title && event.description && event.startsAt && event.endsAt),
+    isComplete: completionInfo.isComplete,
+    completionInfo: completionInfo,
   };
 }
 
@@ -156,7 +327,8 @@ const sampleEvents: OrganizerEvent[] = [
     title: "Nairobi Music Festival 2024",
     slug: "nairobi-music-festival-2024",
     status: "published",
-    image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80",
     location: "Nairobi, Kenya",
     date: "March 15, 2024",
     time: "6:00 PM",
@@ -175,7 +347,8 @@ const sampleEvents: OrganizerEvent[] = [
     title: "Wellness Retreat Weekend",
     slug: "wellness-retreat-weekend",
     status: "draft",
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
     location: "Mombasa, Kenya",
     date: "April 20, 2024",
     time: "9:00 AM",
@@ -193,7 +366,8 @@ const sampleEvents: OrganizerEvent[] = [
     title: "Tech Conference 2024",
     slug: "tech-conference-2024",
     status: "live",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
     location: "Nairobi, Kenya",
     date: "Feb 10, 2024",
     time: "2:00 PM",
@@ -212,7 +386,8 @@ const sampleEvents: OrganizerEvent[] = [
     title: "Corporate Gala Dinner",
     slug: "corporate-gala-dinner",
     status: "ended",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80",
     location: "Nairobi, Kenya",
     date: "Jan 25, 2024",
     time: "7:00 PM",
@@ -283,17 +458,22 @@ export function OrganizerEventsListing() {
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const itemsPerPage = 9;
-  
+
   // Featured request modal state
   const [featuredModalOpen, setFeaturedModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<OrganizerEvent | null>(null);
-  const [pricing, setPricing] = useState<{ costPerDayCents: number; currency: string } | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<OrganizerEvent | null>(
+    null,
+  );
+  const [pricing, setPricing] = useState<{
+    costPerDayCents: number;
+    currency: string;
+  } | null>(null);
   const [days, setDays] = useState(7);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [notes, setNotes] = useState("");
   const [requestingFeatured, setRequestingFeatured] = useState(false);
-  
+
   const toast = useToast();
 
   // Debounce search query
@@ -326,7 +506,7 @@ export function OrganizerEventsListing() {
 
   const loadEvents = async (reset: boolean = true) => {
     if (!user) return;
-    
+
     try {
       if (reset) {
         setLoading(true);
@@ -334,7 +514,7 @@ export function OrganizerEventsListing() {
         setLoadingMore(true);
       }
       setError(null);
-      
+
       // Get organiserId
       const orgId = await getUserOrganiserId(user.id);
       if (!orgId) {
@@ -371,6 +551,8 @@ export function OrganizerEventsListing() {
       const queryParams: any = {
         page: currentPage,
         limit: itemsPerPage,
+        sortBy: "startsAt",
+        sortOrder: "DESC",
       };
 
       // Only add status filter if not "all"
@@ -387,34 +569,36 @@ export function OrganizerEventsListing() {
       const response = await fetchOrganiserEvents(orgId, queryParams);
 
       const mappedEvents = response.data.map(mapApiEventToOrganizerEvent);
-      
+
       if (reset) {
         setEvents(mappedEvents);
       } else {
         // Append new events to existing ones
         setEvents((prev) => [...prev, ...mappedEvents]);
       }
-      
+
       // Update pagination info
       const total = response.total || mappedEvents.length;
       setTotalItems(total);
-      
+
       // Calculate totalPages from totalItems if not provided by API
-      const calculatedTotalPages = response.totalPages 
-        ? response.totalPages 
-        : total > 0 
-          ? Math.ceil(total / itemsPerPage) 
+      const calculatedTotalPages = response.totalPages
+        ? response.totalPages
+        : total > 0
+          ? Math.ceil(total / itemsPerPage)
           : 1;
       setTotalPages(calculatedTotalPages);
-      
+
       // Check if there are more pages to load
       // Similar logic to events page - show Load More if:
       // 1. We got exactly itemsPerPage events (full page), OR
       // 2. Total is greater than loaded events, OR
       // 3. Current page is less than total pages
-      const currentEventsCount = reset ? mappedEvents.length : (events.length + mappedEvents.length);
+      const currentEventsCount = reset
+        ? mappedEvents.length
+        : events.length + mappedEvents.length;
       let morePagesAvailable = false;
-      
+
       // Always show if we got exactly itemsPerPage (full page)
       if (mappedEvents.length === itemsPerPage) {
         morePagesAvailable = true;
@@ -431,7 +615,7 @@ export function OrganizerEventsListing() {
       else if (currentEventsCount > 0 && calculatedTotalPages > 1) {
         morePagesAvailable = true;
       }
-      
+
       setHasMore(morePagesAvailable);
     } catch (err: any) {
       console.error("Failed to load events:", err);
@@ -466,30 +650,51 @@ export function OrganizerEventsListing() {
       acc[event.status].push(event);
       return acc;
     },
-    {} as Record<EventStatus, OrganizerEvent[]>
+    {} as Record<EventStatus, OrganizerEvent[]>,
   );
 
   const handlePublish = async (eventId: string) => {
     const event = events.find((e) => e.id === eventId);
     if (!event || !event.isComplete) return;
 
+    // Only draft events can request approval
+    if (event.status !== "draft") {
+      alert(
+        `Cannot request approval for ${event.status} event. Only draft events can request approval.`,
+      );
+      return;
+    }
+
     try {
       // Request approval for publishing
       await requestEventApproval(eventId);
-      
+
       // Update local state
-    setEvents((prev) =>
-      prev.map((e) =>
+      setEvents((prev) =>
+        prev.map((e) =>
           e.id === eventId
             ? { ...e, status: "PENDING_APPROVAL" as EventStatus }
-          : e
-      )
-    );
-      
-      alert("Event approval requested. It will be published after admin approval.");
+            : e,
+        ),
+      );
+
+      alert(
+        "Event approval requested. It will be published after admin approval.",
+      );
     } catch (err: any) {
       console.error("Failed to publish event:", err);
-      alert(err.message || "Failed to request approval for event");
+
+      // More specific error messages
+      let errorMessage = err.message || "Failed to request approval for event";
+      if (
+        err.statusCode === 400 &&
+        err.message?.includes("Only draft events")
+      ) {
+        errorMessage =
+          "Only draft events can request approval. Please check the event status.";
+      }
+
+      alert(errorMessage);
     }
   };
 
@@ -520,7 +725,7 @@ export function OrganizerEventsListing() {
     try {
       // Fetch the full event data
       const fullEvent = await fetchEvent(eventId);
-      
+
       // Create a copy with modified title and slug
       const duplicateData = {
         title: `${fullEvent.title} (Copy)`,
@@ -530,12 +735,14 @@ export function OrganizerEventsListing() {
         tags: fullEvent.tags,
         visibility: fullEvent.visibility,
         status: "DRAFT",
-        startsAt: fullEvent.startsAt instanceof Date 
-          ? fullEvent.startsAt.toISOString() 
-          : new Date(fullEvent.startsAt).toISOString(),
-        endsAt: fullEvent.endsAt instanceof Date 
-          ? fullEvent.endsAt.toISOString() 
-          : new Date(fullEvent.endsAt).toISOString(),
+        startsAt:
+          fullEvent.startsAt instanceof Date
+            ? fullEvent.startsAt.toISOString()
+            : new Date(fullEvent.startsAt).toISOString(),
+        endsAt:
+          fullEvent.endsAt instanceof Date
+            ? fullEvent.endsAt.toISOString()
+            : new Date(fullEvent.endsAt).toISOString(),
         timezone: fullEvent.timezone,
         capacity: fullEvent.capacity,
         coverImageUrl: fullEvent.coverImageUrl,
@@ -546,10 +753,10 @@ export function OrganizerEventsListing() {
 
       const newEvent = await createEvent(organiserId, duplicateData);
       const mappedEvent = mapApiEventToOrganizerEvent(newEvent);
-      
+
       // Add to local state
       setEvents((prev) => [...prev, mappedEvent]);
-      
+
       alert("Event duplicated successfully!");
     } catch (err: any) {
       console.error("Failed to duplicate event:", err);
@@ -571,21 +778,22 @@ export function OrganizerEventsListing() {
 
     setSelectedEvent(event);
     setFeaturedModalOpen(true);
-    
+
     // Load pricing
     try {
-      const pricingData = await apiClient.get<{ costPerDayCents: number; currency: string }>(
-        `/organisers/${organiserId}/featured/pricing`
-      );
+      const pricingData = await apiClient.get<{
+        costPerDayCents: number;
+        currency: string;
+      }>(`/organisers/${organiserId}/featured/pricing`);
       setPricing(pricingData);
-      
+
       // Set default dates (7 days from today)
       const today = new Date();
       const endDateObj = new Date(today);
       endDateObj.setDate(today.getDate() + 7);
-      
-      setStartDate(today.toISOString().split('T')[0]);
-      setEndDate(endDateObj.toISOString().split('T')[0]);
+
+      setStartDate(today.toISOString().split("T")[0]);
+      setEndDate(endDateObj.toISOString().split("T")[0]);
       setDays(7);
     } catch (error) {
       console.error("Failed to load pricing:", error);
@@ -601,8 +809,10 @@ export function OrganizerEventsListing() {
     // Calculate days from dates
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const calculatedDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-    
+    const calculatedDays = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
     if (calculatedDays <= 0) {
       toast.error("Error", "End date must be after start date");
       return;
@@ -610,24 +820,27 @@ export function OrganizerEventsListing() {
 
     setRequestingFeatured(true);
     try {
-      await apiClient.post(
-        `/organisers/${organiserId}/featured/request`,
-        {
-          eventId: selectedEvent.id,
-          days: calculatedDays,
-          startDate: startDate,
-          endDate: endDate,
-          notes: notes.trim() || undefined,
-        }
-      );
+      await apiClient.post(`/organisers/${organiserId}/featured/request`, {
+        eventId: selectedEvent.id,
+        days: calculatedDays,
+        startDate: startDate,
+        endDate: endDate,
+        notes: notes.trim() || undefined,
+      });
 
-      toast.success("Success", "Featured request submitted successfully! Admin will review your request.");
+      toast.success(
+        "Success",
+        "Featured request submitted successfully! Admin will review your request.",
+      );
       setFeaturedModalOpen(false);
       setSelectedEvent(null);
       setNotes("");
     } catch (error: any) {
       console.error("Failed to submit featured request:", error);
-      toast.error("Error", error.message || "Failed to submit featured request");
+      toast.error(
+        "Error",
+        error.message || "Failed to submit featured request",
+      );
     } finally {
       setRequestingFeatured(false);
     }
@@ -710,12 +923,14 @@ export function OrganizerEventsListing() {
         </div>
       )}
 
-
       {/* Events Grid */}
       {loading ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div
+              key={i}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+            >
               <div className="h-48 w-full animate-pulse bg-slate-200" />
               <div className="p-4 space-y-3">
                 <div className="h-5 w-3/4 animate-pulse bg-slate-200 rounded" />
@@ -851,46 +1066,83 @@ export function OrganizerEventsListing() {
                   )}
 
                   {/* Completion Status */}
-                  {event.status === "draft" && (
-                    <div className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-3">
+                  {event.status === "draft" && event.completionInfo && (
+                    <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-semibold text-slate-900">
                           Completion
                         </span>
                         <span
                           className={
-                            event.isComplete
+                            event.completionInfo.isComplete
                               ? "text-green-600 font-semibold"
                               : "text-amber-600 font-semibold"
                           }
                         >
-                          {event.isComplete ? "Complete" : "Incomplete"}
+                          {event.completionInfo.completionPercentage}%
                         </span>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        {event.hasTickets ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700">
-                            <CheckCircle2 className="size-3" />
-                            Tickets
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
-                            <AlertCircle className="size-3" />
-                            No Tickets
-                          </span>
-                        )}
-                        {event.hasPackages ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700">
-                            <CheckCircle2 className="size-3" />
-                            Packages
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
-                            <AlertCircle className="size-3" />
-                            No Packages
-                          </span>
-                        )}
+
+                      {/* Progress Bar */}
+                      <div className="w-full bg-slate-200 rounded-full h-2">
+                        <div
+                          className={`h-2 rounded-full transition-all ${
+                            event.completionInfo.isComplete
+                              ? "bg-green-500"
+                              : "bg-amber-500"
+                          }`}
+                          style={{
+                            width: `${event.completionInfo.completionPercentage}%`,
+                          }}
+                        />
                       </div>
+
+                      {/* Missing Requirements */}
+                      {!event.completionInfo.isComplete &&
+                        event.completionInfo.missingRequirements.length > 0 && (
+                          <div className="space-y-1">
+                            <p className="text-xs font-semibold text-slate-700">
+                              Missing:
+                            </p>
+                            <div className="space-y-1">
+                              {event.completionInfo.missingRequirements
+                                .slice(0, 3)
+                                .map((req, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-start gap-2 text-xs"
+                                  >
+                                    <AlertCircle className="size-3 text-amber-500 mt-0.5 flex-shrink-0" />
+                                    <div className="flex-1">
+                                      <span className="text-slate-700">
+                                        {req.description}
+                                      </span>
+                                      <span className="text-slate-500 block">
+                                        → {req.location}
+                                      </span>
+                                    </div>
+                                  </div>
+                                ))}
+                              {event.completionInfo.missingRequirements.length >
+                                3 && (
+                                <p className="text-xs text-slate-500 pl-5">
+                                  +
+                                  {event.completionInfo.missingRequirements
+                                    .length - 3}{" "}
+                                  more requirements
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                      {/* Completed Requirements Summary */}
+                      {event.completionInfo.isComplete && (
+                        <div className="flex items-center gap-2 text-xs text-green-700">
+                          <CheckCircle2 className="size-3" />
+                          <span>All requirements completed</span>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -906,7 +1158,7 @@ export function OrganizerEventsListing() {
                             <Edit className="size-4" />
                             Edit
                           </Link>
-                          {event.isComplete ? (
+                          {event.isComplete && event.status === "draft" ? (
                             <button
                               onClick={() => handlePublish(event.id)}
                               className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
@@ -994,7 +1246,8 @@ export function OrganizerEventsListing() {
               Request Featured Status
             </DialogTitle>
             <DialogDescription>
-              Request to feature "{selectedEvent?.title}" on the homepage. Admin will review your request.
+              Request to feature "{selectedEvent?.title}" on the homepage. Admin
+              will review your request.
             </DialogDescription>
           </DialogHeader>
 
@@ -1003,9 +1256,12 @@ export function OrganizerEventsListing() {
               {/* Pricing Info */}
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-semibold text-slate-900">Cost per day:</span>
+                  <span className="text-sm font-semibold text-slate-900">
+                    Cost per day:
+                  </span>
                   <span className="text-sm font-bold text-slate-900">
-                    {pricing.currency} {(pricing.costPerDayCents / 100).toLocaleString()}
+                    {pricing.currency}{" "}
+                    {(pricing.costPerDayCents / 100).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -1023,13 +1279,16 @@ export function OrganizerEventsListing() {
                       if (e.target.value && endDate) {
                         const start = new Date(e.target.value);
                         const end = new Date(endDate);
-                        const calculatedDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+                        const calculatedDays = Math.ceil(
+                          (end.getTime() - start.getTime()) /
+                            (1000 * 60 * 60 * 24),
+                        );
                         if (calculatedDays > 0) {
                           setDays(calculatedDays);
                         }
                       }
                     }}
-                    min={new Date().toISOString().split('T')[0]}
+                    min={new Date().toISOString().split("T")[0]}
                   />
                 </div>
                 <div className="space-y-2">
@@ -1043,13 +1302,16 @@ export function OrganizerEventsListing() {
                       if (startDate && e.target.value) {
                         const start = new Date(startDate);
                         const end = new Date(e.target.value);
-                        const calculatedDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+                        const calculatedDays = Math.ceil(
+                          (end.getTime() - start.getTime()) /
+                            (1000 * 60 * 60 * 24),
+                        );
                         if (calculatedDays > 0) {
                           setDays(calculatedDays);
                         }
                       }
                     }}
-                    min={startDate || new Date().toISOString().split('T')[0]}
+                    min={startDate || new Date().toISOString().split("T")[0]}
                   />
                 </div>
               </div>
@@ -1069,7 +1331,7 @@ export function OrganizerEventsListing() {
                       const start = new Date(startDate);
                       const end = new Date(start);
                       end.setDate(start.getDate() + newDays);
-                      setEndDate(end.toISOString().split('T')[0]);
+                      setEndDate(end.toISOString().split("T")[0]);
                     }
                   }}
                 />
@@ -1080,17 +1342,24 @@ export function OrganizerEventsListing() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-700">Days:</span>
-                    <span className="text-sm font-semibold text-slate-900">{days} days</span>
+                    <span className="text-sm font-semibold text-slate-900">
+                      {days} days
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-700">Cost per day:</span>
+                    <span className="text-sm text-slate-700">
+                      Cost per day:
+                    </span>
                     <span className="text-sm font-semibold text-slate-900">
-                      {pricing.currency} {(pricing.costPerDayCents / 100).toLocaleString()}
+                      {pricing.currency}{" "}
+                      {(pricing.costPerDayCents / 100).toLocaleString()}
                     </span>
                   </div>
                   <div className="border-t border-yellow-300 pt-2 mt-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-base font-bold text-slate-900">Total Cost:</span>
+                      <span className="text-base font-bold text-slate-900">
+                        Total Cost:
+                      </span>
                       <span className="text-lg font-bold text-yellow-700">
                         {pricing.currency} {totalCost.toLocaleString()}
                       </span>
@@ -1126,7 +1395,9 @@ export function OrganizerEventsListing() {
                 </Button>
                 <Button
                   onClick={handleSubmitFeaturedRequest}
-                  disabled={requestingFeatured || !startDate || !endDate || days <= 0}
+                  disabled={
+                    requestingFeatured || !startDate || !endDate || days <= 0
+                  }
                   className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white"
                 >
                   {requestingFeatured ? "Submitting..." : "Submit Request"}
@@ -1145,4 +1416,3 @@ export function OrganizerEventsListing() {
     </div>
   );
 }
-

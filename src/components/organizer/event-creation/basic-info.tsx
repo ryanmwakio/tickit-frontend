@@ -1,7 +1,16 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { Calendar, MapPin, Tag, FileText, Clock, Plus, Trash2, GripVertical } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Tag,
+  FileText,
+  Clock,
+  Plus,
+  Trash2,
+  GripVertical,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -55,7 +64,10 @@ type EventBasicInfoProps = {
   onDataChange?: (updates: Partial<EventBasicInfoProps["initialData"]>) => void;
 };
 
-export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProps = {}) {
+export function EventBasicInfo({
+  initialData,
+  onDataChange,
+}: EventBasicInfoProps = {}) {
   const [formData, setFormData] = useState({
     title: initialData?.title || "",
     description: initialData?.description || "",
@@ -70,7 +82,9 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
     summary: initialData?.summary || "",
     price: initialData?.price || "",
   });
-  
+
+  const [dateError, setDateError] = useState<string>("");
+
   const [timelineItems, setTimelineItems] = useState<TimelineItem[]>(
     initialData?.timeline && initialData.timeline.length > 0
       ? initialData.timeline.map((item) => ({
@@ -80,7 +94,7 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
       : defaultTimelineItems.map((item, index) => ({
           ...item,
           id: `timeline-${index}`,
-        }))
+        })),
   );
 
   // Track if we're updating from initialData to avoid triggering onDataChange
@@ -92,7 +106,7 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
   // Update form data when initialData changes (only on mount or when ID changes)
   useEffect(() => {
     if (!initialData) return;
-    
+
     // Only update from parent if this is initial mount or if the data is significantly different
     const currentFormDataStr = JSON.stringify(formData);
     const newFormData = {
@@ -110,14 +124,18 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
       price: initialData.price || "",
     };
     const newFormDataStr = JSON.stringify(newFormData);
-    
+
     // Only update if data is different and we haven't just synced this data
-    if (isInitialMount.current || (newFormDataStr !== currentFormDataStr && newFormDataStr !== lastSyncedFormDataRef.current)) {
+    if (
+      isInitialMount.current ||
+      (newFormDataStr !== currentFormDataStr &&
+        newFormDataStr !== lastSyncedFormDataRef.current)
+    ) {
       isUpdatingFromParent.current = true;
       setFormData(newFormData);
       lastSyncedFormDataRef.current = newFormDataStr;
     }
-    
+
     if (initialData.timeline && initialData.timeline.length > 0) {
       const newTimeline = initialData.timeline.map((item) => ({
         ...item,
@@ -125,13 +143,17 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
       }));
       const newTimelineStr = JSON.stringify(newTimeline);
       const currentTimelineStr = JSON.stringify(timelineItems);
-      
-      if (isInitialMount.current || (newTimelineStr !== currentTimelineStr && newTimelineStr !== lastSyncedTimelineRef.current)) {
+
+      if (
+        isInitialMount.current ||
+        (newTimelineStr !== currentTimelineStr &&
+          newTimelineStr !== lastSyncedTimelineRef.current)
+      ) {
         setTimelineItems(newTimeline);
         lastSyncedTimelineRef.current = newTimelineStr;
       }
     }
-    
+
     // Reset flag after state updates
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -148,7 +170,7 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
     if (isInitialMount.current || isUpdatingFromParent.current) {
       return;
     }
-    
+
     const currentFormDataStr = JSON.stringify(formData);
     // Only sync if data actually changed from what we last synced
     if (currentFormDataStr !== lastSyncedFormDataRef.current && onDataChange) {
@@ -163,7 +185,7 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
     if (isInitialMount.current || isUpdatingFromParent.current) {
       return;
     }
-    
+
     const currentTimelineStr = JSON.stringify(timelineItems);
     // Only sync if timeline actually changed from what we last synced
     if (currentTimelineStr !== lastSyncedTimelineRef.current && onDataChange) {
@@ -182,15 +204,17 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
       try {
         setLoadingCategories(true);
         const response = await fetchEvents({ limit: 100 });
-        const eventsArray = Array.isArray(response) ? response : (response?.data || []);
-        
+        const eventsArray = Array.isArray(response)
+          ? response
+          : response?.data || [];
+
         const categorySet = new Set<string>();
         eventsArray.forEach((event: any) => {
           if (event.category) {
             categorySet.add(event.category);
           }
         });
-        
+
         // Add default categories if none exist
         const defaultCategories = [
           "Nightlife",
@@ -204,9 +228,11 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
           "Creator exclusives",
           "Weekend escapes",
         ];
-        
+
         const categories = Array.from(categorySet);
-        setAllCategories(categories.length > 0 ? categories : defaultCategories);
+        setAllCategories(
+          categories.length > 0 ? categories : defaultCategories,
+        );
       } catch (error) {
         console.error("Failed to load categories:", error);
         // Fallback to default categories
@@ -234,10 +260,34 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
   }, [allCategories]);
 
   const handleInputChange = (field: string, value: string | string[]) => {
-    setFormData((prev) => ({
-      ...prev,
+    const newFormData = {
+      ...formData,
       [field]: value,
-    }));
+    };
+
+    // Validate dates when start or end date changes
+    if (field === "startDate" || field === "endDate") {
+      const startDate =
+        field === "startDate" ? (value as string) : newFormData.startDate;
+      const endDate =
+        field === "endDate" ? (value as string) : newFormData.endDate;
+
+      if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        if (end < start) {
+          setDateError("End date cannot be earlier than start date");
+          return; // Don't update form data if validation fails
+        } else {
+          setDateError("");
+        }
+      } else {
+        setDateError("");
+      }
+    }
+
+    setFormData(newFormData);
   };
 
   const toggleCategory = (category: string) => {
@@ -268,7 +318,9 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-semibold text-slate-900">Event Information</h2>
+        <h2 className="text-2xl font-semibold text-slate-900">
+          Event Information
+        </h2>
         <p className="mt-1 text-sm text-slate-600">
           Fill in the basic details for your event
         </p>
@@ -299,7 +351,9 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
             <div className="mt-2">
               <RichTextEditor
                 content={formData.description}
-                onChange={(content) => handleInputChange("description", content)}
+                onChange={(content) =>
+                  handleInputChange("description", content)
+                }
                 placeholder="Describe your event in detail using the formatting toolbar above..."
               />
             </div>
@@ -378,11 +432,15 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
                   />
                 </div>
                 <div>
-                  <Label className="block text-xs text-slate-600">Start Time</Label>
+                  <Label className="block text-xs text-slate-600">
+                    Start Time
+                  </Label>
                   <Input
                     type="time"
                     value={formData.startTime}
-                    onChange={(e) => handleInputChange("startTime", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("startTime", e.target.value)
+                    }
                     className="mt-1"
                   />
                 </div>
@@ -397,15 +455,37 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
                   />
                 </div>
                 <div>
-                  <Label className="block text-xs text-slate-600">End Time</Label>
+                  <Label className="block text-xs text-slate-600">
+                    End Time
+                  </Label>
                   <Input
                     type="time"
                     value={formData.endTime}
-                    onChange={(e) => handleInputChange("endTime", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("endTime", e.target.value)
+                    }
                     className="mt-1"
                   />
                 </div>
               </div>
+              {dateError && (
+                <div className="text-sm text-red-600 flex items-center gap-2">
+                  <svg
+                    className="size-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                    />
+                  </svg>
+                  {dateError}
+                </div>
+              )}
             </div>
           </div>
 
@@ -450,7 +530,9 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-semibold text-slate-900">Tags</label>
+        <label className="block text-sm font-semibold text-slate-900">
+          Tags
+        </label>
         <div className="mt-2 flex flex-wrap gap-2">
           {formData.tags.map((tag) => (
             <span
@@ -490,7 +572,8 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
               Event Timeline
             </label>
             <p className="mt-1 text-sm text-slate-600">
-              Set important milestones for your event (e.g., gates open, event start, intermission)
+              Set important milestones for your event (e.g., gates open, event
+              start, intermission)
             </p>
           </div>
           <Button
@@ -522,7 +605,7 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
               index={index}
               onUpdate={(updates) => {
                 const updated = timelineItems.map((t) =>
-                  t.id === item.id ? { ...t, ...updates } : t
+                  t.id === item.id ? { ...t, ...updates } : t,
                 );
                 setTimelineItems(updated);
               }}
@@ -559,7 +642,9 @@ export function EventBasicInfo({ initialData, onDataChange }: EventBasicInfoProp
         {timelineItems.length === 0 && (
           <div className="rounded-lg border-2 border-dashed border-slate-200 bg-slate-50 p-8 text-center">
             <Clock className="mx-auto size-12 text-slate-300" />
-            <p className="mt-4 text-sm font-semibold text-slate-900">No timeline items</p>
+            <p className="mt-4 text-sm font-semibold text-slate-900">
+              No timeline items
+            </p>
             <p className="mt-2 text-sm text-slate-600">
               Add timeline milestones to help attendees know what to expect
             </p>
@@ -622,7 +707,7 @@ function TimelineItemEditor({
   ];
 
   const [showCustomLabel, setShowCustomLabel] = useState(
-    !commonLabels.includes(item.label)
+    !commonLabels.includes(item.label),
   );
 
   return (
@@ -669,7 +754,9 @@ function TimelineItemEditor({
       <div className="space-y-4">
         {/* Label */}
         <div>
-          <Label className="text-sm font-semibold text-slate-900">Event Label *</Label>
+          <Label className="text-sm font-semibold text-slate-900">
+            Event Label *
+          </Label>
           {!showCustomLabel ? (
             <div className="mt-2 space-y-2">
               <Select
@@ -731,7 +818,9 @@ function TimelineItemEditor({
             />
           </div>
           <div>
-            <Label className="block text-sm font-semibold text-slate-900">Time *</Label>
+            <Label className="block text-sm font-semibold text-slate-900">
+              Time *
+            </Label>
             <Input
               type="time"
               value={item.time}
@@ -744,7 +833,10 @@ function TimelineItemEditor({
         {/* Description (Optional) */}
         <div>
           <Label className="text-sm font-semibold text-slate-900">
-            Description <span className="text-xs font-normal text-slate-500">(Optional)</span>
+            Description{" "}
+            <span className="text-xs font-normal text-slate-500">
+              (Optional)
+            </span>
           </Label>
           <textarea
             value={item.description || ""}
@@ -758,4 +850,3 @@ function TimelineItemEditor({
     </div>
   );
 }
-

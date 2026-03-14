@@ -61,7 +61,8 @@ const sampleTicket: TicketData = {
   attendeeName: "John Doe",
   attendeeEmail: "john.doe@example.com",
   attendeePhone: "+254 712 345 678",
-  qrCode: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3C/svg%3E",
+  qrCode:
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3C/svg%3E",
   status: "active",
   seatInfo: {
     section: "VIP",
@@ -70,7 +71,7 @@ const sampleTicket: TicketData = {
   },
 };
 
-export default function TicketDetailPage({
+export default async function TicketDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -135,11 +136,14 @@ export default function TicketDetailPage({
         <div className="relative overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
           {/* Gradient Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-          
+
           {/* Pattern Overlay */}
-          <div className="absolute inset-0 opacity-10" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
 
           <div className="relative grid gap-8 p-8 text-white lg:grid-cols-[1fr,auto]">
             {/* Left Section - Event Info */}
@@ -157,7 +161,9 @@ export default function TicketDetailPage({
                 <div className="flex items-start gap-3">
                   <Calendar className="mt-0.5 size-5 text-white/80" />
                   <div>
-                    <p className="text-sm font-semibold text-white/80">Date & Time</p>
+                    <p className="text-sm font-semibold text-white/80">
+                      Date & Time
+                    </p>
                     <p className="mt-1 font-semibold">{ticket.eventDate}</p>
                     <p className="text-sm text-white/70">{ticket.eventTime}</p>
                   </div>
@@ -175,7 +181,9 @@ export default function TicketDetailPage({
 
               {ticket.seatInfo && (
                 <div className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
-                  <p className="mb-2 text-sm font-semibold text-white/80">Seat Details</p>
+                  <p className="mb-2 text-sm font-semibold text-white/80">
+                    Seat Details
+                  </p>
                   <div className="flex items-center gap-4">
                     <div>
                       <p className="text-xs text-white/70">Section</p>
@@ -217,8 +225,12 @@ export default function TicketDetailPage({
                 />
               </div>
               <div className="text-center">
-                <p className="text-xs font-semibold text-white/80">Ticket Number</p>
-                <p className="mt-1 font-mono text-sm font-bold">{ticket.ticketNumber}</p>
+                <p className="text-xs font-semibold text-white/80">
+                  Ticket Number
+                </p>
+                <p className="mt-1 font-mono text-sm font-bold">
+                  {ticket.ticketNumber}
+                </p>
               </div>
             </div>
           </div>
@@ -251,21 +263,27 @@ export default function TicketDetailPage({
               <User className="mt-0.5 size-5 text-slate-400" />
               <div>
                 <p className="text-sm font-semibold text-slate-900">Name</p>
-                <p className="mt-1 text-sm text-slate-600">{ticket.attendeeName}</p>
+                <p className="mt-1 text-sm text-slate-600">
+                  {ticket.attendeeName}
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Mail className="mt-0.5 size-5 text-slate-400" />
               <div>
                 <p className="text-sm font-semibold text-slate-900">Email</p>
-                <p className="mt-1 text-sm text-slate-600">{ticket.attendeeEmail}</p>
+                <p className="mt-1 text-sm text-slate-600">
+                  {ticket.attendeeEmail}
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Phone className="mt-0.5 size-5 text-slate-400" />
               <div>
                 <p className="text-sm font-semibold text-slate-900">Phone</p>
-                <p className="mt-1 text-sm text-slate-600">{ticket.attendeePhone}</p>
+                <p className="mt-1 text-sm text-slate-600">
+                  {ticket.attendeePhone}
+                </p>
               </div>
             </div>
           </div>
@@ -278,20 +296,32 @@ export default function TicketDetailPage({
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold text-slate-900">Ticket Type</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Ticket Type
+              </p>
               <p className="mt-1 text-sm text-slate-600">{ticket.ticketType}</p>
             </div>
             <div>
               <p className="text-sm font-semibold text-slate-900">Price</p>
-              <p className="mt-1 text-sm font-semibold text-slate-900">{ticket.price}</p>
+              <p className="mt-1 text-sm font-semibold text-slate-900">
+                {ticket.price}
+              </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">Purchase Date</p>
-              <p className="mt-1 text-sm text-slate-600">{ticket.purchaseDate}</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Purchase Date
+              </p>
+              <p className="mt-1 text-sm text-slate-600">
+                {ticket.purchaseDate}
+              </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">Ticket Number</p>
-              <p className="mt-1 font-mono text-sm text-slate-600">{ticket.ticketNumber}</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Ticket Number
+              </p>
+              <p className="mt-1 font-mono text-sm text-slate-600">
+                {ticket.ticketNumber}
+              </p>
             </div>
           </div>
         </div>
@@ -299,4 +329,3 @@ export default function TicketDetailPage({
     </div>
   );
 }
-

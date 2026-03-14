@@ -121,26 +121,26 @@ export function SocialLoginButtons({ onError, redirectTo = "/" }: SocialLoginBut
     );
   };
 
-  if (!googleClientId && !facebookAppId) {
-    return null; // Don't show buttons if no OAuth credentials configured
-  }
+  const hasAnyProvider = !!googleClientId || !!facebookAppId;
 
   return (
-    <div className="grid grid-cols-2 gap-3">
-      {googleClientId && (
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleError}
-          useOneTap={false}
-          theme="outline"
-          size="large"
-          text="signin_with"
-          shape="rectangular"
-          logo_alignment="left"
-        />
-      )}
-      
-      {facebookAppId && (
+    <div className="space-y-3">
+      {hasAnyProvider ? (
+        <div className={`grid gap-3 ${googleClientId && facebookAppId ? "grid-cols-2" : "grid-cols-1"}`}>
+          {googleClientId && (
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap={false}
+              theme="outline"
+              size="large"
+              text="signin_with"
+              shape="rectangular"
+              logo_alignment="left"
+            />
+          )}
+
+          {facebookAppId && (
         <button
           type="button"
           onClick={handleFacebookClick}
@@ -152,6 +152,12 @@ export function SocialLoginButtons({ onError, redirectTo = "/" }: SocialLoginBut
           </svg>
           {loading === "facebook" ? "Signing in..." : "Sign in with Facebook"}
         </button>
+          )}
+        </div>
+      ) : (
+        <p className="text-center text-sm text-slate-500">
+          Set <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">NEXT_PUBLIC_GOOGLE_CLIENT_ID</code> in .env.local to enable Sign in with Google.
+        </p>
       )}
     </div>
   );

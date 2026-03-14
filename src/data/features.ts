@@ -407,7 +407,7 @@ const exclusive = <const>[
     title: "O. Venue & onsite tech innovations",
     range: "86–105 (Exclusive)",
     summary:
-      "IoT, turnstiles, wristbands, drones, CCTV, concierge, and F&B micro-ordering for modern venues.",
+      "IoT, turnstiles, wristbands, drones, CCTV, VIP services, and F&B micro-ordering for modern venues.",
     features: [
       "Interactive venue dashboards for staff (heatmaps, queue lengths).",
       "Contactless multi-gate turnstile integrations (NFC/QR).",
@@ -419,7 +419,7 @@ const exclusive = <const>[
       "Dynamic capacity reallocation for breakout sessions in conferences.",
       "Integrated CCTV event analytics (people flow, safety signals).",
       "Drone-friendly area booking & compliance flows for outdoor events.",
-      "VIP concierge workflows with staff assignment & tasking.",
+      "VIP service workflows with staff assignment & tasking.",
       "Venue sponsorship overlays (digital) on event live streams.",
       "Integrated lost & found management with item tagging & claims.",
     ],
@@ -561,10 +561,12 @@ const exclusive = <const>[
   },
 ];
 
-export const coreFeatureCategories: FeatureCategory[] = core.map((category) => ({
-  ...category,
-  type: "core" as const,
-}));
+export const coreFeatureCategories: FeatureCategory[] = core.map(
+  (category) => ({
+    ...category,
+    type: "core" as const,
+  }),
+);
 
 export const exclusiveFeatureCategories: FeatureCategory[] = exclusive.map(
   (category) => ({
@@ -585,4 +587,3 @@ const featureCategoryMap = new Map(
 export function getFeatureCategoryBySlug(slug: string) {
   return featureCategoryMap.get(slug);
 }
-
