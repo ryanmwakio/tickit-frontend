@@ -37,6 +37,7 @@ export interface ChatMessage {
 export interface ChatSession {
   id: string;
   userId?: string;
+  user?: { name?: string; email?: string };
   guestId?: string;
   guestName?: string;
   guestEmail?: string;
