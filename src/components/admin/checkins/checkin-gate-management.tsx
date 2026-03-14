@@ -179,6 +179,11 @@ export function CheckInGateManagement() {
         data: Array<{
           id: string;
           createdAt: string;
+          deviceId?: string;
+          deviceName?: string;
+          isDuplicate?: boolean;
+          staffId?: string;
+          gate?: { name?: string };
           ticket?: {
             ticketNumber: string;
             ticketType?: { event?: { title: string; id: string } };
