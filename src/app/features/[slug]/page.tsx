@@ -6,15 +6,16 @@ import {
 } from "@/data/features";
 
 type FeatureDetailProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
   return allFeatureCategories.map((category) => ({ slug: category.slug }));
 }
 
-export function generateMetadata({ params }: FeatureDetailProps) {
-  const category = getFeatureCategoryBySlug(params.slug);
+export async function generateMetadata({ params }: FeatureDetailProps) {
+  const { slug } = await params;
+  const category = getFeatureCategoryBySlug(slug);
   if (!category) {
     return { title: "Feature not found | Tickit" };
   }
@@ -24,8 +25,9 @@ export function generateMetadata({ params }: FeatureDetailProps) {
   };
 }
 
-export default function FeatureDetailPage({ params }: FeatureDetailProps) {
-  const category = getFeatureCategoryBySlug(params.slug);
+export default async function FeatureDetailPage({ params }: FeatureDetailProps) {
+  const { slug } = await params;
+  const category = getFeatureCategoryBySlug(slug);
   if (!category) {
     notFound();
   }
