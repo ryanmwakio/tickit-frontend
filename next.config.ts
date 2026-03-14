@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Next.js 16 uses Turbopack by default; empty config acknowledges that (webpack above is dev-only for watchOptions)
+  turbopack: {},
   images: {
     remotePatterns: [
       {
