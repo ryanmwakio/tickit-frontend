@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type MerchandiseItem = {
+export type MerchandiseItem = {
   id: string;
   name: string;
   description: string;

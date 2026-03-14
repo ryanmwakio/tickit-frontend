@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AuthFormInput } from "@/components/auth/auth-form-input";
@@ -9,7 +9,7 @@ import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { LogIn } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login } = useAuth();
@@ -168,5 +168,23 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="w-full">
+        <div className="lg:hidden h-16" />
+        <div className="rounded-3xl border border-slate-200/80 bg-white/80 backdrop-blur-xl p-8 lg:p-10 shadow-2xl shadow-slate-900/5 lg:bg-white lg:shadow-xl animate-pulse">
+          <div className="h-10 bg-slate-200 rounded w-3/4 mb-6" />
+          <div className="h-4 bg-slate-100 rounded w-full mb-4" />
+          <div className="h-12 bg-slate-100 rounded w-full mb-4" />
+          <div className="h-12 bg-slate-100 rounded w-full" />
+        </div>
+      </div>
+    }>
+      <LoginPageContent />
+    </Suspense>
   );
 }

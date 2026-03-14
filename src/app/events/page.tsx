@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useTransition } from "react";
+import { useEffect, useState, useMemo, useTransition, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { EventsFilter } from "@/components/events/events-filter";
 import { Pagination } from "@/components/events/pagination";
@@ -13,7 +13,7 @@ import { groupEventsByCategory } from "@/lib/event-utils";
 const INITIAL_EVENTS_PER_CATEGORY = 9;
 const EVENTS_PER_LOAD = 9;
 
-export default function EventsPage() {
+function EventsPageContent() {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(true);
@@ -563,6 +563,35 @@ export default function EventsPage() {
         )}
       </section>
     </div>
+  );
+}
+
+function EventsPageFallback() {
+  return (
+    <div className="bg-white min-h-screen">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="h-12 w-full max-w-md animate-pulse bg-slate-200 rounded-lg mb-6" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-lg">
+              <div className="h-48 w-full animate-pulse bg-slate-200" />
+              <div className="p-4 space-y-3">
+                <div className="h-4 w-3/4 animate-pulse bg-slate-200 rounded" />
+                <div className="h-3 w-1/2 animate-pulse bg-slate-200 rounded" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function EventsPage() {
+  return (
+    <Suspense fallback={<EventsPageFallback />}>
+      <EventsPageContent />
+    </Suspense>
   );
 }
 

@@ -29,6 +29,7 @@ interface TicketData {
     orderNumber: string;
     createdAt: string;
   };
+  metadata?: { deviceId?: string };
 }
 
 // Get tracking ID from localStorage

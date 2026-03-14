@@ -202,7 +202,7 @@ export function Campaigns() {
       {showCreateModal && (
         <CampaignModal
           organiserId={organiserId}
-          campaign={selectedCampaign}
+          campaign={selectedCampaign ?? undefined}
           onSave={async (campaignData) => {
             if (!organiserId) return;
             try {

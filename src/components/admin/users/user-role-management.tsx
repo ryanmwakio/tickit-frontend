@@ -444,7 +444,7 @@ export function UserRoleManagement() {
                   lastName,
                   phoneNumber: userData.phone,
                   activeRole: userData.role === 'super_admin' ? 'ADMIN' : 'ADMIN',
-                  roles: userData.role === 'super_admin' ? 'ADMIN' : `ADMIN,${userData.role.toUpperCase()}`,
+                  roles: userData.role === 'super_admin' ? 'ADMIN' : `ADMIN,${(userData.role ?? '').toUpperCase()}`,
                   metadata: {
                     status: userData.status,
                     twoFactorEnabled: userData.twoFactorEnabled,
@@ -459,7 +459,7 @@ export function UserRoleManagement() {
                   lastName,
                   phoneNumber: userData.phone,
                   activeRole: 'ADMIN',
-                  roles: userData.role === 'super_admin' ? 'ADMIN' : `ADMIN,${userData.role.toUpperCase()}`,
+                  roles: userData.role === 'super_admin' ? 'ADMIN' : `ADMIN,${(userData.role ?? '').toUpperCase()}`,
                   metadata: {
                     status: userData.status,
                     twoFactorEnabled: userData.twoFactorEnabled,

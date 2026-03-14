@@ -286,7 +286,7 @@ export function EventPerformance() {
           </ReBarChart>
         </ResponsiveContainer>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          {eventPerformanceData.map((event) => (
+          {eventPerformanceData.map((event: { event: string; views: number; purchases: number; conversion: number; revenue: number; checkInRate: number }) => (
             <div key={event.event} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
               <h4 className="font-semibold text-slate-900">{event.event}</h4>
               <div className="mt-2 space-y-1 text-sm">

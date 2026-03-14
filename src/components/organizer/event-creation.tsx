@@ -12,7 +12,7 @@ import { SeatMapCreator } from "./event-creation/seat-map-creator";
 import { PricingPackages } from "./event-creation/pricing-packages";
 import { SponsorsManager } from "./event-creation/sponsors-manager";
 import { TermsConditions } from "./event-creation/terms-conditions";
-import { MerchandiseManager } from "./event-creation/merchandise-manager";
+import { MerchandiseManager, type MerchandiseItem } from "./event-creation/merchandise-manager";
 import { useAuth } from "@/contexts/auth-context";
 import { useToast } from "@/contexts/toast-context";
 import { SessionProtectedForm } from "@/components/auth/session-protected-form";
@@ -276,7 +276,8 @@ export function EventCreationPage({
   }, [initialData?.id]); // Only update when the event ID changes (new edit load)
 
   // Handler to update event data from child components
-  const handleEventDataChange = (updates: Partial<EventInitialData>) => {
+  const handleEventDataChange = (updates?: Partial<EventInitialData>) => {
+    if (updates === undefined) return;
     setEventData((prev) => ({
       ...prev,
       ...updates,
@@ -626,8 +627,8 @@ export function EventCreationPage({
             initialData={{
               ...eventData,
               selectedFeatures: selectedFeatures,
-              organiserId: organiserId,
-              eventId: initialData?.id,
+              organiserId: organiserId ?? undefined,
+              eventId: eventData?.id ?? initialData?.id,
             }}
             onDataChange={handleEventDataChange}
           />
@@ -652,7 +653,7 @@ export function EventCreationPage({
         )}
         {activeTab === "merchandise" && (
           <MerchandiseManager
-            initialData={eventData}
+            initialData={{ merchandise: (eventData as Record<string, unknown>).merchandise as MerchandiseItem[] | undefined }}
             onDataChange={handleEventDataChange}
           />
         )}

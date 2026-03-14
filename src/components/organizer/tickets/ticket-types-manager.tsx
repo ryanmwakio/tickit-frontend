@@ -51,16 +51,19 @@ async function getUserOrganiserId(userId: string): Promise<string | null> {
 
 type TicketType = {
   id: string;
+  eventId?: string;
   name: string;
   description: string;
   price: number;
+  priceCents?: number;
   currency: string;
   quantity: number;
+  quantityTotal?: number;
   soldQuantity: number;
-  minPerOrder: number | null;
-  maxPerOrder: number | null;
-  salesStartsAt: string | null;
-  salesEndsAt: string | null;
+  minPerOrder: number | null | undefined;
+  maxPerOrder: number | null | undefined;
+  salesStartsAt: string | null | undefined;
+  salesEndsAt: string | null | undefined;
   isVisible: boolean;
   isRefundable: boolean;
   category: "early_bird" | "standard" | "vip" | "vvip" | "backstage" | "reserved" | "free" | "promo";
@@ -72,7 +75,7 @@ type TicketType = {
   status: "draft" | "active" | "paused" | "sold_out" | "ended";
   autoSwitchTier: boolean;
   switchToTierId: string | null;
-  pauseAtQuantity: number | null;
+  pauseAtQuantity: number | null | undefined;
 };
 
 const categoryConfig: Record<
@@ -256,10 +259,10 @@ export function TicketTypesManager() {
           priceCents: original.priceCents,
           currency: original.currency,
           quantityTotal: original.quantity,
-          minPerOrder: original.minPerOrder,
-          maxPerOrder: original.maxPerOrder,
-          salesStartsAt: original.salesStartsAt,
-          salesEndsAt: original.salesEndsAt,
+          minPerOrder: original.minPerOrder ?? undefined,
+          maxPerOrder: original.maxPerOrder ?? undefined,
+          salesStartsAt: original.salesStartsAt ?? undefined,
+          salesEndsAt: original.salesEndsAt ?? undefined,
           isVisible: original.isVisible,
           isRefundable: original.isRefundable,
           category: original.category,
@@ -270,11 +273,11 @@ export function TicketTypesManager() {
         setTicketTypes([...ticketTypes, ...types.map(tt => ({
           ...tt,
           price: tt.priceCents / 100,
-          quantity: tt.quantityTotal,
-          soldQuantity: tt.quantitySold,
+          quantity: tt.quantityTotal ?? 0,
+          soldQuantity: tt.quantitySold ?? 0,
           category: "standard" as TicketType["category"],
           status: "active" as TicketType["status"],
-        }))]);
+        }))] as TicketType[]);
       } catch (err: any) {
         alert(err.message || "Failed to duplicate ticket type");
       }
@@ -473,10 +476,10 @@ export function TicketTypesManager() {
                   priceCents: (data.price || 0) * 100,
                   currency: data.currency || "KES",
                   quantityTotal: data.quantity || 0,
-                  minPerOrder: data.minPerOrder,
-                  maxPerOrder: data.maxPerOrder,
-                  salesStartsAt: data.salesStartsAt,
-                  salesEndsAt: data.salesEndsAt,
+                  minPerOrder: data.minPerOrder ?? undefined,
+                  maxPerOrder: data.maxPerOrder ?? undefined,
+                  salesStartsAt: data.salesStartsAt ?? undefined,
+                  salesEndsAt: data.salesEndsAt ?? undefined,
                   isVisible: data.isVisible,
                   isRefundable: data.isRefundable,
                   category: data.category,
@@ -491,12 +494,12 @@ export function TicketTypesManager() {
                       ...t,
                       ...updated,
                       price: updated.priceCents / 100,
-                      quantity: updated.quantityTotal,
-                      soldQuantity: updated.quantitySold,
+                      quantity: updated.quantityTotal ?? 0,
+                      soldQuantity: updated.quantitySold ?? 0,
                     } : t;
                   }
                   return t;
-                }));
+                }) as TicketType[]);
               } else if (selectedEventId) {
                 // Create new
                 await createTicketType(selectedEventId, {
@@ -505,10 +508,10 @@ export function TicketTypesManager() {
                   priceCents: (data.price || 0) * 100,
                   currency: data.currency || "KES",
                   quantityTotal: data.quantity || 0,
-                  minPerOrder: data.minPerOrder,
-                  maxPerOrder: data.maxPerOrder,
-                  salesStartsAt: data.salesStartsAt,
-                  salesEndsAt: data.salesEndsAt,
+                  minPerOrder: data.minPerOrder ?? undefined,
+                  maxPerOrder: data.maxPerOrder ?? undefined,
+                  salesStartsAt: data.salesStartsAt ?? undefined,
+                  salesEndsAt: data.salesEndsAt ?? undefined,
                   isVisible: data.isVisible ?? true,
                   isRefundable: data.isRefundable ?? true,
                   category: data.category,
@@ -520,16 +523,16 @@ export function TicketTypesManager() {
                   id: tt.id,
                   eventId: selectedEventId,
                   name: tt.name,
-                  description: tt.description || "",
+                  description: tt.description ?? "",
                   price: tt.priceCents / 100,
                   priceCents: tt.priceCents,
                   currency: tt.currency,
                   quantity: tt.quantityTotal,
                   soldQuantity: tt.quantitySold,
-                  minPerOrder: null,
-                  maxPerOrder: null,
-                  salesStartsAt: null,
-                  salesEndsAt: null,
+                  minPerOrder: undefined,
+                  maxPerOrder: undefined,
+                  salesStartsAt: undefined,
+                  salesEndsAt: undefined,
                   isVisible: true,
                   isRefundable: true,
                   category: "standard" as TicketType["category"],
@@ -541,8 +544,8 @@ export function TicketTypesManager() {
                   status: "active" as TicketType["status"],
                   autoSwitchTier: false,
                   switchToTierId: null,
-                  pauseAtQuantity: null,
-                }))]);
+                  pauseAtQuantity: undefined,
+                }))] as TicketType[]);
               }
               
               setShowCreateModal(false);

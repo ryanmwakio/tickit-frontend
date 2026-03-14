@@ -10,6 +10,7 @@ import {
   Shield,
   Download,
   Eye,
+  EyeOff,
   AlertTriangle,
   CheckCircle2,
   XCircle,

@@ -346,7 +346,7 @@ export function CustomerInsights() {
       <div className="rounded-xl border border-slate-200 bg-white p-6">
         <h3 className="mb-4 text-lg font-semibold text-slate-900">Top Spenders</h3>
         <div className="space-y-3">
-          {topSpendersData.map((customer, index) => (
+          {topSpendersData.map((customer: { customer: string; orders: number; total: number; avgOrder: number }, index: number) => (
             <div
               key={customer.customer}
               className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-4"

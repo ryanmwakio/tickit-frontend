@@ -390,7 +390,7 @@ export function SalesAnalytics() {
           <ResponsiveContainer width="100%" height={300}>
             <RePieChart>
               <Pie
-                data={revenueByTicketTypeData.filter((item) => item.revenue > 0)}
+                data={revenueByTicketTypeData.filter((item: { revenue: number }) => item.revenue > 0)}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
@@ -400,8 +400,8 @@ export function SalesAnalytics() {
                 dataKey="revenue"
               >
                 {revenueByTicketTypeData
-                  .filter((item) => item.revenue > 0)
-                  .map((entry, index) => (
+                  .filter((item: { revenue: number }) => item.revenue > 0)
+                  .map((entry: { revenue: number }, index: number) => (
                     <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
                   ))}
               </Pie>
@@ -409,7 +409,7 @@ export function SalesAnalytics() {
             </RePieChart>
           </ResponsiveContainer>
           <div className="mt-4 space-y-2">
-            {revenueByTicketTypeData.map((type, index) => (
+            {revenueByTicketTypeData.map((type: { type: string; revenue: number; count: number }, index: number) => (
               <div key={type.type} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div
@@ -453,14 +453,14 @@ export function SalesAnalytics() {
             />
             <ReTooltip content={<ChartTooltipContent />} />
             <Bar dataKey="revenue" radius={[8, 8, 0, 0]}>
-              {revenueByPaymentMethodData.map((entry, index) => (
+              {revenueByPaymentMethodData.map((entry: { method: string; revenue: number }, index: number) => (
                 <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
               ))}
             </Bar>
           </ReBarChart>
         </ResponsiveContainer>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
-          {revenueByPaymentMethodData.map((method, index) => (
+          {revenueByPaymentMethodData.map((method: { method: string; revenue: number; percentage: number; count: number }, index: number) => (
             <div key={method.method} className="text-center">
               <p className="text-sm font-semibold text-slate-900">{method.method}</p>
               <p className="mt-1 text-lg font-bold text-slate-900">

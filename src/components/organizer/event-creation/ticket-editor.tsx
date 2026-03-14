@@ -82,6 +82,11 @@ interface TicketDesignEditorProps {
     selectedFeatures?: string[];
     organiserId?: string;
     eventId?: string;
+    title?: string;
+    startDate?: string;
+    startTime?: string;
+    location?: string;
+    price?: string;
   };
   onDataChange?: (updates: {
     ticketDesign?: TicketDesign;
@@ -96,7 +101,7 @@ export function TicketDesignEditor({
   const hasCustomDesignFeature = initialData?.selectedFeatures?.includes(
     "custom_ticket_design",
   );
-  const { toast } = useToast();
+  const toast = useToast();
   const canvasRef = useRef<HTMLDivElement>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [designConfig, setDesignConfig] = useState<TicketDesignConfig>(
@@ -171,7 +176,7 @@ export function TicketDesignEditor({
     const template = ticketDesignTemplates.find((t) => t.id === templateId);
     if (template) {
       setSelectedTemplate(templateId);
-      setDesignConfig(template.config);
+      setDesignConfig(template.config as TicketDesignConfig);
       setElements([]);
       setSelectedElement(null);
       setShowTemplateModal(false);
@@ -1100,7 +1105,7 @@ export function TicketDesignEditor({
               {/* Modal Content */}
               <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 <TicketTemplateGrid
-                  selectedTemplate={selectedTemplate}
+                  selectedTemplate={selectedTemplate ?? undefined}
                   onTemplateSelect={handleTemplateSelect}
                   eventData={{
                     title: initialData?.title,

@@ -41,6 +41,7 @@ const defaultTimelineItems: Omit<TimelineItem, "id">[] = [
 
 type EventBasicInfoProps = {
   initialData?: {
+    id?: string;
     title?: string;
     description?: string;
     location?: string;

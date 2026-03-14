@@ -118,7 +118,7 @@ export class ApiClient {
     };
 
     if (this.accessToken) {
-      headers["Authorization"] = `Bearer ${this.accessToken}`;
+      (headers as Record<string, string>)["Authorization"] = `Bearer ${this.accessToken}`;
     }
 
     let response: Response;
@@ -185,7 +185,7 @@ Then verify it's running on http://localhost:5000/api/v1`
     ) {
       const refreshed = await this.refreshAccessToken();
       if (refreshed && this.accessToken) {
-        headers["Authorization"] = `Bearer ${this.accessToken}`;
+        (headers as Record<string, string>)["Authorization"] = `Bearer ${this.accessToken}`;
         response = await fetch(url, {
           ...fetchOptions,
           headers,
@@ -265,7 +265,7 @@ Then verify it's running on http://localhost:5000/api/v1`
             page: responseData.pagination.page,
             limit: responseData.pagination.limit,
             totalPages: responseData.pagination.totalPages,
-          };
+          } as T;
         }
         // Otherwise, just return the data
         return responseData.data !== undefined
@@ -283,7 +283,7 @@ Then verify it's running on http://localhost:5000/api/v1`
   async get<T>(
     endpoint: string,
     params?: any,
-    options?: { responseType?: "json" | "blob" },
+    options?: RequestInit & { responseType?: "json" | "blob" },
   ): Promise<T> {
     let url = endpoint;
     if (params) {
@@ -304,7 +304,7 @@ Then verify it's running on http://localhost:5000/api/v1`
   async post<T>(
     endpoint: string,
     data?: unknown,
-    options?: { responseType?: "json" | "blob" },
+    options?: RequestInit & { responseType?: "json" | "blob" },
   ): Promise<T> {
     return this.request<T>(endpoint, {
       method: "POST",
@@ -316,7 +316,7 @@ Then verify it's running on http://localhost:5000/api/v1`
   async put<T>(
     endpoint: string,
     data?: unknown,
-    options?: { responseType?: "json" | "blob" },
+    options?: RequestInit & { responseType?: "json" | "blob" },
   ): Promise<T> {
     return this.request<T>(endpoint, {
       method: "PUT",
@@ -328,7 +328,7 @@ Then verify it's running on http://localhost:5000/api/v1`
   async patch<T>(
     endpoint: string,
     data?: unknown,
-    options?: { responseType?: "json" | "blob" },
+    options?: RequestInit & { responseType?: "json" | "blob" },
   ): Promise<T> {
     return this.request<T>(endpoint, {
       method: "PATCH",
@@ -339,7 +339,7 @@ Then verify it's running on http://localhost:5000/api/v1`
 
   async delete<T>(
     endpoint: string,
-    options?: { responseType?: "json" | "blob" },
+    options?: RequestInit & { responseType?: "json" | "blob" },
   ): Promise<T> {
     return this.request<T>(endpoint, { method: "DELETE", ...options });
   }

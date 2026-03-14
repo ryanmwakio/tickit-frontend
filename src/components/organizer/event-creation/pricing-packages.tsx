@@ -413,7 +413,7 @@ export function PricingPackages({ initialData, onDataChange }: PricingPackagesPr
                       {promo.code}
                     </code>
                     <span className="text-sm font-semibold text-slate-900">
-                      {promo.discountType === "percentage" ? `${promo.value}%` : `${promo.value} ${promo.currency || "KES"}`} off
+                      {promo.discountType === "percentage" ? `${promo.value}%` : `${promo.value} ${(promo as { currency?: string }).currency || "KES"}`} off
                     </span>
                   </div>
                   <p className="mt-1 text-xs text-slate-600">

@@ -81,7 +81,7 @@ export function WalletPayouts() {
           }>;
         }>(`/organisers/${orgId}/finance/wallet`);
 
-        setWalletData(data);
+        setWalletData(data as Parameters<typeof setWalletData>[0]);
       } catch (err: unknown) {
         console.error("Failed to load wallet:", err);
         const errorMessage = err instanceof Error ? err.message : "Failed to load wallet";
@@ -116,7 +116,7 @@ export function WalletPayouts() {
 
       // Reload wallet data
       const data = await apiClient.get(`/organisers/${organiserId}/finance/wallet`);
-      setWalletData(data);
+      setWalletData(data as Parameters<typeof setWalletData>[0]);
     } catch (err: unknown) {
       console.error("Failed to request payout:", err);
       const errorMessage = err instanceof Error ? err.message : "Failed to request payout";

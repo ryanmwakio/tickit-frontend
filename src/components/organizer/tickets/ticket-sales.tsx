@@ -193,7 +193,7 @@ export function TicketSales() {
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      sales = sales.filter(
+      filtered = sales.filter(
         (sale) =>
           sale.orderNumber.toLowerCase().includes(query) ||
           sale.ticketNumber.toLowerCase().includes(query) ||
@@ -205,7 +205,7 @@ export function TicketSales() {
     }
 
     if (statusFilter !== "all") {
-      sales = sales.filter((sale) => sale.orderStatus === statusFilter);
+      filtered = filtered.filter((sale) => sale.orderStatus === statusFilter);
     }
 
     if (paymentFilter !== "all") {

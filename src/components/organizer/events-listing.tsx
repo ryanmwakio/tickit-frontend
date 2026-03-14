@@ -141,8 +141,11 @@ function getEventCompletionInfo(event: EventResponseDto) {
     description: string;
     location: string;
   }> = [];
-  const selectedFeatures =
-    event.metadata?.features || event.metadata?.selectedFeatures || [];
+  const selectedFeatures: string[] = Array.isArray(event.metadata?.features)
+    ? (event.metadata.features as string[])
+    : Array.isArray(event.metadata?.selectedFeatures)
+      ? (event.metadata.selectedFeatures as string[])
+      : [];
 
   // Core requirements for all events
   requirements.push({
@@ -179,7 +182,7 @@ function getEventCompletionInfo(event: EventResponseDto) {
     requirements.push({
       type: "ticket_design",
       completed: !!(
-        event.metadata?.ticketDesign || event.ticketTypes?.length > 0
+        event.metadata?.ticketDesign || (event.ticketTypes?.length ?? 0) > 0
       ),
       description: "Custom ticket design configuration",
       location: "Ticket Design tab",
@@ -211,7 +214,7 @@ function getEventCompletionInfo(event: EventResponseDto) {
     requirements.push({
       type: "sponsors",
       completed: !!(
-        event.metadata?.sponsors && event.metadata.sponsors.length > 0
+        event.metadata?.sponsors && Array.isArray(event.metadata.sponsors) && event.metadata.sponsors.length > 0
       ),
       description: "Sponsor details and branding",
       location: "Sponsors tab",
@@ -222,7 +225,7 @@ function getEventCompletionInfo(event: EventResponseDto) {
     requirements.push({
       type: "merchandise",
       completed: !!(
-        event.metadata?.merchandise && event.metadata.merchandise.length > 0
+        event.metadata?.merchandise && Array.isArray(event.metadata.merchandise) && event.metadata.merchandise.length > 0
       ),
       description: "Merchandise items configuration",
       location: "Merchandise tab",
@@ -260,15 +263,15 @@ function mapApiEventToOrganizerEvent(event: EventResponseDto): OrganizerEvent {
 
   // Calculate tickets sold and total from ticket types
   const ticketsSold =
-    event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantitySold || 0), 0) ||
+    event.ticketTypes?.reduce((sum: number, tt: { quantitySold?: number }) => sum + (tt.quantitySold || 0), 0) ||
     0;
   const totalTickets =
-    event.ticketTypes?.reduce((sum, tt) => sum + (tt.quantityTotal || 0), 0) ||
+    event.ticketTypes?.reduce((sum: number, tt: { quantityTotal?: number }) => sum + (tt.quantityTotal || 0), 0) ||
     0;
 
   // Calculate revenue (simplified - would need order data for accurate revenue)
   const revenue =
-    event.ticketTypes?.reduce((sum, tt) => {
+    event.ticketTypes?.reduce((sum: number, tt: { quantitySold?: number; quantityTotal?: number; priceCents?: number }) => {
       return sum + ((tt.quantitySold || 0) * (tt.priceCents || 0)) / 100;
     }, 0) || 0;
 

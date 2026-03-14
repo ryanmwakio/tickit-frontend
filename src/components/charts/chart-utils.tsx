@@ -40,14 +40,14 @@ export function ChartContainer({
   children,
 }: ChartContainerProps) {
   const style = React.useMemo(() => {
-    const cssVars: React.CSSProperties = {};
+    const cssVars: Record<string, string> = {};
     Object.entries(config).forEach(([key, value], index) => {
-      cssVars[`--chart-${index + 1}` as keyof React.CSSProperties] =
+      cssVars[`--chart-${index + 1}`] =
         value.color ?? `hsl(var(--chart-${index + 1}))`;
-      cssVars[`--color-${key}` as keyof React.CSSProperties] =
+      cssVars[`--color-${key}`] =
         value.color ?? `hsl(var(--chart-${index + 1}))`;
     });
-    return cssVars;
+    return cssVars as React.CSSProperties;
   }, [config]);
 
   return (
@@ -82,11 +82,16 @@ export function ChartTooltip({
   );
 }
 
+type TooltipContentProps = TooltipProps<ValueType, NameType> & {
+  payload?: Array<{ name?: string; value?: unknown; dataKey?: string }>;
+  label?: string;
+};
+
 export function ChartTooltipContent({
   active,
   payload,
   label,
-}: TooltipProps<ValueType, NameType>) {
+}: TooltipContentProps) {
   if (!active || !payload?.length) {
     return null;
   }
@@ -97,10 +102,10 @@ export function ChartTooltipContent({
         <p className="text-[11px] uppercase tracking-[0.3em] text-slate-400">{label}</p>
       ) : null}
       <div className="space-y-1">
-        {payload.map((item) => (
+        {payload.map((item: { name?: string; value?: unknown; dataKey?: string }) => (
           <div key={item.dataKey} className="flex items-center justify-between gap-4">
             <span className="text-xs text-slate-500">{item.name}</span>
-            <span className="text-sm font-semibold text-slate-900">{item.value}</span>
+            <span className="text-sm font-semibold text-slate-900">{String(item.value ?? "")}</span>
           </div>
         ))}
       </div>

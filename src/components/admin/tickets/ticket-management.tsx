@@ -129,6 +129,7 @@ export function AdminTicketManagement() {
           createdAt: string;
           orderItem?: {
             order?: {
+              id?: string;
               buyer?: { firstName?: string; lastName?: string; email: string; phoneNumber?: string };
             };
           };

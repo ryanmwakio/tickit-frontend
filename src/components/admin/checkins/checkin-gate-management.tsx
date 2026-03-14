@@ -209,7 +209,7 @@ export function CheckInGateManagement() {
           deviceId: c.deviceId || 'N/A',
           deviceName: c.deviceName || 'N/A',
           gate: c.gate?.name || 'N/A',
-          status: (c.isDuplicate ? 'duplicate' : 'success') as const,
+          status: c.isDuplicate ? 'duplicate' : 'success',
           customerName: buyer ? `${buyer.firstName || ''} ${buyer.lastName || ''}`.trim() || buyer.email : 'Unknown',
           eventName: c.ticket?.ticketType?.event?.title || 'Unknown Event',
           scannedBy: staffName,

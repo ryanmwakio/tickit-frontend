@@ -111,29 +111,30 @@ export interface TicketInventoryItem {
 
 // Ticket Types API
 export async function getTicketTypes(eventId: string): Promise<TicketType[]> {
-  const response = await apiClient.get(`/ticket-types/events/${eventId}`);
-  return response.data || [];
+  const response = await apiClient.get<{ data?: TicketType[] } | TicketType[]>(`/ticket-types/events/${eventId}`);
+  if (Array.isArray(response)) return response;
+  return (response as { data?: TicketType[] })?.data ?? [];
 }
 
 export async function getTicketType(id: string): Promise<TicketType> {
-  const response = await apiClient.get(`/ticket-types/${id}`);
-  return response.data;
+  const response = await apiClient.get<{ data?: TicketType } | TicketType>(`/ticket-types/${id}`);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: TicketType }).data : response) as TicketType;
 }
 
 export async function createTicketType(
   eventId: string,
   data: Partial<TicketType>
 ): Promise<TicketType> {
-  const response = await apiClient.post(`/ticket-types/events/${eventId}`, data);
-  return response.data;
+  const response = await apiClient.post<{ data?: TicketType } | TicketType>(`/ticket-types/events/${eventId}`, data);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: TicketType }).data : response) as TicketType;
 }
 
 export async function updateTicketType(
   id: string,
   data: Partial<TicketType>
 ): Promise<TicketType> {
-  const response = await apiClient.put(`/ticket-types/${id}`, data);
-  return response.data;
+  const response = await apiClient.put<{ data?: TicketType } | TicketType>(`/ticket-types/${id}`, data);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: TicketType }).data : response) as TicketType;
 }
 
 export async function deleteTicketType(id: string): Promise<void> {
@@ -153,13 +154,13 @@ export async function getOrders(params: {
   if (params.limit) queryParams.append("limit", params.limit.toString());
   if (params.status) queryParams.append("status", params.status);
 
-  const response = await apiClient.get(`/orders?${queryParams.toString()}`);
-  return response.data || { data: [], total: 0, page: 1, limit: 20, totalPages: 0 };
+  const response = await apiClient.get<OrdersResponse>(`/orders?${queryParams.toString()}`);
+  return response ?? { data: [], total: 0, page: 1, limit: 20, totalPages: 0 } as OrdersResponse;
 }
 
 export async function getOrder(id: string): Promise<Order> {
-  const response = await apiClient.get<Order>(`/orders/${id}`);
-  return response;
+  const response = await apiClient.get<Order | { data?: Order }>(`/orders/${id}`);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: Order }).data : response) as Order;
 }
 
 export async function resendTickets(
@@ -174,20 +175,20 @@ export async function transferTicket(
   ticketId: string,
   data: { email?: string; phoneNumber?: string }
 ): Promise<Ticket> {
-  const response = await apiClient.post(`/tickets/${ticketId}/transfer`, data);
-  return response.data;
+  const response = await apiClient.post<Ticket | { data?: Ticket }>(`/tickets/${ticketId}/transfer`, data);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: Ticket }).data : response) as Ticket;
 }
 
 export async function voidTicket(
   ticketId: string,
   reason: string
 ): Promise<Ticket> {
-  const response = await apiClient.post(`/tickets/${ticketId}/void`, { reason });
-  return response.data;
+  const response = await apiClient.post<Ticket | { data?: Ticket }>(`/tickets/${ticketId}/void`, { reason });
+  return (response && typeof response === "object" && "data" in response ? (response as { data: Ticket }).data : response) as Ticket;
 }
 
 export async function getTicketByNumber(ticketNumber: string): Promise<Ticket> {
-  const response = await apiClient.get(`/tickets/number/${ticketNumber}`);
-  return response.data;
+  const response = await apiClient.get<Ticket | { data?: Ticket }>(`/tickets/number/${ticketNumber}`);
+  return (response && typeof response === "object" && "data" in response ? (response as { data: Ticket }).data : response) as Ticket;
 }
 

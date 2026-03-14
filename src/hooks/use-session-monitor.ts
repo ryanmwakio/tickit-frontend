@@ -106,7 +106,7 @@ export function useSessionMonitor(options: UseSessionMonitorOptions = {}) {
     };
   });
 
-  const checkIntervalRef = useRef<NodeJS.Timeout>();
+  const checkIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const inactivityWarningShownRef = useRef(false);
   const sessionExpiredNotificationShownRef = useRef(false);
 

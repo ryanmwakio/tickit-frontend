@@ -209,7 +209,7 @@ export function Affiliates() {
       {showCreateModal && (
         <AffiliateModal
           organiserId={organiserId}
-          affiliate={selectedAffiliate}
+          affiliate={selectedAffiliate ?? undefined}
           onSave={async (affiliateData) => {
             if (!organiserId) return;
             try {

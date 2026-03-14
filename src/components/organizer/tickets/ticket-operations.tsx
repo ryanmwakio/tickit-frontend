@@ -357,8 +357,8 @@ function OperationForm({
           
           const orders = { data: allOrders };
           const order = orders.data.find(o => 
-            o.items?.some(item => 
-              item.tickets?.some(t => t.id === ticket.id)
+            o.items?.some((item: { tickets?: Array<{ id: string }> }) =>
+              item.tickets?.some((t: { id: string }) => t.id === ticket.id)
             )
           );
           

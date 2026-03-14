@@ -388,9 +388,10 @@ export function CustomerProfiles() {
               onUpdate={() => {
                 // Reload customers after update
                 if (organiserId) {
-                  apiClient.get(`/organisers/${organiserId}/customers`).then((response) => {
-                    const mapped = (response || []).map((customer) =>
-                      mapApiCustomerToComponentCustomer(customer, organiserId)
+                  apiClient.get<unknown>(`/organisers/${organiserId}/customers`).then((response) => {
+                    const res = Array.isArray(response) ? response : (response as { data?: unknown[] })?.data ?? [];
+                    const mapped = res.map((customer: unknown) =>
+                      mapApiCustomerToComponentCustomer(customer as Parameters<typeof mapApiCustomerToComponentCustomer>[0], organiserId)
                     );
                     setCustomers(mapped);
                   });
@@ -421,6 +422,7 @@ function CustomerDetail({
   organiserId: string | null;
   onUpdate: () => void;
 }) {
+  const toast = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [showAllOrders, setShowAllOrders] = useState(false);
   const [editForm, setEditForm] = useState({

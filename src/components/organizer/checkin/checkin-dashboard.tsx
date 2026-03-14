@@ -150,18 +150,24 @@ export function CheckInDashboard() {
     if (!organiserId) return;
     try {
       setLoading(true);
-      const stats = await apiClient.get(`/organisers/${organiserId}/checkin/stats${selectedEvent !== "current" ? `?eventId=${selectedEvent}` : ""}`);
+      const stats = await apiClient.get<{
+        totalScanned?: number;
+        totalExpected?: number;
+        duplicateScans?: number;
+        fraudAttempts?: number;
+        totalThroughput?: number;
+      }>(`/organisers/${organiserId}/checkin/stats${selectedEvent !== "current" ? `?eventId=${selectedEvent}` : ""}`);
       setTotalStats({
-        totalScanned: stats.totalScanned || 0,
-        totalExpected: stats.totalExpected || 0,
-        duplicateScans: stats.duplicateScans || 0,
-        fraudAttempts: stats.fraudAttempts || 0,
-        totalThroughput: stats.totalThroughput || 0,
+        totalScanned: stats?.totalScanned ?? 0,
+        totalExpected: stats?.totalExpected ?? 0,
+        duplicateScans: stats?.duplicateScans ?? 0,
+        fraudAttempts: stats?.fraudAttempts ?? 0,
+        totalThroughput: stats?.totalThroughput ?? 0,
       });
-      const gatesData = await apiClient.get(`/organisers/${organiserId}/checkin/gates${selectedEvent !== "current" ? `?eventId=${selectedEvent}` : ""}`);
-      setGates(gatesData || []);
-      const devicesData = await apiClient.get(`/organisers/${organiserId}/checkin/devices`);
-      setDevices(devicesData || []);
+      const gatesData = await apiClient.get<GateActivity[]>(`/organisers/${organiserId}/checkin/gates${selectedEvent !== "current" ? `?eventId=${selectedEvent}` : ""}`);
+      setGates(Array.isArray(gatesData) ? gatesData : []);
+      const devicesData = await apiClient.get<DeviceStatus[]>(`/organisers/${organiserId}/checkin/devices`);
+      setDevices(Array.isArray(devicesData) ? devicesData : []);
     } catch (err) {
       console.error("Failed to refresh:", err);
     } finally {

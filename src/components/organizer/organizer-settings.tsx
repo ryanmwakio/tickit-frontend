@@ -143,7 +143,7 @@ export function OrganizerSettings() {
             if (!organiserId) return;
             try {
               const updated = await apiClient.put(`/organisers/${organiserId}`, updateData);
-              setOrganiser(updated);
+              setOrganiser(updated as Parameters<typeof setOrganiser>[0]);
               setShowEditModal(false);
               toast.success("Settings updated", "Organizer settings have been updated successfully");
             } catch (err: unknown) {

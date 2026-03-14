@@ -45,10 +45,10 @@ export function BarChart({ data, className, "aria-label": ariaLabel }: BarChartP
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", (datum) => xScale(datum.label) ?? 0)
+      .attr("x", (datum: BarDatum) => xScale(datum.label) ?? 0)
       .attr("width", xScale.bandwidth())
-      .attr("y", (datum) => yScale(datum.value))
-      .attr("height", (datum) => height - yScale(datum.value))
+      .attr("y", (datum: BarDatum) => yScale(datum.value))
+      .attr("height", (datum: BarDatum) => height - yScale(datum.value))
       .attr("rx", 4)
       .attr("ry", 4)
       .attr("fill", "currentColor")
@@ -59,12 +59,12 @@ export function BarChart({ data, className, "aria-label": ariaLabel }: BarChartP
       .data(data)
       .enter()
       .append("text")
-      .attr("x", (datum) => (xScale(datum.label) ?? 0) + xScale.bandwidth() / 2)
-      .attr("y", (datum) => yScale(datum.value) - 6)
+      .attr("x", (datum: BarDatum) => (xScale(datum.label) ?? 0) + xScale.bandwidth() / 2)
+      .attr("y", (datum: BarDatum) => yScale(datum.value) - 6)
       .attr("text-anchor", "middle")
       .attr("font-size", 10)
       .attr("fill", "#0f172a")
-      .text((datum) => `${datum.value}%`);
+      .text((datum: BarDatum) => `${datum.value}%`);
   }, [data]);
 
   return (

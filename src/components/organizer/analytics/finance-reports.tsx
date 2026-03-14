@@ -275,7 +275,7 @@ export function FinanceReports() {
                 fill="#8884d8"
                 dataKey="amount"
               >
-                {taxBreakdownData.map((entry, index) => (
+                {taxBreakdownData.map((entry: { type: string; amount: number; percentage: number }, index: number) => (
                   <Cell key={`cell-${index}`} fill={chartColors[index]} />
                 ))}
               </Pie>
@@ -283,7 +283,7 @@ export function FinanceReports() {
             </RePieChart>
           </ResponsiveContainer>
           <div className="mt-4 space-y-2">
-            {taxBreakdownData.map((tax, index) => (
+            {taxBreakdownData.map((tax: { type: string; amount: number; percentage: number }, index: number) => (
               <div key={tax.type} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <div
@@ -319,14 +319,14 @@ export function FinanceReports() {
               />
               <ReTooltip content={<ChartTooltipContent />} />
               <Bar dataKey="amount" radius={[0, 8, 8, 0]}>
-                {feeBreakdownData.map((entry, index) => (
+                {feeBreakdownData.map((entry: { category: string; amount: number; percentage: number }, index: number) => (
                   <Cell key={`cell-${index}`} fill={chartColors[index]} />
                 ))}
               </Bar>
             </ReBarChart>
           </ResponsiveContainer>
           <div className="mt-4 space-y-2">
-            {feeBreakdownData.map((fee, index) => (
+            {feeBreakdownData.map((fee: { category: string; amount: number; percentage: number }, index: number) => (
               <div key={fee.category} className="flex items-center justify-between text-sm">
                 <span className="text-slate-600">{fee.category}</span>
                 <div className="flex items-center gap-3">

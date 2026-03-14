@@ -163,7 +163,7 @@ export function SponsorsManager({ initialData, onDataChange }: SponsorsManagerPr
       ) : useTiers ? (
         <div className="space-y-6">
           {(["gold", "silver", "bronze", "standard"] as const).map((tier) => {
-            const tierSponsors = groupedSponsors[tier];
+            const tierSponsors = groupedSponsors[tier] ?? [];
             if (tierSponsors.length === 0) return null;
 
             const TierIcon = tierConfig[tier].icon;
@@ -199,7 +199,7 @@ export function SponsorsManager({ initialData, onDataChange }: SponsorsManagerPr
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {groupedSponsors.all.map((sponsor) => (
+          {((groupedSponsors as { all?: Sponsor[] }).all ?? []).map((sponsor) => (
             <SponsorCard
               key={sponsor.id}
               sponsor={sponsor}
@@ -352,7 +352,7 @@ function SponsorEditor({
             <Select
               value={formData.tier || "standard"}
               onValueChange={(value) => {
-                const tier = value as SponsorTier;
+                const tier = value as NonNullable<SponsorTier>;
                 setFormData({ ...formData, tier });
                 onUpdate({ tier });
               }}

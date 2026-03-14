@@ -86,14 +86,10 @@ export async function getNotifications(
 
   const query = searchParams.toString();
   const url = query ? `/notifications?${query}` : '/notifications';
-  const response = await apiClient.get<NotificationsResponse>(url);
+  const response = await apiClient.get<NotificationsResponse | Notification[]>(url);
   
   // Ensure response has the expected structure
   if (response && typeof response === 'object') {
-    // If response is already in the correct format, return it
-    if ('data' in response && 'total' in response) {
-      return response as NotificationsResponse;
-    }
     // If response is an array (unwrapped), wrap it
     if (Array.isArray(response)) {
       return {
@@ -102,6 +98,10 @@ export async function getNotifications(
         page: params?.page || 1,
         limit: params?.limit || 20,
       };
+    }
+    // If response is already in the correct format, return it
+    if ('data' in response && 'total' in response) {
+      return response as NotificationsResponse;
     }
   }
   
