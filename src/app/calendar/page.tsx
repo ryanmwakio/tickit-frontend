@@ -9,7 +9,7 @@ import { fetchEvents, mapEventToEventContent } from "@/lib/events-api";
 import type { EventContent } from "@/data/events";
 import { EventGridSkeleton } from "@/components/ui/skeleton";
 
-type EventsByMonth = Record<string, typeof events>;
+type EventsByMonth = Record<string, EventContent[]>;
 
 function groupEventsByMonth(eventsList: EventContent[]): EventsByMonth {
   const groups: EventsByMonth = {};
