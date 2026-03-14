@@ -138,15 +138,19 @@ export function APIManagement() {
       {showCreateModal && (
         <CreateKeyModal
           onSave={(keyData) => {
-            setKeys([
-              ...keys,
-              {
-                ...keyData,
-                id: `key-${Date.now()}`,
-                createdAt: new Date().toISOString().split("T")[0],
-                status: "active" as const,
-              },
-            ]);
+            const newKey: APIKey = {
+              id: `key-${Date.now()}`,
+              name: keyData.name ?? "Unnamed Key",
+              key: keyData.key ?? `sk_...${Date.now().toString(36)}`,
+              scopes: keyData.scopes ?? [],
+              rateLimit: keyData.rateLimit ?? 1000,
+              createdAt: new Date().toISOString().split("T")[0],
+              status: "active",
+              organizerId: keyData.organizerId,
+              organizerName: keyData.organizerName,
+              lastUsed: keyData.lastUsed,
+            };
+            setKeys([...keys, newKey]);
             setShowCreateModal(false);
           }}
           onCancel={() => setShowCreateModal(false)}
